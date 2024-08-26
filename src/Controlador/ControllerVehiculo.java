@@ -29,6 +29,23 @@ public class ControllerVehiculo implements MouseListener{
         vista.btnAgregarModelo.addMouseListener(this);
     
         modelo.Mostrar(vista.jtbVehiculo);
+        modelo.CargarComboMarca("Marca", "NomMarca", vista.cbMarca);
+        
+        
+        vista.cbMarca.addActionListener(e -> {
+        // Verifica que la fuente del evento sea el JComboBox
+        if (e.getSource() == vista.cbMarca) {
+            // Obtén el elemento seleccionado y asegúrate de que no sea nulo
+            mdlVehiculo selectedItem = (mdlVehiculo) vista.cbMarca.getSelectedItem();
+            if (selectedItem != null) {
+                int id = selectedItem.getIdMarca();
+                modelo.setIdMarca(id);
+                System.out.println(id);
+               modelo.CargarComboModelo("Modelo", "Modelo",vista.cbModelo);
+            }
+             
+        }
+        });
     }
     
     @Override

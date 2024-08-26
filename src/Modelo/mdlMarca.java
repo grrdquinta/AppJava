@@ -22,6 +22,8 @@ public class mdlMarca {
     private int IdMarca;
     private String NomMarca;
     
+    
+    
     public int getIdMarca() {
         return IdMarca;
     }

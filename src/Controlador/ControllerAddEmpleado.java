@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import Modelo.Encriptacion;
 import Modelo.mdlEmpleado;
 import Vista.EmpleadosPanel;
 import Vista.InformacionEmpleados;
@@ -87,7 +88,9 @@ public class ControllerAddEmpleado implements MouseListener{
                         modelo.setIdSucursal((int)vista.cbSucursal.getSelectedIndex());
                         modelo.setGenero((int)vista.cbSexo.getSelectedIndex());
                         modelo.setUsuario(vista.txtUsuario.getText());
-                        modelo.setContraseña(vista.txtContrasena.getText());
+                        Encriptacion en = new Encriptacion();
+                        String contraEnrip = en.convertirSHA256(vista.txtContrasena.getText());
+                        modelo.setContraseña(contraEnrip);
                         //Ejecutar el metodo 
                         int valorRetornado = modelo.AgregarEmpleado();
 

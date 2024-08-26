@@ -28,8 +28,6 @@
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="btnReprtidor" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Component id="btnEmpleado" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Component id="btnActuualizar" min="-2" max="-2" attributes="0"/>
@@ -42,7 +40,6 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnReprtidor" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnEmpleado" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnActuualizar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -78,14 +75,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnReprtidor">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Nuevo Repartidor"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JButton" name="btnEmpleado">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nuevo Empleado"/>

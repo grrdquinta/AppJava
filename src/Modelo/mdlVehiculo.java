@@ -10,7 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.UUID;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -93,6 +96,12 @@ public class mdlVehiculo {
         this.IdSucursal = IdSucursal;
     }
  
+    @Override
+    public String toString()
+    {
+        return NomMarca;
+    }
+    
    
     public void Mostrar(JTable tabla){
         Connection conexion = ClaseConexion.getConexion();
@@ -160,7 +169,79 @@ public class mdlVehiculo {
         }
     }
     
+    
+    public mdlVehiculo()
+    {
+       
+    }
+    
+    public mdlVehiculo(int id, String marca)
+    {
+        this.IdMarca = id;
+        this.NomMarca = marca;
+    }
+    
+    public void CargarComboMarca(String tabla, String valor, JComboBox c){    
+      Connection conexion = ClaseConexion.getConexion();
+      //DefaultComboBoxModel combo = new DefaultComboBoxModel();
+        try{
+            Statement statement = conexion.createStatement();
+            ResultSet rs = statement.executeQuery("Select * from " + tabla);
+            
+            while (rs.next()) {
+                int id = rs.getInt(1);
+                String marca = rs.getString(2);
+                
+                c.addItem(new mdlVehiculo(id,marca));                
+            }                       
+                    
+                            //c.setModel(combo);
 
-     
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+            
+        }
+    } 
+    
+    public String[] to_Array(ArrayList<String> list)
+    {
+        String array[] = new String[list.size()];
+        
+        for (int i=0; i<array.length; i++)
+        {
+            array[i] = list.get(i);
+        } 
+        
+        return array;
+    }
+    
+    public void CargarComboModelo(String tabla, String valor, JComboBox c){    
+      Connection conexion = ClaseConexion.getConexion();
+        ArrayList<String>list_Modelos = new ArrayList<>();
+        
+        try{
+            Statement statement = conexion.createStatement();
+            String sql = ("Select * from " + tabla + " where idMarca = ?");
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setInt(1, getIdMarca());
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                list_Modelos.add(rs.getString(valor));                
+            }                       
+                 
+        DefaultComboBoxModel combo = new DefaultComboBoxModel(to_Array(list_Modelos));
+        c.setModel(combo);
+                            //c.setModel(combo);
+
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+            
+        }
+    }
     
 }

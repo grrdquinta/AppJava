@@ -1,6 +1,8 @@
 package Vista;
 
-
+import Controlador.ControllerDashboard;
+import Modelo.mdlDashboard;
+import Modelo.mdlLogin;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
 import javax.swing.UIManager;
@@ -23,6 +25,9 @@ public class Dashboard extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(this);
         
+        Dashboard vista = this;
+        mdlDashboard modelo = new mdlDashboard();
+        ControllerDashboard controlador = new ControllerDashboard(modelo, vista);
     }
 
     /**
@@ -37,15 +42,15 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lbNombre = new javax.swing.JLabel();
+        lbRol = new javax.swing.JLabel();
+        lbSucursal = new javax.swing.JLabel();
         btnDashboard = new javax.swing.JButton();
         btnPaquetes = new javax.swing.JButton();
         btnMovimientos = new javax.swing.JButton();
         btnFlota = new javax.swing.JButton();
         btnEmpleados = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnCerrarSesion = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
 
@@ -60,17 +65,17 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("send & track");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Rodrigo Monterrosa");
+        lbNombre.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbNombre.setForeground(new java.awt.Color(255, 255, 255));
+        lbNombre.setText("Rodrigo Monterrosa");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Administrador");
+        lbRol.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbRol.setForeground(new java.awt.Color(255, 255, 255));
+        lbRol.setText("Administrador");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Sucursal San Salvador");
+        lbSucursal.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lbSucursal.setForeground(new java.awt.Color(255, 255, 255));
+        lbSucursal.setText("Sucursal San Salvador");
 
         btnDashboard.setBackground(new java.awt.Color(0, 51, 102));
         btnDashboard.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -135,13 +140,13 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setBackground(new java.awt.Color(0, 51, 102));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Cerrar Sesion.png"))); // NOI18N
-        jButton4.setText("  Cerrar Sesión");
-        jButton4.setBorder(null);
-        jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnCerrarSesion.setBackground(new java.awt.Color(0, 51, 102));
+        btnCerrarSesion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/Cerrar Sesion.png"))); // NOI18N
+        btnCerrarSesion.setText("  Cerrar Sesión");
+        btnCerrarSesion.setBorder(null);
+        btnCerrarSesion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/SendTrack.png"))); // NOI18N
 
@@ -153,17 +158,17 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(75, 75, 75)
-                        .addComponent(jLabel3))
+                        .addComponent(lbRol))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
+                            .addComponent(lbNombre)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(9, 9, 9)
-                                .addComponent(jLabel4))))
+                                .addComponent(lbSucursal))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,11 +195,11 @@ public class Dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(lbNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addComponent(lbRol)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(lbSucursal)
                 .addGap(29, 29, 29)
                 .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -206,7 +211,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -255,48 +260,20 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
-        DashboardPanel dsp = new DashboardPanel();
-        dsp.setSize(734, 646);
-        dsp.setLocation(0,0);
         
-        content.removeAll();
-        content.add(dsp, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
     }//GEN-LAST:event_btnDashboardActionPerformed
 
     private void btnPaquetesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaquetesActionPerformed
-        PaquetesPanel pp = new PaquetesPanel();
-        pp.setSize(734, 646);
-        pp.setLocation(0,0);
         
-        content.removeAll();
-        content.add(pp, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
                 
     }//GEN-LAST:event_btnPaquetesActionPerformed
 
     private void btnFlotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFlotaActionPerformed
-        FlotaPanel fp = new FlotaPanel();
-        fp.setSize(1050,680);
-        fp.setLocation(0,0);
         
-        content.removeAll();
-        content.add(fp, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
     }//GEN-LAST:event_btnFlotaActionPerformed
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
-        EmpleadosPanel pp = new EmpleadosPanel();
-        pp.setSize(1050, 680);
-        pp.setLocation(0,0);
-        
-        content.removeAll();
-        content.add(pp, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
+       
     }//GEN-LAST:event_btnEmpleadosActionPerformed
 
     /**
@@ -322,19 +299,19 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDashboard;
-    private javax.swing.JButton btnEmpleados;
-    private javax.swing.JButton btnFlota;
-    private javax.swing.JButton btnMovimientos;
-    private javax.swing.JButton btnPaquetes;
-    private javax.swing.JPanel content;
-    private javax.swing.JButton jButton4;
+    public javax.swing.JButton btnCerrarSesion;
+    public javax.swing.JButton btnDashboard;
+    public javax.swing.JButton btnEmpleados;
+    public javax.swing.JButton btnFlota;
+    public javax.swing.JButton btnMovimientos;
+    public javax.swing.JButton btnPaquetes;
+    public javax.swing.JPanel content;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    public javax.swing.JLabel lbNombre;
+    public javax.swing.JLabel lbRol;
+    public javax.swing.JLabel lbSucursal;
     // End of variables declaration//GEN-END:variables
 }

@@ -25,6 +25,15 @@ public class mdlModelo {
     private String Modelo;
     private String Año;
     private int Carga;
+    private String Marca;
+
+    public String getMarca() {
+        return Marca;
+    }
+
+    public void setMarca(String Marca) {
+        this.Marca = Marca;
+    }
     
     public int getIdModelo() {
         return IdModelo;
@@ -66,6 +75,12 @@ public class mdlModelo {
         this.Carga = Carga;
     }
     
+    @Override
+    public String toString()
+    {
+        return Marca;
+    }
+    
     public void GuardarModelo() {
         //Creamos una variable igual a ejecutar el método de la clase de conexión
         Connection conexion = ClaseConexion.getConexion();
@@ -86,6 +101,17 @@ public class mdlModelo {
         } catch (SQLException ex) {
             System.out.println("este es el error en el modelo:metodo guardar " + ex);
         }
+    }
+    
+    public mdlModelo()
+    {
+       
+    }
+    
+    public mdlModelo(int id, String marca)
+    {
+        this.idMarca = id;
+        this.Marca = marca;
     }
     
     public void Actualizar(JTable tabla) {
@@ -123,11 +149,11 @@ public class mdlModelo {
         Connection conexion = ClaseConexion.getConexion();
         //Definimos el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.setColumnIdentifiers(new Object[]{"ID Modelo", "Modelo", "Marca", "Año", "Carga"});
+        modelo.setColumnIdentifiers(new Object[]{"ID Modelo", "Modelo", "Marca", "Año", "Carga", "IdMarca"});
         
         try
         {
-            String query = "select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, modelo.carga from Modelo\n" +
+            String query = "select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, modelo.carga, marca.idmarca from Modelo\n" +
             "inner join Marca on modelo.idmarca = marca.idmarca" ;
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -138,7 +164,8 @@ public class mdlModelo {
                     rs.getString(2), //Marca
                     rs.getString(3),
                     rs.getString(4),
-                    rs.getInt(5)
+                    rs.getInt(5),
+                    rs.getString(6)
                     }
                 );
                 
@@ -148,6 +175,7 @@ public class mdlModelo {
             tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getColumnModel().getColumn(0).setMaxWidth(0);
             tabla.getColumnModel().getColumn(0).setWidth(0);
+            
             
             
         }
@@ -161,15 +189,20 @@ public class mdlModelo {
     public void cargarDatosTabla(FrmModelo vista) {
         // Obtén la fila seleccionada 
         int filaSeleccionada = vista.jtbModelo.getSelectedRow();
+        System.out.println(filaSeleccionada);
 
         // Debemos asegurarnos que haya una fila seleccionada antes de acceder a sus valores
         if (filaSeleccionada != -1) {
             int IDModelo = (int)vista.jtbModelo.getValueAt(filaSeleccionada, 0);
             String Modelo = vista.jtbModelo.getValueAt(filaSeleccionada, 1).toString();
+            //String Marca = vista.jtbModelo.getValueAt(filaSeleccionada, 2).toString();
+            int idMarca = Integer.parseInt(vista.jtbModelo.getValueAt(filaSeleccionada, 5).toString());
             
 
             // Establece los valores en los campos de texto
             vista.txtModelo.setText(Modelo);
+            //vista.cbMarca.setActionCommand(Marca);
+            vista.cbMarca.setSelectedIndex(idMarca);
             
         }
     }
@@ -179,10 +212,13 @@ public class mdlModelo {
         //DefaultComboBoxModel combo = new DefaultComboBoxModel();
         try{
             Statement statement = conexion.createStatement();
-            ResultSet rs = statement.executeQuery("Select * from Marca");
+            ResultSet rs = statement.executeQuery("Select * from " + tabla);
             
             while (rs.next()) {
-                c.addItem(rs.getString(valor));                
+                int id = rs.getInt(1);
+                String marca = rs.getString(2);
+                
+                c.addItem(new mdlModelo(id,marca));                
             }                       
                     
                             //c.setModel(combo);

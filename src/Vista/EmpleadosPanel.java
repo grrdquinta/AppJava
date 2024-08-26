@@ -41,7 +41,6 @@ public class EmpleadosPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbEmpleados = new javax.swing.JTable();
-        btnReprtidor = new javax.swing.JButton();
         btnEmpleado = new javax.swing.JButton();
         btnActuualizar = new javax.swing.JButton();
 
@@ -60,8 +59,6 @@ public class EmpleadosPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jtbEmpleados);
 
-        btnReprtidor.setText("Nuevo Repartidor");
-
         btnEmpleado.setText("Nuevo Empleado");
 
         btnActuualizar.setText("Actualizar");
@@ -76,8 +73,6 @@ public class EmpleadosPanel extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReprtidor)
-                .addGap(34, 34, 34)
                 .addComponent(btnEmpleado)
                 .addGap(32, 32, 32)
                 .addComponent(btnActuualizar)
@@ -88,7 +83,6 @@ public class EmpleadosPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReprtidor)
                     .addComponent(btnEmpleado)
                     .addComponent(btnActuualizar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
@@ -101,7 +95,6 @@ public class EmpleadosPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnActuualizar;
     public javax.swing.JButton btnEmpleado;
-    public javax.swing.JButton btnReprtidor;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable jtbEmpleados;
     // End of variables declaration//GEN-END:variables
