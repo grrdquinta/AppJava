@@ -222,6 +222,7 @@ public class mdlEmpleado {
     }
     
     
+    
     public void CargarComboSucursal(String tabla, String valor, JComboBox c){    
         Connection conexion = ClaseConexion.getConexion();
         //DefaultComboBoxModel combo = new DefaultComboBoxModel();
@@ -349,6 +350,41 @@ public class mdlEmpleado {
             return -1;
         }       
     }
+    
+    
+    public boolean verificarCorreo(String email) {
+        Connection conexion = ClaseConexion.getConexion();
+        try {
+            String sql = "SELECT COUNT(*) FROM Empleado WHERE email = ?";
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException ex) {
+               System.out.println(ex);
+        }
+        return false;
+    }
+    
+    public boolean actualizarContrasena(String email, String nuevaContrasena) {
+    Connection conexion = ClaseConexion.getConexion();
+    try {
+        String sql = "UPDATE Usuario SET Contrasena = ? WHERE Email = ?";
+        PreparedStatement pstmt = conexion.prepareStatement(sql);
+        pstmt.setString(1, nuevaContrasena); // Utiliza el parámetro nuevaContrasena
+        pstmt.setString(2, email); // Utiliza el parámetro email
+
+        int filasActualizadas = pstmt.executeUpdate();
+        return filasActualizadas > 0;  // Retorna true si al menos una fila fue actualizada
+
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return false;  // Retorna false si ocurre un error o ninguna fila fue actualizada
+}
+
     
     public void limpiar(InformacionEmpleados vista) {
         vista.txtDUI.setText("");
