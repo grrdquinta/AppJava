@@ -12,11 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Modelo/mdlModelo.java</file>
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Controlador/ControllerEmpleados.java</file>
             <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Controlador/ControllerNuevaContra.java</file>
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Modelo/mdlEmpleado.java</file>
             <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Vista/FrmNuevaContraseña.java</file>
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Controlador/ControllerLogin.java</file>
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Modelo/mdlLogin.java</file>
             <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Controlador/ControllerIngresoCorre.java</file>
-            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Controlador/ControllerIngresoCodigo.java</file>
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Controlador/ControllerAddEmpleado.java</file>
         </group>
     </open-files>
 </project-private>

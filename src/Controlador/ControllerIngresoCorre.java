@@ -14,7 +14,7 @@ public class ControllerIngresoCorre implements MouseListener {
     private mdlEmpleado modelo;
     private frmOlvideContraseña vista;
     private int numeroAleatorio;
-    private String email;
+    public String email;
 
     public ControllerIngresoCorre(mdlEmpleado modelo, frmOlvideContraseña vista) {
         this.modelo = modelo;

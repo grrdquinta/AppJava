@@ -368,22 +368,40 @@ public class mdlEmpleado {
         return false;
     }
     
-    public boolean actualizarContrasena(String email, String nuevaContrasena) {
-    Connection conexion = ClaseConexion.getConexion();
-    try {
-        String sql = "UPDATE Usuario SET Contrasena = ? WHERE Email = ?";
-        PreparedStatement pstmt = conexion.prepareStatement(sql);
-        pstmt.setString(1, nuevaContrasena); // Utiliza el parámetro nuevaContrasena
-        pstmt.setString(2, email); // Utiliza el parámetro email
+    public boolean actualizarContrasena(String dui, String nuevaContrasena) {
+        Connection conexion = ClaseConexion.getConexion();
+        try {
+            // Consulta SQL para actualizar la contraseña usando el DUI como criterio
+            String sql = "UPDATE Usuario SET Contrasena = ? WHERE DUI = ?";
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, nuevaContrasena); // Establece la nueva contraseña
+            pstmt.setString(2, dui); // Establece el DUI como criterio de búsqueda
 
-        int filasActualizadas = pstmt.executeUpdate();
-        return filasActualizadas > 0;  // Retorna true si al menos una fila fue actualizada
+            int filasActualizadas = pstmt.executeUpdate();
+            return filasActualizadas > 0;  // Retorna true si al menos una fila fue actualizada
 
-    } catch (SQLException ex) {
-        ex.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;  // Retorna false si ocurre un error o ninguna fila fue actualizada
     }
-    return false;  // Retorna false si ocurre un error o ninguna fila fue actualizada
-}
+
+    
+    public String obtenerDuiPorEmail(String email) {
+        Connection conexion = ClaseConexion.getConexion();
+        try {
+            String sql = "SELECT DUI FROM Empleado WHERE email = ?";
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("DUI");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 
     
     public void limpiar(InformacionEmpleados vista) {

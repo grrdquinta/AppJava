@@ -1,7 +1,9 @@
 package Controlador;
 
+import Modelo.Encriptacion;
 import Modelo.mdlEmpleado;
 import Vista.FrmNuevaContraseña;
+import Vista.Login;
 import Vista.frmOlvideContraseña;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,13 +15,11 @@ public class ControllerNuevaContra implements MouseListener{
     private FrmNuevaContraseña vista;
     private ControllerIngresoCorre controllerIngresoCorre;
     private String email;
-
-
     
     public ControllerNuevaContra(mdlEmpleado modelo, FrmNuevaContraseña vista, ControllerIngresoCorre controllerIngresoCorre){
         this.modelo = modelo;
         this.vista = vista;
-        this.email = controllerIngresoCorre.getEmail();
+        this.email = controllerIngresoCorre.email;
 
         
         vista.btnActualizar.addMouseListener(this);
@@ -27,22 +27,35 @@ public class ControllerNuevaContra implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
-        
-        
         if (e.getSource() == vista.btnActualizar) {
-                    System.out.println("Correo electrónico: " + email);
+            System.out.println("Correo electrónico: " + email);
 
             String nuevaContrasena1 = vista.txtContraNueva1.getText();
             String nuevaContrasena2 = vista.txtContraNueva2.getText();
             
+            
             if (nuevaContrasena1.equals(nuevaContrasena2)) {
-                boolean resultado = modelo.actualizarContrasena(email, nuevaContrasena1);
+                String dui = modelo.obtenerDuiPorEmail(email);
                 
-                if (resultado) {
-                    JOptionPane.showMessageDialog(vista, "Contraseña actualizada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                if (dui != null) {
+                    Encriptacion en = new Encriptacion();
+                    String contraEnrip = en.convertirSHA256(nuevaContrasena1);
+                    modelo.setContraseña(contraEnrip);
+
+                    boolean resultado = modelo.actualizarContrasena(dui, contraEnrip);
+                    
+                    if (resultado) {
+                        JOptionPane.showMessageDialog(vista, "Contraseña actualizada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                        
+                        vista.dispose();
+                        Login login = new Login();
+                        login.setVisible(true); 
+                        
+                    } else {
+                        JOptionPane.showMessageDialog(vista, "No se pudo actualizar la contraseña. Por favor, inténtelo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(vista, "No se pudo actualizar la contraseña. Por favor, inténtelo nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(vista, "No se encontró un usuario con el email proporcionado.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(vista, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);

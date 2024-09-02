@@ -5,6 +5,7 @@
 package Vista;
 
 import Controlador.ControllerIngresoCorre;
+import Controlador.ControllerNuevaContra;
 import Modelo.mdlEmpleado;
 
 /**
@@ -16,11 +17,12 @@ public class FrmNuevaContraseña extends javax.swing.JFrame {
     /**
      * Creates new form FrmNuevaContraseña
      */
-    public FrmNuevaContraseña(ControllerIngresoCorre controllerIngresoCorre) {
+    public FrmNuevaContraseña(ControllerIngresoCorre ingreso) {
         initComponents();
         setLocationRelativeTo(this);
 
         mdlEmpleado modelo = new mdlEmpleado();
+        ControllerNuevaContra controlador = new ControllerNuevaContra(modelo, this, ingreso);
         
     }
 
