@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import Vista.EmpleadosPanel;
 import Vista.InformacionEmpleados;
 import Vista.TableActionCellRender;
 import java.sql.Connection;
@@ -37,9 +38,18 @@ public class mdlEmpleado {
     private Number idSucursal;
     private Number Genero;
     private Number Estado;
+    private Number Masculino;
     private String Usuario;
     private String Contraseña;
     private String Licencia;
+
+    public Number getMasculino() {
+        return Masculino;
+    }
+
+    public void setMasculino(Number Masculino) {
+        this.Masculino = Masculino;
+    }
 
     public String getUsuario() {
         return Usuario;
@@ -158,11 +168,11 @@ public class mdlEmpleado {
         //Definimos el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setColumnIdentifiers(new Object[]{"DUI", "Nombre", "Apellido Paterno", "Apellido Materno", "Email", 
-            "Salario", "Fecha Na", "Rol", "Sucursal", "Masculino", "Estado"});
+            "Salario", "Fecha Na", "Rol", "Sucursal", "Masculino", "Estado", "ID Rol", "ID Sucursal"});
         
         try
         {
-            String query = "Select DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, Rol.NomRol,Sucursal.Nombre as Sucursal, masculino, estado \n" +
+            String query = "Select DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, Rol.NomRol,Sucursal.Nombre as Sucursal, masculino, estado, rol.idrol, sucursal.idsucursal \n" +
             "from empleado\n" +
             "inner join Rol on Empleado.IdRol = Rol.idRol\n" +
             "inner join Sucursal on Empleado.idSucursal = sucursal.idsucursal";
@@ -181,7 +191,11 @@ public class mdlEmpleado {
                     rs.getString(8), //Rol
                     rs.getString(9), //Sucursal
                     rs.getInt(10),   //Genero
-                    rs.getInt(11)}   //Estado
+                    rs.getInt(11),   //Estado
+                    rs.getInt(12),   //Estado
+                    rs.getInt(13)    //Estado
+                
+                }   
                 );
                 
             }
@@ -241,6 +255,49 @@ public class mdlEmpleado {
             ex.printStackTrace();
             
         }
+    }
+    
+    public void almacenarDatosTabla(EmpleadosPanel vista) {
+        // Obtén la fila seleccionada 
+        int filaSeleccionada = vista.jtbEmpleados.getSelectedRow();
+        
+
+        // Debemos asegurarnos que haya una fila seleccionada antes de acceder a sus valores
+        if (filaSeleccionada != -1) {
+            
+            vista.btnActuualizar.setEnabled(true);
+            setDUI(vista.jtbEmpleados.getValueAt(filaSeleccionada, 0).toString());
+            setNombre(vista.jtbEmpleados.getValueAt(filaSeleccionada, 1).toString());
+            setApellidoPa(vista.jtbEmpleados.getValueAt(filaSeleccionada, 2).toString());
+            setApellidoMa(vista.jtbEmpleados.getValueAt(filaSeleccionada, 3).toString());
+            setEmail(vista.jtbEmpleados.getValueAt(filaSeleccionada, 4).toString());
+            setSalario(Double.parseDouble(vista.jtbEmpleados.getValueAt(filaSeleccionada, 5).toString()));
+            setFechaNa(vista.jtbEmpleados.getValueAt(filaSeleccionada, 6).toString());
+            setMasculino((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 9));
+            setEstado((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 10));
+            setIdRol((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 11));
+            setIdSucursal((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 12));
+        
+            /*vista.txtPlaca.setText(Placa);
+            vista.cbMarca.setSelectedIndex(idMarca);*/
+           
+            System.out.println(filaSeleccionada);
+        }
+    }
+    
+        public void CargarDatosTabla(InformacionEmpleados vista) {
+        // Obtén la fila seleccionada 
+        vista.txtDUI.setText(getDUI());
+        vista.txtNombre.setText(getNombre());
+        vista.txtApellidoPa.setText(getApellidoPa());
+        vista.txtApellidoMa.setText(getApellidoMa());
+        vista.txtEmail.setText(getEmail());
+        vista.txtSalario.setText(getSalario().toString());
+        vista.txtFechaNa.setText(getFechaNa());
+        vista.cbSexo.setSelectedIndex((int)getMasculino());
+        vista.cbSucursal.setSelectedIndex((int)getIdSucursal());
+        vista.cbRol.setSelectedIndex((int)getIdRol());
+        
     }
      
     public int AgregarEmpleado()
