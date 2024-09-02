@@ -37,7 +37,7 @@ public class ControllerLogin implements MouseListener{
             if (vista.txtUsuario.getText().isEmpty() ||vista.txtPassword.getText().isEmpty())
             {
                 JOptionPane.showMessageDialog(vista, "Debes llenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            }            
             else
             {
                 modelo.setUsuario(vista.txtUsuario.getText());

@@ -175,7 +175,9 @@ public class mdlModelo {
             tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getColumnModel().getColumn(0).setMaxWidth(0);
             tabla.getColumnModel().getColumn(0).setWidth(0);
-            
+            tabla.getColumnModel().getColumn(5).setMinWidth(0);
+            tabla.getColumnModel().getColumn(5).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(5).setWidth(0);            
             
             
         }
@@ -195,13 +197,17 @@ public class mdlModelo {
         if (filaSeleccionada != -1) {
             int IDModelo = (int)vista.jtbModelo.getValueAt(filaSeleccionada, 0);
             String Modelo = vista.jtbModelo.getValueAt(filaSeleccionada, 1).toString();
+            String Año = vista.jtbModelo.getValueAt(filaSeleccionada, 3).toString();
             //String Marca = vista.jtbModelo.getValueAt(filaSeleccionada, 2).toString();
+            int idCarga = Integer.parseInt(vista.jtbModelo.getValueAt(filaSeleccionada, 4).toString());
             int idMarca = Integer.parseInt(vista.jtbModelo.getValueAt(filaSeleccionada, 5).toString());
             
 
             // Establece los valores en los campos de texto
             vista.txtModelo.setText(Modelo);
+            vista.txtAño.setText(Año);
             //vista.cbMarca.setActionCommand(Marca);
+            vista.cbCarga.setSelectedIndex(idCarga);
             vista.cbMarca.setSelectedIndex(idMarca);
             
         }

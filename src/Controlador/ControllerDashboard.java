@@ -46,44 +46,37 @@ public class ControllerDashboard implements MouseListener{
         if(e.getSource() ==  vista.btnEmpleados)
         {
             EmpleadosPanel pp = new EmpleadosPanel();
-            pp.setSize(1050, 680);
-            pp.setLocation(0,0);
         
             vista.content.removeAll();
-            vista.content.add(pp, BorderLayout.CENTER);
+            vista.content.add(pp);
             vista.content.revalidate();
             vista.content.repaint();
         }
         if(e.getSource() ==  vista.btnFlota)
         {
             FlotaPanel fp = new FlotaPanel();
-            fp.setSize(1050,680);
-            fp.setLocation(0,0);
 
             vista.content.removeAll();
-            vista.content.add(fp, BorderLayout.CENTER);
+            vista.content.add(fp);
             vista.content.revalidate();
             vista.content.repaint();
         }
         if(e.getSource() ==  vista.btnPaquetes)
         {
            PaquetesPanel pp = new PaquetesPanel();
-            pp.setSize(734, 646);
-            pp.setLocation(0,0);
+            
 
             vista.content.removeAll();
-            vista.content.add(pp, BorderLayout.CENTER);
+            vista.content.add(pp);
             vista.content.revalidate();
             vista.content.repaint();
         }
         if(e.getSource() ==  vista.btnDashboard)
         {
             DashboardPanel dsp = new DashboardPanel();
-            dsp.setSize(734, 646);
-            dsp.setLocation(0,0);
 
             vista.content.removeAll();
-            vista.content.add(dsp, BorderLayout.CENTER);
+            vista.content.add(dsp);
             vista.content.revalidate();
             vista.content.repaint();
         }

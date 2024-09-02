@@ -227,7 +227,7 @@ public class mdlEmpleado {
         //DefaultComboBoxModel combo = new DefaultComboBoxModel();
         try{
             Statement statement = conexion.createStatement();
-            ResultSet rs = statement.executeQuery("Select * from Sucursal");
+            ResultSet rs = statement.executeQuery("Select * from " + tabla);
             
             while (rs.next()) {
                 c.addItem(rs.getString(valor));                
