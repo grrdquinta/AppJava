@@ -8,6 +8,7 @@ import Modelo.Encriptacion;
 import Modelo.mdlLogin;
 import Vista.Dashboard;
 import Vista.Login;
+import Vista.frmOlvideContraseña;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
@@ -27,6 +28,7 @@ public class ControllerLogin implements MouseListener{
         this.vista = vista;
         
         vista.btnIniciarSesion.addMouseListener(this);
+        vista.lblOlvidaste.addMouseListener(this);
     
     }
     
@@ -37,7 +39,7 @@ public class ControllerLogin implements MouseListener{
             if (vista.txtUsuario.getText().isEmpty() ||vista.txtPassword.getText().isEmpty())
             {
                 JOptionPane.showMessageDialog(vista, "Debes llenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            }            
             else
             {
                 modelo.setUsuario(vista.txtUsuario.getText());
@@ -56,6 +58,12 @@ public class ControllerLogin implements MouseListener{
                     JOptionPane.showMessageDialog(vista, "No se encontro ningun usuario", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
+        }
+        
+        if(e.getSource() == vista.lblOlvidaste){
+            vista.dispose();
+            frmOlvideContraseña olvi = new frmOlvideContraseña();
+            olvi.setVisible(true);
         }
     }
 

@@ -222,12 +222,13 @@ public class mdlEmpleado {
     }
     
     
+    
     public void CargarComboSucursal(String tabla, String valor, JComboBox c){    
         Connection conexion = ClaseConexion.getConexion();
         //DefaultComboBoxModel combo = new DefaultComboBoxModel();
         try{
             Statement statement = conexion.createStatement();
-            ResultSet rs = statement.executeQuery("Select * from Sucursal");
+            ResultSet rs = statement.executeQuery("Select * from " + tabla);
             
             while (rs.next()) {
                 c.addItem(rs.getString(valor));                
@@ -349,6 +350,59 @@ public class mdlEmpleado {
             return -1;
         }       
     }
+    
+    
+    public boolean verificarCorreo(String email) {
+        Connection conexion = ClaseConexion.getConexion();
+        try {
+            String sql = "SELECT COUNT(*) FROM Empleado WHERE email = ?";
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException ex) {
+               System.out.println(ex);
+        }
+        return false;
+    }
+    
+    public boolean actualizarContrasena(String dui, String nuevaContrasena) {
+        Connection conexion = ClaseConexion.getConexion();
+        try {
+            // Consulta SQL para actualizar la contraseña usando el DUI como criterio
+            String sql = "UPDATE Usuario SET Contrasena = ? WHERE DUI = ?";
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, nuevaContrasena); // Establece la nueva contraseña
+            pstmt.setString(2, dui); // Establece el DUI como criterio de búsqueda
+
+            int filasActualizadas = pstmt.executeUpdate();
+            return filasActualizadas > 0;  // Retorna true si al menos una fila fue actualizada
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return false;  // Retorna false si ocurre un error o ninguna fila fue actualizada
+    }
+
+    
+    public String obtenerDuiPorEmail(String email) {
+        Connection conexion = ClaseConexion.getConexion();
+        try {
+            String sql = "SELECT DUI FROM Empleado WHERE email = ?";
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("DUI");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     
     public void limpiar(InformacionEmpleados vista) {
         vista.txtDUI.setText("");

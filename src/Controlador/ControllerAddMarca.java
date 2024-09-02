@@ -28,7 +28,6 @@ public class ControllerAddMarca implements MouseListener {
         vista.btnAgregar.addMouseListener(this);
         vista.btnActualizar.addMouseListener(this);
         vista.jtbMarca.addMouseListener(this);
-        vista.btnEliminar.addMouseListener(this);
         modelo.MostrarMarca(vista.jtbMarca);
     }
 
@@ -73,16 +72,6 @@ public class ControllerAddMarca implements MouseListener {
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(vista, "No se pudieron actualizar los datos", "Error", JOptionPane.WARNING_MESSAGE);
                 }
-            }
-        }
-        
-        if (e.getSource() == vista.btnEliminar) {
-            if (vista.txtMarca.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(vista, "Debes seleccionar un registro para eliminar", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                modelo.Eliminar(vista.jtbMarca);
-                modelo.MostrarMarca(vista.jtbMarca);
-                modelo.limpiar(vista);
             }
         }
         

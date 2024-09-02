@@ -1,6 +1,8 @@
 package Vista;
 
 
+import Controlador.ControllerPaquete;
+import Modelo.mdlPaquetes;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
@@ -27,7 +29,10 @@ public class PaquetesPanel extends javax.swing.JPanel {
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
         FlatMacDarkLaf.setup();*/
         initComponents();
-        jtbPaquetes.getColumnModel().getColumn(3).setCellRenderer(new TableActionCellRender());
+        
+        PaquetesPanel thisPanel = this;
+        mdlPaquetes modelo = new mdlPaquetes();
+        ControllerPaquete controlador = new ControllerPaquete(modelo, thisPanel);
     }
 
     /**
@@ -41,6 +46,9 @@ public class PaquetesPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbPaquetes = new javax.swing.JTable();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setForeground(new java.awt.Color(255, 255, 255));
 
         jtbPaquetes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -70,20 +78,21 @@ public class PaquetesPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1038, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 79, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 568, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(123, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtbPaquetes;
+    public javax.swing.JTable jtbPaquetes;
     // End of variables declaration//GEN-END:variables
 }
