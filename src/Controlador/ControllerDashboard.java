@@ -12,6 +12,7 @@ import Vista.EmpleadosPanel;
 import Vista.FlotaPanel;
 import Vista.Login;
 import Vista.PaquetesPanel;
+import Vista.ProfilePanel;
 import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -34,11 +35,12 @@ public class ControllerDashboard implements MouseListener{
         vista.btnDashboard.addMouseListener(this);
         vista.btnFlota.addMouseListener(this);
         vista.btnPaquetes.addMouseListener(this);
+        vista.btnProfile.addMouseListener(this);
         vista.btnCerrarSesion.addMouseListener(this);
         
         vista.lbNombre.setText(SessionVar.getNombre());
         vista.lbRol.setText(SessionVar.getRol());
-        vista.lbSucursal.setText(SessionVar.getSucursal());
+        vista.lbSucursal.setText("Sucursal: " + SessionVar.getSucursal());
     }
     
     @Override
@@ -77,6 +79,15 @@ public class ControllerDashboard implements MouseListener{
 
             vista.content.removeAll();
             vista.content.add(dsp);
+            vista.content.revalidate();
+            vista.content.repaint();
+        }
+        if(e.getSource() ==  vista.btnProfile)
+        {
+            ProfilePanel pp = new ProfilePanel();
+
+            vista.content.removeAll();
+            vista.content.add(pp);
             vista.content.revalidate();
             vista.content.repaint();
         }

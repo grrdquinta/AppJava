@@ -66,8 +66,10 @@ public class mdlLogin {
                     SessionVar.setIdSucursal(rs.getInt(9));
                     SessionVar.setMasculino(rs.getInt(10));
                     //SessionVar.setEstado(rs.getInt(11));
-                    SessionVar.setRol(rs.getString(12));
-                    SessionVar.setSucursal(rs.getString(13));
+                    SessionVar.setTelefono(rs.getString(12));
+                    SessionVar.setFotoEmpleado(rs.getString(13));
+                    SessionVar.setRol(rs.getString(14));
+                    SessionVar.setSucursal(rs.getString(15));
                 }
             int respuesta = pstmt.executeUpdate();
             if(respuesta == 1)

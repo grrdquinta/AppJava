@@ -21,8 +21,26 @@ public class SessionVar {
     private static int IdSucursal = 0;
     private static int Masculino = 2;
     private static int Estado = 2;
+    private static String Telefono = "";
+    private static String FotoEmpleado = "";
     private static String Rol = "";
     private static String Sucursal = ""; 
+    
+    public static String getTelefono() {
+        return Telefono;
+    }
+
+    public static void setTelefono(String Telefono) {
+        SessionVar.Telefono = Telefono;
+    }
+
+    public static String getFotoEmpleado() {
+        return FotoEmpleado;
+    }
+
+    public static void setFotoEmpleado(String FotoEmpleado) {
+        SessionVar.FotoEmpleado = FotoEmpleado;
+    }
 
     
     public static String getRol() {

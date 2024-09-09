@@ -47,6 +47,7 @@ public class ControllerEmpleados implements MouseListener{
             InformacionEmpleados IE = new InformacionEmpleados();
             IE.setVisible(true);
             IE.setLocationRelativeTo(IE);
+            IE.btnGuardar.setVisible(true);
         }
         if(e.getSource() ==  vista.btnActuualizar)
         {
@@ -55,6 +56,9 @@ public class ControllerEmpleados implements MouseListener{
                 IE.setVisible(true);
                 IE.setLocationRelativeTo(IE);
                 modelo.CargarDatosTabla(IE);
+                IE.btnActualizar.setVisible(true);
+                IE.cbEstado.setVisible(true);
+                IE.lbEstado.setVisible(true);
             }
         }
         if (e.getSource() == vista.jtbEmpleados) {

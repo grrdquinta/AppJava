@@ -33,11 +33,15 @@ public class ControllerAddEmpleado implements MouseListener{
         this.modelo = modelo;
         this.vista = vista;
         
-        
+        vista.btnGuardar.setVisible(false);
+        vista.btnActualizar.setVisible(false);
+        vista.cbEstado.setVisible(false);
+        vista.lbEstado.setVisible(false);
         
         vista.btnCerrar.addMouseListener(this);
         vista.cbRol.addMouseListener(this);
         vista.btnGuardar.addMouseListener(this);
+        
         
         modelo.CargarComboRol("Rol", "Nomrol", vista.cbRol);
         modelo.CargarComboSucursal("Sucursal", "Nombre", vista.cbSucursal);
@@ -64,6 +68,7 @@ public class ControllerAddEmpleado implements MouseListener{
         if(e.getSource() == vista.btnCerrar)
         {
             vista.dispose();
+            //modelo.Mostrar(tabla);
         }
         
         if (e.getSource() == vista.btnGuardar) {
@@ -87,7 +92,8 @@ public class ControllerAddEmpleado implements MouseListener{
                         modelo.setIdRol((int)vista.cbRol.getSelectedIndex());
                         modelo.setIdSucursal((int)vista.cbSucursal.getSelectedIndex());
                         modelo.setGenero((int)vista.cbSexo.getSelectedIndex());
-                        modelo.setUsuario(vista.txtUsuario.getText());
+                        modelo.setTelefono(vista.txtTelefono.getText());
+                        modelo.setUsuario(vista.txtUsuario.getText());                        
                         Encriptacion en = new Encriptacion();
                         String contraEnrip = en.convertirSHA256(vista.txtContrasena.getText());
                         modelo.setContraseña(contraEnrip);
@@ -126,8 +132,11 @@ public class ControllerAddEmpleado implements MouseListener{
                         modelo.setIdRol((int)vista.cbRol.getSelectedIndex());
                         modelo.setIdSucursal((int)vista.cbSucursal.getSelectedIndex());
                         modelo.setGenero((int)vista.cbSexo.getSelectedIndex());
+                        modelo.setTelefono(vista.txtTelefono.getText());
                         modelo.setUsuario(vista.txtUsuario.getText());
-                        modelo.setContraseña(vista.txtContrasena.getText());
+                        Encriptacion en = new Encriptacion();
+                        String contraEnrip = en.convertirSHA256(vista.txtContrasena.getText());
+                        modelo.setContraseña(contraEnrip);
                         //Ejecutar el metodo 
                         int valorRetornado = modelo.AgregarRepartidor();
 
