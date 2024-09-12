@@ -41,6 +41,7 @@ public class ControllerDashboard implements MouseListener{
         vista.lbNombre.setText(SessionVar.getNombre());
         vista.lbRol.setText(SessionVar.getRol());
         vista.lbSucursal.setText("Sucursal: " + SessionVar.getSucursal());
+        //modelo.cargarImagenExistente(vista);
     }
     
     @Override

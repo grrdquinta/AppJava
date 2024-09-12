@@ -31,23 +31,23 @@ public class ControllerProfile implements MouseListener{
         this.modelo = modelo;
         this.vista = vista;
         
-        vista.btnSeleccionar.addMouseListener(this);
-        /*vista.btnSeleccionar.addActionListener(new ActionListener() {
+        vista.btnSeleccionar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                seleccionarImagenYGuardar();
+                modelo.seleccionarImagenYGuardar(vista);
             }
-        });*/
+        });
+        modelo.SeleccionarImagen(vista);
         modelo.CargarInformacion(vista);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getSource() ==  vista.btnSeleccionar)
+        /*if(e.getSource() ==  vista.btnSeleccionar)
         {
             try {
             // Selecciona y guarda la imagen
-            modelo.seleccionarImagenYGuardar();
+            
 
             // Carga la imagen desde la base de datos
             File imgFile = modelo.cargarImagenExistente();
@@ -63,7 +63,7 @@ public class ControllerProfile implements MouseListener{
             JOptionPane.showMessageDialog(vista, "No se pudo completar la operación.", "Error", JOptionPane.WARNING_MESSAGE);
             ex.printStackTrace();
         }
-        }
+        }*/
     }
 
     @Override

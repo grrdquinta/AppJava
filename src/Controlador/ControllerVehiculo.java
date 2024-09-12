@@ -8,6 +8,8 @@ import Modelo.mdlVehiculo;
 import Vista.FlotaPanel;
 import Vista.FrmMarca;
 import Vista.FrmModelo;
+import Vista.Gmap;
+import Vista.map;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
@@ -28,6 +30,7 @@ public class ControllerVehiculo implements MouseListener{
         
         vista.btnAgregarMarca.addMouseListener(this);
         vista.btnAgregarModelo.addMouseListener(this);
+        vista.btnMapa.addMouseListener(this);
         vista.btnGuardar.addMouseListener(this);
         vista.jtbVehiculo.addMouseListener(this);
         vista.btnActualizar.addMouseListener(this);
@@ -90,6 +93,11 @@ public class ControllerVehiculo implements MouseListener{
             FrmModelo fm = new FrmModelo();
             fm.setVisible(true);
             fm.setLocationRelativeTo(fm);
+        }
+        if(e.getSource() ==  vista.btnMapa)
+        {
+            Gmap mapa = new Gmap();
+        new map().setVisible(true);
         }
         if (e.getSource() == vista.btnGuardar) {
             if (vista.txtPlaca.getText().isEmpty() || vista.txtAño.getText().isEmpty() || vista.txtCarga.getText().isEmpty() || vista.cbSucursal.getSelectedIndex() == 0) {

@@ -211,8 +211,18 @@ public class mdlEmpleado {
             }
             //tabla.getColumnModel().getColumn(10).setCellRenderer(new TableActionCellRender());
             tabla.setModel(modelo);
-            
-            
+            tabla.getColumnModel().getColumn(10).setMinWidth(0);
+            tabla.getColumnModel().getColumn(10).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(10).setWidth(0);
+            tabla.getColumnModel().getColumn(11).setMinWidth(0);
+            tabla.getColumnModel().getColumn(11).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(11).setWidth(0);
+            tabla.getColumnModel().getColumn(12).setMinWidth(0);
+            tabla.getColumnModel().getColumn(12).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(12).setWidth(0);
+            tabla.getColumnModel().getColumn(13).setMinWidth(0);
+            tabla.getColumnModel().getColumn(13).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(13).setWidth(0);
             
         }
         catch(SQLException ex)

@@ -172,8 +172,18 @@ public class mdlVehiculo {
             }
             //tabla.getColumnModel().getColumn(10).setCellRenderer(new TableActionCellRender());
             tabla.setModel(modelo);
-            
-            
+            tabla.getColumnModel().getColumn(6).setMinWidth(0);
+            tabla.getColumnModel().getColumn(6).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(6).setWidth(0);
+            tabla.getColumnModel().getColumn(7).setMinWidth(0);
+            tabla.getColumnModel().getColumn(7).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(7).setWidth(0);
+            tabla.getColumnModel().getColumn(8).setMinWidth(0);
+            tabla.getColumnModel().getColumn(8).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(8).setWidth(0);
+            tabla.getColumnModel().getColumn(9).setMinWidth(0);
+            tabla.getColumnModel().getColumn(9).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(9).setWidth(0);
             
         }
         catch(SQLException ex)

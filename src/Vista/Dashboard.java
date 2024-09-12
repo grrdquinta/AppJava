@@ -1,12 +1,15 @@
 package Vista;
 
 import Controlador.ControllerDashboard;
+import Modelo.SessionVar;
 import Modelo.mdlDashboard;
 import Modelo.mdlLogin;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.BorderLayout;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
 /*
@@ -25,6 +28,8 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard() {
         initComponents();
+        String[] extensions = {".png", ".jpg" };
+        rsscalelabel.RSScaleLabel.setScaleLabel(lbImage, "src/ImagenesUsuarios/" + SessionVar.getDui() +".jpg");
         setLocationRelativeTo(this);
         
         Dashboard vista = this;
@@ -53,7 +58,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnFlota = new javax.swing.JButton();
         btnEmpleados = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        lbImage = new javax.swing.JLabel();
         btnProfile = new javax.swing.JButton();
         content = new javax.swing.JPanel();
 
@@ -151,7 +156,7 @@ public class Dashboard extends javax.swing.JFrame {
         btnCerrarSesion.setBorder(null);
         btnCerrarSesion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/SendTrack.png"))); // NOI18N
+        lbImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/SendTrack.png"))); // NOI18N
 
         btnProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/usuario.png"))); // NOI18N
 
@@ -174,9 +179,6 @@ public class Dashboard extends javax.swing.JFrame {
                         .addGap(75, 75, 75)
                         .addComponent(lbRol))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbNombre)
@@ -188,11 +190,14 @@ public class Dashboard extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btnProfile)))
+                        .addComponent(btnProfile))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -203,7 +208,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -220,7 +225,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addComponent(btnFlota, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEmpleados, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -309,9 +314,9 @@ public class Dashboard extends javax.swing.JFrame {
     public javax.swing.JButton btnProfile;
     public javax.swing.JPanel content;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    public static javax.swing.JLabel lbImage;
     public javax.swing.JLabel lbNombre;
     public javax.swing.JLabel lbRol;
     public javax.swing.JLabel lbSucursal;

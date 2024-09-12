@@ -48,6 +48,7 @@ public class ControllerAddEmpleado implements MouseListener{
         
         
         
+        
         vista.cbRol.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

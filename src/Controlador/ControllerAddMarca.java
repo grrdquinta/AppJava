@@ -27,6 +27,7 @@ public class ControllerAddMarca implements MouseListener {
         
         vista.btnAgregar.addMouseListener(this);
         vista.btnActualizar.addMouseListener(this);
+        vista.btnCerrar.addMouseListener(this);
         vista.jtbMarca.addMouseListener(this);
         modelo.MostrarMarca(vista.jtbMarca);
     }
@@ -77,6 +78,10 @@ public class ControllerAddMarca implements MouseListener {
         
         if (e.getSource() == vista.jtbMarca) {
             modelo.cargarDatosTabla(vista);
+        }
+        
+        if (e.getSource() == vista.btnCerrar) {
+            vista.dispose();
         }
     }
 

@@ -27,6 +27,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import jnafilechooser.api.JnaFileChooser;
@@ -45,16 +46,16 @@ public class ProfilePanel extends javax.swing.JPanel {
         ProfilePanel vista = this;
         mdlPerfil modelo = new mdlPerfil();
         ControllerProfile controlador = new ControllerProfile(modelo, vista);
-        cargarImagenExistente();
-         btnSeleccionar.addActionListener(new ActionListener() {
+        //cargarImagenExistente();
+         /*btnSeleccionar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 seleccionarImagenYGuardar();
             }
-        });
+        });*/
     }
     
-    private String destinationFolder = "D:\\IMAGENES\\FOTOS_USUARIOS\\";
+    /*private String destinationFolder = "D:\\Aplicaciones Java\\IdeaPTC\\src\\ImagenesUsuarios\\";
 
     public void SeleccionarImagen() {
         
@@ -70,68 +71,81 @@ public class ProfilePanel extends javax.swing.JPanel {
     }
 
     private void cargarImagenExistente() {
-        Connection conexion = ClaseConexion.getConexion();
-        try {
-            Statement statement = conexion.createStatement();
-            String sql = "SELECT * FROM EMPLEADO WHERE DUI = ?";
-            PreparedStatement pstmt = conexion.prepareStatement(sql);
-            pstmt.setString(1, SessionVar.getDui());
-            ResultSet rs = pstmt.executeQuery();
-            
-            
-            if (rs.next()) {
-                String DUI = rs.getString(1);
-                String nombreArchivo = rs.getString("FOTO_EMPLEADO");
-                System.out.println("DUI: " + DUI);
-                System.out.println("nombre de fotografia: " + nombreArchivo);
-                if (nombreArchivo != null) {
-                    File imgFile = new File(destinationFolder + nombreArchivo);
-                    if (imgFile.exists()) {
-                        // Ajuste en la carga de la imagen
-                        ImageIcon imageIcon = new ImageIcon(ImageIO.read(imgFile));
-                        imageLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
-                    } else {
-                        System.out.println("La imagen no existe en la ruta especificada: " + imgFile.getPath());
-                    }
-                }
-            } else {
-                System.out.println("No se encontró ningún registro con el DUI proporcionado.");
-            }
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (conexion != null) {
-                    conexion.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+    Connection conexion = ClaseConexion.getConexion();
+    try {
+        // Definir las extensiones que se van a soportar
+        String[] extensiones = {".png", ".jpg" };
+        File imgFile = null;
+
+        // Iterar sobre las extensiones y buscar si existe un archivo con la extensión correspondiente
+        for (String extension : extensiones) {
+            imgFile = new File(destinationFolder + SessionVar.getDui() + extension);
+            if (imgFile.exists()) {
+                break; // Si encontramos una imagen que existe, salimos del bucle
             }
         }
-    }
 
+        if (imgFile != null && imgFile.exists()) {
+            // Ajuste en la carga de la imagen
+            ImageIcon imageIcon = new ImageIcon(ImageIO.read(imgFile));
+            imageLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
+        } else {
+            System.out.println("No se encontró ninguna imagen con las extensiones .jpg, .png o .jpeg en la ruta especificada.");
+        }
+
+        
+    } catch (IOException e) {
+        e.printStackTrace();
+    } finally {
+        try {
+            if (conexion != null) {
+                conexion.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
     private void seleccionarImagenYGuardar() {
-        JnaFileChooser fileChooser = new JnaFileChooser();
+    JnaFileChooser fileChooser = new JnaFileChooser();
+
+    // Configurar el filtro de archivos para aceptar solo imágenes .jpg y .png
+    fileChooser.addFilter("Imágenes (.jpg, .png)", "jpg", "png");
+
     boolean action = fileChooser.showOpenDialog(null);
 
-        if (action) {
-            File selectedFile = fileChooser.getSelectedFile();
-            String destinationPath = destinationFolder + SessionVar.getDui() + getFileExtension(selectedFile);
+    if (action) {
+        File selectedFile = fileChooser.getSelectedFile();
+        String extension = getFileExtension(selectedFile).toLowerCase();
+
+        // Validar que la extensión sea .jpg o .png
+        if (extension.equals(".jpg") || extension.equals(".png")) {
+            String destinationPath = destinationFolder + SessionVar.getDui() + extension;
             File destinationFile = new File(destinationPath);
 
             try {
                 Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 System.out.println("Imagen guardada como: " + destinationFile.getPath());
 
+                // Cargar la imagen en el JLabel
                 ImageIcon imageIcon = new ImageIcon(ImageIO.read(destinationFile));
                 imageLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
+                
+                rsscalelabel.RSScaleLabel.setScaleLabel(Dashboard.lbImage, "src/ImagenesUsuarios/" + SessionVar.getDui() +".jpg");
 
+                // Guardar el nombre de la imagen en la base de datos
                 guardarFotoEnBaseDeDatos(destinationFile.getName());
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+        } else {
+            // Mostrar alerta si el archivo no es .jpg o .png
+            JOptionPane.showMessageDialog(null, "Solo se permiten archivos .jpg o .png", "Error de archivo", JOptionPane.ERROR_MESSAGE);
         }
     }
+}
+
+    
 
     private String getFileExtension(File file) {
         String name = file.getName();
@@ -188,23 +202,23 @@ public class ProfilePanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         txtApellidoPa = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtApellidoMa = new javax.swing.JTextField();
+        txtMail = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtFechaNa = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        txtRol = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        txtSucursal = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jTextField10 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jTextField11 = new javax.swing.JTextField();
+        txtDui = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
         imageLabel = new javax.swing.JLabel();
         btnSeleccionar = new javax.swing.JButton();
 
@@ -220,7 +234,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         jLabel2.setText("Nombre");
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Apellido Paterno");
+        jLabel3.setText("Apellidos");
 
         txtApellidoPa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,27 +242,20 @@ public class ProfilePanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setText("Apellido Materno");
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Email");
 
-        jLabel5.setText("jLabel5");
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Fecha Nacimiento");
 
-        jTextField4.setText("jTextField4");
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Telefono");
 
-        jLabel6.setText("jLabel6");
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Rol");
 
-        jTextField5.setText("jTextField5");
-
-        jLabel7.setText("jLabel7");
-
-        jTextField6.setText("jTextField6");
-
-        jLabel8.setText("jLabel8");
-
-        jTextField7.setText("jTextField7");
-
-        jLabel9.setText("jLabel9");
-
-        jTextField8.setText("jTextField8");
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Sucursal");
 
         jLabel10.setText("jLabel10");
 
@@ -262,45 +269,59 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         jTextField11.setText("jTextField11");
 
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("DUI");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(88, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(88, 88, 88)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtApellidoPa, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtApellidoMa, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                        .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(59, 59, 59))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtApellidoPa, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtMail, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtFechaNa, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtRol, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtSucursal, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                                .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(59, 59, 59))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtDui)
+                        .addGap(85, 85, 85))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtDui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -311,27 +332,23 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtApellidoMa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtFechaNa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -344,7 +361,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         imageLabel.setForeground(new java.awt.Color(0, 0, 0));
@@ -358,12 +375,13 @@ public class ProfilePanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addComponent(btnSeleccionar))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(111, 111, 111)
-                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 334, Short.MAX_VALUE)
+                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 193, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(btnSeleccionar)
+                        .addGap(57, 57, 57)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -401,14 +419,14 @@ public class ProfilePanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
-    public javax.swing.JTextField txtApellidoMa;
     public javax.swing.JTextField txtApellidoPa;
+    public javax.swing.JTextField txtDui;
+    public javax.swing.JTextField txtFechaNa;
+    public javax.swing.JTextField txtMail;
     public javax.swing.JTextField txtNombre;
+    public javax.swing.JTextField txtRol;
+    public javax.swing.JTextField txtSucursal;
+    public javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
