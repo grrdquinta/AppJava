@@ -218,7 +218,7 @@ public class mdlVehiculo {
 
     try {
         Statement statement = conexion.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT * FROM " + tabla);
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + tabla + " ORDER BY id_secuencia ASC");
 
         listaMarcas.add(new mdlVehiculo(0, "Seleccionar Marca"));
 
@@ -255,7 +255,7 @@ public class mdlVehiculo {
         
         try{
             Statement statement = conexion.createStatement();
-            String sql = ("Select * from " + tabla + " where idMarca = ?");
+            String sql = ("Select * from " + tabla + " where idMarca = ? ORDER BY id_secuencia ASC");
             PreparedStatement pstmt = conexion.prepareStatement(sql);
             pstmt.setInt(1, getIdMarca());
             ResultSet rs = pstmt.executeQuery();

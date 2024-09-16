@@ -5,6 +5,7 @@
 package Vista;
 
 import Controlador.ControllerVehiculo;
+import Modelo.TabbedForm;
 import Modelo.mdlVehiculo;
 
 
@@ -13,7 +14,7 @@ import Modelo.mdlVehiculo;
  *
  * @author gerst
  */
-public class FlotaPanel extends javax.swing.JPanel {
+public class FlotaPanel extends TabbedForm {
 
     /**
      * Creates new form FlotaPanel
@@ -75,34 +76,51 @@ public class FlotaPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jtbVehiculo);
 
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Placa:");
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Marca:");
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Modelo:");
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Año:");
 
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Tipo:");
 
+        btnGuardar.setBackground(new java.awt.Color(255, 204, 51));
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("Agregar");
 
+        btnActualizar.setBackground(new java.awt.Color(255, 204, 51));
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
 
+        btnAgregarMarca.setBackground(new java.awt.Color(0, 51, 102));
+        btnAgregarMarca.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarMarca.setText("Agregar Marca");
 
+        btnAgregarModelo.setBackground(new java.awt.Color(0, 51, 102));
+        btnAgregarModelo.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarModelo.setText("Agregar Modelo");
 
         cbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Marca" }));
 
         cbSucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Sucursal" }));
 
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Sucursal:");
 
         cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Desactivo" }));
 
+        lblEstado.setForeground(new java.awt.Color(0, 0, 0));
         lblEstado.setText("Estado:");
 
+        btnMapa.setBackground(new java.awt.Color(255, 204, 51));
+        btnMapa.setForeground(new java.awt.Color(255, 255, 255));
         btnMapa.setText("Ver Mapa");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

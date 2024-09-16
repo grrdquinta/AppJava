@@ -29,7 +29,7 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
         String[] extensions = {".png", ".jpg" };
-        rsscalelabel.RSScaleLabel.setScaleLabel(lbImage, "src/ImagenesUsuarios/" + SessionVar.getDui() +".jpg");
+        rsscalelabel.RSScaleLabel.setScaleLabel(lbImage, "src/ImagenesUsuarios/" + SessionVar.getDui() + ".jpg");
         setLocationRelativeTo(this);
         
         Dashboard vista = this;

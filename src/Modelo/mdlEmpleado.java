@@ -13,6 +13,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -172,6 +175,8 @@ public class mdlEmpleado {
         this.Genero = Genero;
     }   
 
+    public DateFormat fecha = new SimpleDateFormat("dd-MM-yyyy");  // Asegúrate de que el formato coincida con el formato del String de fecha
+
     public void Mostrar(JTable tabla){
         Connection conexion = ClaseConexion.getConexion();
         //Definimos el modelo de la tabla
@@ -299,7 +304,10 @@ public class mdlEmpleado {
             setEstado((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 11));
             setIdRol((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 12));
             setIdSucursal((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 13));
-        
+            String Licencia = obtenerLicenciaPorDui(vista.jtbEmpleados.getValueAt(filaSeleccionada, 0).toString());
+            setLicencia(Licencia);
+            String Usuario = obtenerUsuarioPorDui(vista.jtbEmpleados.getValueAt(filaSeleccionada, 0).toString());
+            setUsuario(Usuario);
             /*vista.txtPlaca.setText(Placa);
             vista.cbMarca.setSelectedIndex(idMarca);*/
            
@@ -307,7 +315,51 @@ public class mdlEmpleado {
         }
     }
     
+        public String obtenerLicenciaPorDui(String dui) {
+        Connection conexion = ClaseConexion.getConexion();
+        try {
+            String sql = "SELECT Licencia FROM Repartidor WHERE DUI = ?";
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, dui);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("Licencia");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+        
+        public String obtenerUsuarioPorDui(String dui) {
+        Connection conexion = ClaseConexion.getConexion();
+        try {
+            String sql = "SELECT Usuario FROM Usuario WHERE DUI = ?";
+            PreparedStatement pstmt = conexion.prepareStatement(sql);
+            pstmt.setString(1, dui);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("Usuario");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    
         public void CargarDatosTabla(InformacionEmpleados vista) {
+            DateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+       try {
+        // Asumimos que getFechaNa() devuelve una fecha en formato String
+        String fechaString = getFechaNa();
+        if (fechaString != null && !fechaString.isEmpty()) {
+            // Convertir el String a java.util.Date usando el formato
+            java.util.Date fechaUtil = formatoFecha.parse(fechaString);
+            vista.jdcFecha.setDate(fechaUtil);  // Establecer la fecha en el JDateChooser
+        }
+        } catch (ParseException e) {
+            e.printStackTrace();  // Manejar el error de parseo si ocurre
+        }
         // Obtén la fila seleccionada 
         vista.txtDUI.setText(getDUI());
         vista.txtNombre.setText(getNombre());
@@ -316,13 +368,15 @@ public class mdlEmpleado {
         vista.txtEmail.setText(getEmail());
         vista.txtTelefono.setText(getTelefono());
         vista.txtSalario.setText(getSalario().toString());
-        vista.txtFechaNa.setText(getFechaNa());
         vista.cbSexo.setSelectedIndex((int)getMasculino());
         vista.cbSucursal.setSelectedIndex((int)getIdSucursal());
         vista.cbRol.setSelectedIndex((int)getIdRol());
         vista.cbEstado.setSelectedIndex((int)getEstado());
-        
+        vista.txtLicencia.setText(getLicencia());
+        vista.txtUsuario.setText(getUsuario());
     }
+        
+        
      
     public int AgregarEmpleado()
     {
@@ -569,7 +623,7 @@ public class mdlEmpleado {
         vista.txtNombre.setText("");
         vista.txtApellidoPa.setText("");
         vista.txtApellidoMa.setText("");
-        vista.txtFechaNa.setText("");
+        vista.jdcFecha.setDate((new java.util.Date()));
         vista.txtTelefono.setText("");
         vista.txtEmail.setText("");
         vista.txtSalario.setText("");

@@ -24,6 +24,7 @@ public class frmOlvideContraseña extends javax.swing.JFrame {
         
         mdlEmpleado modelo = new mdlEmpleado();
         ControllerIngresoCorre controlador = new ControllerIngresoCorre(modelo, this);
+        rsscalelabel.RSScaleLabel.setScaleLabel(lbImage, "src/Vista/correo.png");
     }
 
     /**
@@ -41,6 +42,7 @@ public class frmOlvideContraseña extends javax.swing.JFrame {
         txtCorreoOlvide = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        lbImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,7 +56,8 @@ public class frmOlvideContraseña extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(15, 45, 87));
         jLabel1.setText("¿Olvido su Contraseña?");
 
-        txtCorreoOlvide.setForeground(new java.awt.Color(15, 45, 87));
+        txtCorreoOlvide.setBackground(new java.awt.Color(255, 255, 255));
+        txtCorreoOlvide.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(15, 45, 87));
@@ -69,18 +72,20 @@ public class frmOlvideContraseña extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(554, Short.MAX_VALUE)
+                .addContainerGap(79, Short.MAX_VALUE)
+                .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnEnviarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(393, 393, 393))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCorreoOlvide, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3))
-                        .addGap(114, 114, 114))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnEnviarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(393, 393, 393))))
+                        .addGap(114, 114, 114))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,6 +101,10 @@ public class frmOlvideContraseña extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(btnEnviarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(173, 173, 173))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(126, 126, 126)
+                .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -163,6 +172,7 @@ public class frmOlvideContraseña extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    public javax.swing.JLabel lbImage;
     public javax.swing.JTextField txtCorreoOlvide;
     // End of variables declaration//GEN-END:variables
 }

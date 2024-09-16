@@ -8,6 +8,7 @@ import Modelo.Encriptacion;
 import Modelo.mdlLogin;
 import Vista.Dashboard;
 import Vista.Login;
+import Vista.Main;
 import Vista.frmOlvideContraseña;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -50,7 +51,8 @@ public class ControllerLogin implements MouseListener{
                 if(answer == true){
                     JOptionPane.showMessageDialog(vista, "Sesion Iniciada Correctamente", "Proceso completado", JOptionPane.INFORMATION_MESSAGE);
                     vista.dispose();
-                    Dashboard dash = new Dashboard();
+                    //Dashboard dash = new Dashboard();
+                    Main dash = new Main();
                     dash.setVisible(true);
                 }
                 else

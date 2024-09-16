@@ -7,6 +7,7 @@ package Vista;
 import Controlador.ControllerProfile;
 import Modelo.ClaseConexion;
 import Modelo.SessionVar;
+import Modelo.TabbedForm;
 import Modelo.mdlPerfil;
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -36,7 +37,7 @@ import jnafilechooser.api.JnaFileChooser;
  *
  * @author gerst
  */
-public class ProfilePanel extends javax.swing.JPanel {
+public class ProfilePanel extends TabbedForm {
 
     /**
      * Creates new form ProfilePanel
@@ -212,13 +213,15 @@ public class ProfilePanel extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         txtSucursal = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        txtCambiarCont = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        txtConfirmCont = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        txtContActual = new javax.swing.JTextField();
         txtDui = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        btnActivar = new javax.swing.JButton();
         imageLabel = new javax.swing.JLabel();
         btnSeleccionar = new javax.swing.JButton();
 
@@ -257,20 +260,22 @@ public class ProfilePanel extends javax.swing.JPanel {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Sucursal");
 
-        jLabel10.setText("jLabel10");
+        jLabel10.setText("Cambiar Contraseña");
 
-        jTextField9.setText("jTextField9");
+        jLabel11.setText("Confirmar Contraseña");
 
-        jLabel11.setText("jLabel11");
-
-        jTextField10.setText("jTextField10");
-
-        jLabel12.setText("jLabel12");
-
-        jTextField11.setText("jTextField11");
+        jLabel12.setText("Verificar Contraseña Actual");
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("DUI");
+
+        jButton1.setBackground(new java.awt.Color(255, 204, 51));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Guardar");
+
+        btnActivar.setBackground(new java.awt.Color(0, 51, 102));
+        btnActivar.setText("Activar");
+        btnActivar.setBorderPainted(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -279,15 +284,15 @@ public class ProfilePanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(88, 88, 88)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
                             .addComponent(jLabel11)
-                            .addComponent(jLabel10)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnActivar))
                             .addComponent(jLabel8)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6)
@@ -304,20 +309,25 @@ public class ProfilePanel extends javax.swing.JPanel {
                                 .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtRol, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtSucursal, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jTextField10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                                .addComponent(jTextField11, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addComponent(txtCambiarCont, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtConfirmCont, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                                .addComponent(txtContActual, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel9))
                         .addGap(59, 59, 59))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtDui)
                         .addGap(85, 85, 85))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(134, 134, 134)
+                .addComponent(jButton1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,22 +360,28 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(btnActivar, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCambiarCont, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtConfirmCont, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addComponent(txtContActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         imageLabel.setForeground(new java.awt.Color(0, 0, 0));
 
+        btnSeleccionar.setBackground(new java.awt.Color(0, 51, 102));
+        btnSeleccionar.setForeground(new java.awt.Color(255, 255, 255));
         btnSeleccionar.setText("Seleccionar Imagen");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -375,24 +391,23 @@ public class ProfilePanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(111, 111, 111)
-                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 193, Short.MAX_VALUE))
+                        .addGap(374, 374, 374)
+                        .addComponent(btnSeleccionar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addComponent(btnSeleccionar)
-                        .addGap(57, 57, 57)))
+                        .addGap(295, 295, 295)
+                        .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 383, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
+                .addComponent(imageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSeleccionar)
-                .addContainerGap(375, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -402,8 +417,10 @@ public class ProfilePanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnActivar;
     public javax.swing.JButton btnSeleccionar;
     public javax.swing.JLabel imageLabel;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -417,10 +434,10 @@ public class ProfilePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField9;
     public javax.swing.JTextField txtApellidoPa;
+    public javax.swing.JTextField txtCambiarCont;
+    public javax.swing.JTextField txtConfirmCont;
+    public javax.swing.JTextField txtContActual;
     public javax.swing.JTextField txtDui;
     public javax.swing.JTextField txtFechaNa;
     public javax.swing.JTextField txtMail;

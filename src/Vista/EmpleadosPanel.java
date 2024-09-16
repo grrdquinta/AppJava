@@ -1,6 +1,7 @@
 package Vista;
 
 import Controlador.ControllerEmpleados;
+import Modelo.TabbedForm;
 import Modelo.mdlEmpleado;
 
 /*
@@ -12,7 +13,7 @@ import Modelo.mdlEmpleado;
  *
  * @author gerst
  */
-public class EmpleadosPanel extends javax.swing.JPanel {
+public class EmpleadosPanel extends TabbedForm {
 
     /**
      * Creates new form PaquetesPanel
@@ -59,8 +60,12 @@ public class EmpleadosPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jtbEmpleados);
 
+        btnEmpleado.setBackground(new java.awt.Color(255, 204, 51));
+        btnEmpleado.setForeground(new java.awt.Color(255, 255, 255));
         btnEmpleado.setText("Nuevo Empleado");
 
+        btnActuualizar.setBackground(new java.awt.Color(255, 204, 51));
+        btnActuualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActuualizar.setText("Actualizar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

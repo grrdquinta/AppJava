@@ -31,10 +31,40 @@ public class ControllerProfile implements MouseListener{
         this.modelo = modelo;
         this.vista = vista;
         
+        vista.txtDui.setEditable(false);
+        vista.txtNombre.setEditable(false);
+        vista.txtApellidoPa.setEditable(false);
+        vista.txtMail.setEditable(false);
+        vista.txtFechaNa.setEditable(false);
+        vista.txtTelefono.setEditable(false);
+        vista.txtRol.setEditable(false);
+        vista.txtSucursal.setEditable(false);
+        vista.txtCambiarCont.setEditable(false);
+        vista.txtConfirmCont.setEditable(false);
+        vista.txtContActual.setEditable(false);
         vista.btnSeleccionar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 modelo.seleccionarImagenYGuardar(vista);
+            }
+        });
+        vista.btnActivar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(vista.btnActivar.getText().equals("Activar"))
+            {
+                 vista.txtCambiarCont.setEditable(true);
+                 vista.txtConfirmCont.setEditable(true);
+                 vista.txtContActual.setEditable(true);
+                 vista.btnActivar.setText("Desactivar");
+            }
+                else if(vista.btnActivar.getText().equals("Desactivar"))
+            {
+                 vista.txtCambiarCont.setEditable(false);
+                 vista.txtConfirmCont.setEditable(false);
+                 vista.txtContActual.setEditable(false);
+                 vista.btnActivar.setText("Activar");
+            }
             }
         });
         modelo.SeleccionarImagen(vista);
@@ -43,27 +73,7 @@ public class ControllerProfile implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        /*if(e.getSource() ==  vista.btnSeleccionar)
-        {
-            try {
-            // Selecciona y guarda la imagen
-            
-
-            // Carga la imagen desde la base de datos
-            File imgFile = modelo.cargarImagenExistente();
-            if (imgFile != null) {
-                ImageIcon imageIcon = new ImageIcon(ImageIO.read(imgFile));
-                vista.imageLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
-                System.out.println("Imagen cargada y establecida en JLabel.");
-            } else {
-                vista.imageLabel.setIcon(null);
-                System.out.println("No se pudo cargar la imagen.");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(vista, "No se pudo completar la operación.", "Error", JOptionPane.WARNING_MESSAGE);
-            ex.printStackTrace();
-        }
-        }*/
+        
     }
 
     @Override

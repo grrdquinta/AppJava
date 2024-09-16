@@ -12,7 +12,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author gerst
  */
-public class Gmap {
+public class Gmap{
     public static void main(String[] args) {
        try {
             // Usar el estilo "Windows" de manera correcta

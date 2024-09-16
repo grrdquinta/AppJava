@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -154,7 +156,7 @@ public class mdlModelo {
         try
         {
             String query = "select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, modelo.carga, marca.idmarca from Modelo\n" +
-            "inner join Marca on modelo.idmarca = marca.idmarca" ;
+            "inner join Marca on modelo.idmarca = marca.idmarca ORDER BY modelo.id_secuencia ASC" ;
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
@@ -172,12 +174,12 @@ public class mdlModelo {
             }
             
             tabla.setModel(modelo);
-            tabla.getColumnModel().getColumn(0).setMinWidth(0);
+            /*tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getColumnModel().getColumn(0).setMaxWidth(0);
             tabla.getColumnModel().getColumn(0).setWidth(0);
             tabla.getColumnModel().getColumn(5).setMinWidth(0);
             tabla.getColumnModel().getColumn(5).setMaxWidth(0);
-            tabla.getColumnModel().getColumn(5).setWidth(0);            
+            tabla.getColumnModel().getColumn(5).setWidth(0);*/            
             
             
         }
@@ -213,12 +215,12 @@ public class mdlModelo {
         }
     }
     
-    public void CargarComboMarca(String tabla, String valor, JComboBox c){    
+    /*tpublic void CargarComboMarca(String tabla, String valor, JComboBox c){    
         Connection conexion = ClaseConexion.getConexion();
         //DefaultComboBoxModel combo = new DefaultComboBoxModel();
         try{
             Statement statement = conexion.createStatement();
-            ResultSet rs = statement.executeQuery("Select * from " + tabla);
+            ResultSet rs = statement.executeQuery("Select * from " + tabla  + " ORDER BY id_secuencia ASC");
             
             while (rs.next()) {
                 int id = rs.getInt(1);
@@ -235,6 +237,44 @@ public class mdlModelo {
             ex.printStackTrace();
             
         }
+    }*/
+    
+    public void CargarComboMarca(String tabla, String valor, JComboBox c) {
+    Connection conexion = ClaseConexion.getConexion();
+    ArrayList<mdlModelo> listaMarcas = new ArrayList<>();
+
+    try {
+        Statement statement = conexion.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + tabla + " ORDER BY id_secuencia ASC");
+
+        listaMarcas.add(new mdlModelo(0, "Seleccionar Marca"));
+
+        while (rs.next()) {
+            int id = rs.getInt(1); // Suponiendo que el ID está en la primera columna
+            String marca = rs.getString(2); // Suponiendo que el nombre de la marca está en la segunda columna
+            
+            listaMarcas.add(new mdlModelo(id, marca));
+        }
+
+        DefaultComboBoxModel<mdlModelo> combo = new DefaultComboBoxModel<>(listaMarcas.toArray(new mdlModelo[0]));
+        c.setModel(combo);
+
+    } catch (SQLException ex) {
+        ex.printStackTrace();   
     }
+}
+    
+    public String[] to_Array(ArrayList<String> list)
+    {
+        String array[] = new String[list.size()];
+        
+        for (int i=0; i<array.length; i++)
+        {
+            array[i] = list.get(i);
+        } 
+        
+        return array;
+    }
+   
     
 }

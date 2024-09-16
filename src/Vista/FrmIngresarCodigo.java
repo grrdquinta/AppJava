@@ -17,6 +17,7 @@ public class FrmIngresarCodigo extends javax.swing.JFrame {
         setLocationRelativeTo(this);
         
         ControllerIngresoCodigo controlador = new ControllerIngresoCodigo(this, controllerIngresoCorre);
+        rsscalelabel.RSScaleLabel.setScaleLabel(lbImage, "src/Vista/codigo.png");
     }
 
     /**
@@ -34,6 +35,7 @@ public class FrmIngresarCodigo extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         btnValidarCodigo = new javax.swing.JButton();
+        lbImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,7 +73,9 @@ public class FrmIngresarCodigo extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(632, Short.MAX_VALUE)
+                .addContainerGap(120, Short.MAX_VALUE)
+                .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnValidarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -86,8 +90,8 @@ public class FrmIngresarCodigo extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(252, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
@@ -98,6 +102,10 @@ public class FrmIngresarCodigo extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(btnValidarCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(201, 201, 201))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(166, 166, 166)
+                .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(223, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -177,6 +185,7 @@ public class FrmIngresarCodigo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    public javax.swing.JLabel lbImage;
     public javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,7 @@ package Vista;
 import Controlador.ControllerAddEmpleado;
 import Modelo.mdlEmpleado;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import javax.swing.UIManager;
 
 /**
@@ -48,7 +49,6 @@ public class InformacionEmpleados extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtApellidoPa = new javax.swing.JTextField();
         txtApellidoMa = new javax.swing.JTextField();
-        txtFechaNa = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         txtContrasena = new javax.swing.JTextField();
@@ -72,6 +72,7 @@ public class InformacionEmpleados extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         cbEstado = new javax.swing.JComboBox<>();
         lbEstado = new javax.swing.JLabel();
+        jdcFecha = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -184,6 +185,9 @@ public class InformacionEmpleados extends javax.swing.JFrame {
         lbEstado.setForeground(new java.awt.Color(0, 0, 0));
         lbEstado.setText("Estado");
 
+        jdcFecha.setBackground(new java.awt.Color(255, 255, 255));
+        jdcFecha.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -208,14 +212,15 @@ public class InformacionEmpleados extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel10)
+                                .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtDUI, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39)
-                                .addComponent(txtLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtFechaNa, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel10)
-                                .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtLicencia, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(34, 34, 34)
@@ -301,11 +306,12 @@ public class InformacionEmpleados extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtApellidoMa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFechaNa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtApellidoMa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -380,10 +386,20 @@ public class InformacionEmpleados extends javax.swing.JFrame {
         //</editor-fold>
 
        
+        //FlatMacDarkLaf.setup();
+        FlatLightLaf.setup();
+        UIManager.put("Button.arc", 999);
+        
+        try {
+        UIManager.setLookAndFeel( new FlatLightLaf());
+        } catch( Exception ex ) {
+            System.err.println( "Failed to initialize LaF" );
+        }
         
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            
             public void run() {
                 new InformacionEmpleados().setVisible(true);
             }
@@ -414,6 +430,7 @@ public class InformacionEmpleados extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    public com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JLabel label14;
     public javax.swing.JLabel lbEstado;
     public javax.swing.JTextField txtApellidoMa;
@@ -421,7 +438,6 @@ public class InformacionEmpleados extends javax.swing.JFrame {
     public javax.swing.JTextField txtContrasena;
     public javax.swing.JTextField txtDUI;
     public javax.swing.JTextField txtEmail;
-    public javax.swing.JTextField txtFechaNa;
     public javax.swing.JTextField txtLicencia;
     public javax.swing.JTextField txtNombre;
     public javax.swing.JTextField txtSalario;

@@ -2,6 +2,7 @@ package Vista;
 
 
 import Controlador.ControllerPaquete;
+import Modelo.TabbedForm;
 import Modelo.mdlPaquetes;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
@@ -17,7 +18,7 @@ import javax.swing.UIManager;
  *
  * @author gerst
  */
-public class PaquetesPanel extends javax.swing.JPanel {
+public class PaquetesPanel extends TabbedForm {
 
     /**
      * Creates new form Empleados

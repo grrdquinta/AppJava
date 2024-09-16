@@ -7,6 +7,7 @@ package Vista;
 import Controlador.ControllerLogin;
 import Modelo.mdlLogin;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import javax.swing.UIManager;
 
 /**
@@ -57,19 +58,25 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/logo.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Calibri Light", 1, 36)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Iniciar Sesión con tu cuenta !");
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Inicia Sesión para Empezar ");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Email");
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Usuario");
 
         txtUsuario.setBackground(new java.awt.Color(242, 239, 239));
+        txtUsuario.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Contraseña");
 
         txtPassword.setBackground(new java.awt.Color(242, 239, 239));
+        txtPassword.setForeground(new java.awt.Color(0, 0, 0));
 
         btnIniciarSesion.setBackground(new java.awt.Color(0, 51, 102));
         btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
@@ -95,12 +102,12 @@ public class Login extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6)
                                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(lblOlvidaste)
-                                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel5))))
                         .addGap(0, 198, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(200, 200, 200)
@@ -173,11 +180,12 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        FlatLightLaf.setup();
+        FlatMacDarkLaf.setup();
+        //FlatLightLaf.setup();
         UIManager.put("Button.arc", 999);
         
         try {
-        UIManager.setLookAndFeel( new FlatLightLaf() );
+        UIManager.setLookAndFeel( new FlatMacDarkLaf() );
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }

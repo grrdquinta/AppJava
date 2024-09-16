@@ -75,7 +75,7 @@ public class ControllerAddEmpleado implements MouseListener{
         if (e.getSource() == vista.btnGuardar) {
             if(vista.cbRol.getSelectedIndex() != 3){
                 if (vista.txtDUI.getText().isEmpty() ||vista.txtNombre.getText().isEmpty() || vista.txtApellidoPa.getText().isEmpty() 
-                        || vista.txtApellidoMa.getText().isEmpty() || vista.txtFechaNa.getText().isEmpty() || vista.txtTelefono.getText().isEmpty()
+                        || vista.txtApellidoMa.getText().isEmpty() || vista.jdcFecha.equals("") || vista.txtTelefono.getText().isEmpty()
                         || vista.txtEmail.getText().isEmpty() || vista.txtSalario.getText().isEmpty() || vista.txtUsuario.getText().isEmpty()
                         || vista.txtContrasena.getText().isEmpty()) {
 
@@ -89,7 +89,7 @@ public class ControllerAddEmpleado implements MouseListener{
                         modelo.setApellidoMa(vista.txtApellidoMa.getText());
                         modelo.setEmail(vista.txtEmail.getText());
                         modelo.setSalario(Double.parseDouble(vista.txtSalario.getText()));
-                        modelo.setFechaNa(vista.txtFechaNa.getText());
+                        modelo.setFechaNa(modelo.fecha.format(vista.jdcFecha.getDate()).toString());
                         modelo.setIdRol((int)vista.cbRol.getSelectedIndex());
                         modelo.setIdSucursal((int)vista.cbSucursal.getSelectedIndex());
                         modelo.setGenero((int)vista.cbSexo.getSelectedIndex());
@@ -114,7 +114,7 @@ public class ControllerAddEmpleado implements MouseListener{
             {
             
                 if (vista.txtDUI.getText().isEmpty() ||vista.txtLicencia.getText().isEmpty() ||vista.txtNombre.getText().isEmpty() || vista.txtApellidoPa.getText().isEmpty() 
-                        || vista.txtApellidoMa.getText().isEmpty() || vista.txtFechaNa.getText().isEmpty() || vista.txtTelefono.getText().isEmpty()
+                        || vista.txtApellidoMa.getText().isEmpty() || vista.jdcFecha.equals("") || vista.txtTelefono.getText().isEmpty()
                         || vista.txtEmail.getText().isEmpty() || vista.txtSalario.getText().isEmpty() || vista.txtUsuario.getText().isEmpty()
                         || vista.txtContrasena.getText().isEmpty()) {
 
@@ -129,7 +129,7 @@ public class ControllerAddEmpleado implements MouseListener{
                         modelo.setApellidoMa(vista.txtApellidoMa.getText());
                         modelo.setEmail(vista.txtEmail.getText());
                         modelo.setSalario(Double.parseDouble(vista.txtSalario.getText()));
-                        modelo.setFechaNa(vista.txtFechaNa.getText());
+                        modelo.setFechaNa(modelo.fecha.format(vista.jdcFecha.getDate()).toString());
                         modelo.setIdRol((int)vista.cbRol.getSelectedIndex());
                         modelo.setIdSucursal((int)vista.cbSucursal.getSelectedIndex());
                         modelo.setGenero((int)vista.cbSexo.getSelectedIndex());

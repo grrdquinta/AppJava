@@ -22,6 +22,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import jnafilechooser.api.JnaFileChooser;
+import raven.drawer.component.header.SimpleHeaderData;
+import raven.swing.AvatarIcon;
 
 /**
  *
@@ -46,11 +48,12 @@ public class mdlPerfil {
 
     }
 
+    
     public void cargarImagenExistente(ProfilePanel vista) {
     Connection conexion = ClaseConexion.getConexion();
     try {
         // Definir las extensiones que se van a soportar
-        String[] extensiones = {".png", ".jpg" };
+        String[] extensiones = {".jpg", ".png" };
         File imgFile = null;
 
         // Iterar sobre las extensiones y buscar si existe un archivo con la extensión correspondiente
@@ -64,7 +67,7 @@ public class mdlPerfil {
         if (imgFile != null && imgFile.exists()) {
             // Ajuste en la carga de la imagen
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(imgFile));
-            vista.imageLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
+            vista.imageLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(270, 250, Image.SCALE_SMOOTH)));
         } else {
             System.out.println("No se encontró ninguna imagen con las extensiones .jpg, .png o .jpeg en la ruta especificada.");
         }
@@ -86,42 +89,43 @@ public class mdlPerfil {
     JnaFileChooser fileChooser = new JnaFileChooser();
 
     // Configurar el filtro de archivos para aceptar solo imágenes .jpg y .png
-    fileChooser.addFilter("Imágenes (.jpg, .png)", "jpg", "png");
+    fileChooser.addFilter("Imágenes (.jpg)", "jpg");
 
     boolean action = fileChooser.showOpenDialog(null);
 
-    if (action) {
-        File selectedFile = fileChooser.getSelectedFile();
-        String extension = getFileExtension(selectedFile).toLowerCase();
+        if (action) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String extension = getFileExtension(selectedFile).toLowerCase();
 
-        // Validar que la extensión sea .jpg o .png
-        if (extension.equals(".jpg") || extension.equals(".png")) {
-            String destinationPath = destinationFolder + SessionVar.getDui() + extension;
-            File destinationFile = new File(destinationPath);
+            // Validar que la extensión sea .jpg o .png
+            if (extension.equals(".jpg") || extension.equals(".png")) {
+                String destinationPath = destinationFolder + SessionVar.getDui() + extension;
+                File destinationFile = new File(destinationPath);
 
-            try {
-                Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("Imagen guardada como: " + destinationFile.getPath());
+                try {
+                    Files.copy(selectedFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    System.out.println("Imagen guardada como: " + destinationFile.getPath());
 
-                // Cargar la imagen en el JLabel
-                ImageIcon imageIcon = new ImageIcon(ImageIO.read(destinationFile));
-                vista.imageLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
-                
-                rsscalelabel.RSScaleLabel.setScaleLabel(Dashboard.lbImage, "src/ImagenesUsuarios/" + SessionVar.getDui() +".jpg");
+                    // Cargar la imagen en el JLabel
+                    ImageIcon imageIcon = new ImageIcon(ImageIO.read(destinationFile));
+                    vista.imageLabel.setIcon(new ImageIcon(imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
 
-                // Guardar el nombre de la imagen en la base de datos
-                guardarFotoEnBaseDeDatos(destinationFile.getName(), vista);
-            } catch (IOException ex) {
-                ex.printStackTrace();
+                    //rsscalelabel.RSScaleLabel.setScaleLabel(Dashboard.lbImage, "src/ImagenesUsuarios/" + SessionVar.getDui() +".jpg");
+
+                    // Guardar el nombre de la imagen en la base de datos
+                    guardarFotoEnBaseDeDatos(destinationFile.getName(), vista);
+                    MyDrawerBuilder menu = new MyDrawerBuilder();
+                    menu.getSimpleHeaderData();
+                    menu.rebuildMenu();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                // Mostrar alerta si el archivo no es .jpg o .png
+                JOptionPane.showMessageDialog(null, "Solo se permiten archivos .jpg o .png", "Error de archivo", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            // Mostrar alerta si el archivo no es .jpg o .png
-            JOptionPane.showMessageDialog(null, "Solo se permiten archivos .jpg o .png", "Error de archivo", JOptionPane.ERROR_MESSAGE);
         }
     }
-}
-
-    
 
     public String getFileExtension(File file) {
         String name = file.getName();
