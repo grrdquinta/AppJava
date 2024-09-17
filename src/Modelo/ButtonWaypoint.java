@@ -15,4 +15,5 @@ public class ButtonWaypoint extends JButton {
         setCursor(new Cursor(Cursor.HAND_CURSOR));
         setSize(new Dimension(24, 24));
     }
+    
 }
