@@ -46,6 +46,7 @@ public class ControllerProfile implements MouseListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 modelo.seleccionarImagenYGuardar(vista);
+                JOptionPane.showMessageDialog(vista, "Los cambios se veran reflejados la proxima vez que inicies sesion", "Proceso completado", JOptionPane.INFORMATION_MESSAGE);
             }
         });
         vista.btnActivar.addActionListener(new ActionListener() {

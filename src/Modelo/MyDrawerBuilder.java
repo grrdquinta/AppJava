@@ -131,9 +131,19 @@ import net.miginfocom.swing.MigLayout;
             {"~OTHER~"},
             {"Perfil"},
             {"Logout"}
-        };       
+        };  
+            
+        String icons[] = {
+            "dashboard.svg",
+            "movimientos.svg",
+            "flota.svg",
+            "empleados.svg",
+            "empleados.svg",
+            "logout.svg"};    
             return new SimpleMenuOption()
                     .setMenus(menus)
+                    .setIcons(icons)
+                    .setBaseIconPath("Vista/")
                     .addMenuEvent(new MenuEvent() {
                         @Override
                         public void selected(MenuAction action, int index, int subIndex) {
