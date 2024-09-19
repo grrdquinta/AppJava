@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.event.MouseInputListener;
 import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.VirtualEarthTileFactoryInfo;
@@ -26,11 +28,12 @@ public class ControllerSucursales implements MouseListener {
         this.vista = vista;
 
         modelo.init(vista);
+        cargarComboBox();
+
         
        modelo.setEvent(new EventLocationSelected() {
             @Override
             public void onSelected(String location) {
-                // Aquí puedes manejar la lógica cuando se selecciona una ubicación
                 vista.lblUbicacion.setText("Ubicación: " + location);
             }
         });
@@ -41,6 +44,7 @@ public class ControllerSucursales implements MouseListener {
         vista.mapaSucursales.addMouseWheelListener(new ZoomMouseWheelListenerCenter(vista.mapaSucursales));
 
         vista.mapaSucursales.addMouseListener(this);
+        vista.btnIngresar.addMouseListener(this);
         
         this.vista.cmbMapa.addActionListener(new ActionListener() {
             @Override
@@ -68,13 +72,44 @@ public class ControllerSucursales implements MouseListener {
         vista.mapaSucursales.setTileFactory(tileFactory);
     }
     
+     private void cargarComboBox() {
+        String[] options = {"Almacen", "Centro Recolección"};
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(options);
+        vista.cmbAlmacenamiento.setModel(model);
+    }
+    
     @Override
     public void mouseClicked(MouseEvent e) {
         GeoPosition pos = vista.mapaSucursales.convertPointToGeoPosition(e.getPoint());
 
         System.out.println("Latitud: " + pos.getLatitude() + ", Longitud: " + pos.getLongitude());
-        // Llamar al método del modelo que muestra la ubicación
+        
+        vista.txtLatitud.setText(String.valueOf(pos.getLatitude()));
+        vista.txtLongitud.setText(String.valueOf(pos.getLongitude()));
+        
+        
         modelo.showLocation(pos);
+        
+        
+        if (e.getSource() == vista.btnIngresar) {
+            try {
+                int tipoSucursal = vista.cmbAlmacenamiento.getSelectedIndex() == 0 ? 1 : 0;
+                double longitud = Double.parseDouble(vista.txtLongitud.getText());
+                double latitud = Double.parseDouble(vista.txtLatitud.getText());
+                String nombre = vista.txtNombreSucursal.getText();
+
+
+                modelo.setNombre(nombre);
+                modelo.setLongitud(longitud);
+                modelo.setLatitud(latitud);
+                modelo.setAlmacenamiento(tipoSucursal);
+                modelo.GuardarSucursal();
+                
+                modelo.limpiarCampos(); 
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        }
     }
 
     @Override

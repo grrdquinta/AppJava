@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Vista/map.java</file>
-            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Modelo/mdlMapa.java</file>
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Modelo/mdlEmpleado.java</file>
             <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Modelo/mdlSucursales.java</file>
-            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Controlador/ControllerDashboard.java</file>
-            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Controlador/ControllerMap.java</file>
             <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Controlador/ControllerSucursales.java</file>
-            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Modelo/MyWaypoint.java</file>
             <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Vista/FrmSucursales.java</file>
-            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Modelo/MyDrawerBuilder.java</file>
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Controlador/ControllerAddEmpleado.java</file>
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Modelo/ClaseConexion.java</file>
         </group>
     </open-files>
 </project-private>
