@@ -4,12 +4,17 @@
  */
 package Modelo;
 
+import Vista.TableActionCellEditor;
+import Vista.TableActionCellRender;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -99,47 +104,81 @@ public class mdlPaquetes {
         this.IdSeguro = IdSeguro;
     }
     
-   public void Mostrar(JTable tabla){
+    public List<Object[]> obtenerPaquetes() {
+        List<Object[]> paquetes = new ArrayList<>();
         Connection conexion = ClaseConexion.getConexion();
-        //Definimos el modelo de la tabla
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.setColumnIdentifiers(new Object[]{"ID Paquete", "Peso", "Alto", "Largo", "Ancho", 
-            "Fecha Inicio", "ID Direccion", "Origen", "ID Seguro"});
-        
-        try
-        {
-            String query = "select * from Paquete";
+
+        try {
+            String query = "SELECT * FROM Paquete";
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(query);
+
             while (rs.next()) {
-                //Llenamos el modelo por cada vez que recorremos el resultSet
-                modelo.addRow(new Object[]{
-                    rs.getString(1), //DUI
-                    rs.getDouble(2), //Nombre
-                    rs.getDouble(3), //ApellidoPaterno
-                    rs.getDouble(4), //ApellidoMaterno
-                    rs.getDouble(5), //Emil
-                    rs.getString(6), //Salario
-                    rs.getString(7),   //FechaNa
-                    rs.getInt(8), //Rol
-                    rs.getInt(9)}  
-                );
-                
+                paquetes.add(new Object[]{
+                    rs.getInt("IDPAQUETE"),
+                    rs.getDouble("PESO"),
+                    rs.getDouble("ALTO"),
+                    rs.getDouble("LARGO"),
+                    rs.getDouble("ANCHO"),
+                    rs.getDate("FECHAINICIO"),
+                    rs.getString("IDDIRECCION"),
+                    rs.getInt("ORIGEN"),
+                    rs.getInt("IDSEGURO"),
+                    null 
+                });
             }
-            //tabla.getColumnModel().getColumn(10).setCellRenderer(new TableActionCellRender());
-            tabla.setModel(modelo);
-            
-            
-            
-        }
-        catch(SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
-            
         }
-        
+
+        return paquetes;
+    }
+
+    public void actualizarPaquete(String idPaquete, double peso, double alto, double largo, double ancho,String idDireccion, int origen, int idSeguro) {
+        Connection conexion = ClaseConexion.getConexion();
+
+        String sql = "UPDATE Paquete SET Peso = ?, Alto = ?, Largo = ?, Ancho = ?, " +
+                     "IdDireccion = ?, Origen = ?, IdSeguro = ? WHERE IdPaquete = ?";
+
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+            statement.setDouble(1, peso);
+            statement.setDouble(2, alto);
+            statement.setDouble(3, largo);
+            statement.setDouble(4, ancho);
+            statement.setString(5, idDireccion);
+            statement.setInt(6, origen);
+            statement.setInt(7, idSeguro);
+            statement.setString(8, idPaquete);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Paquete actualizado exitosamente.");
+            } else {
+                System.out.println("No se encontró el paquete con el ID especificado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
-   
-    
+    public void eliminarPaquete(int idPaquete) {
+        Connection conexion = ClaseConexion.getConexion();
+
+        String sql = "DELETE FROM Paquete WHERE IdPaquete = ?";
+
+        try (PreparedStatement statement = conexion.prepareStatement(sql)) {
+            statement.setInt(1, idPaquete);
+
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                System.out.println("Paquete eliminado exitosamente.");
+            } else {
+                System.out.println("No se encontró el paquete con el ID especificado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        }
+
+
 }
