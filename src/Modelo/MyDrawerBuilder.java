@@ -9,6 +9,7 @@ package Modelo;
     import Vista.DashboardPanel;
     import Vista.EmpleadosPanel;
     import Vista.FlotaPanel;
+import Vista.FrmSucursales;
     import Vista.Gmap;
     import Vista.Login;
     import Vista.Main;
@@ -152,6 +153,9 @@ import net.miginfocom.swing.MigLayout;
                             }
                             else if (index == 1 && subIndex == 1) {
                                 WindowsTabbed.getInstance().addTab("Paquetes", new PaquetesPanel());
+                            }
+                            else if (index == 1 && subIndex == 2) {
+                                WindowsTabbed.getInstance().addTab("Sucursales", new FrmSucursales());
                             }
                             else if (index == 2 && subIndex == 1) {
                                 WindowsTabbed.getInstance().addTab("Vehiculos", new FlotaPanel());

@@ -186,7 +186,7 @@ public class mdlEmpleado {
         
         try
         {
-            String query = "Select DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email,  telefono ,salario, fechana, Rol.NomRol,Sucursal.Nombre as Sucursal, masculino, estado, rol.idrol, sucursal.idsucursal \n" +
+            String query = "Select DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email,  telefono ,salario, fechana, Rol.NomRol,Sucursal.Nombre as Sucursal, genero, estado, rol.idrol, sucursal.idsucursal \n" +
             "from empleado\n" +
             "inner join Rol on Empleado.IdRol = Rol.idRol\n" +
             "inner join Sucursal on Empleado.idSucursal = sucursal.idsucursal";
@@ -300,7 +300,7 @@ public class mdlEmpleado {
             setTelefono(vista.jtbEmpleados.getValueAt(filaSeleccionada, 5).toString());
             setSalario(Double.parseDouble(vista.jtbEmpleados.getValueAt(filaSeleccionada, 6).toString()));
             setFechaNa(vista.jtbEmpleados.getValueAt(filaSeleccionada, 7).toString());
-            setMasculino((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 10));
+            setGenero((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 10));
             setEstado((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 11));
             setIdRol((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 12));
             setIdSucursal((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 13));
@@ -368,7 +368,7 @@ public class mdlEmpleado {
         vista.txtEmail.setText(getEmail());
         vista.txtTelefono.setText(getTelefono());
         vista.txtSalario.setText(getSalario().toString());
-        vista.cbSexo.setSelectedIndex((int)getMasculino());
+        vista.cbSexo.setSelectedIndex((int)getGenero());
         vista.cbSucursal.setSelectedIndex((int)getIdSucursal());
         vista.cbRol.setSelectedIndex((int)getIdRol());
         vista.cbEstado.setSelectedIndex((int)getEstado());
@@ -383,7 +383,7 @@ public class mdlEmpleado {
         Connection conexion = ClaseConexion.getConexion();
         try
         {
-            String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, masculino, Estado, Telefono)\n" +
+            String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, genero, Estado, Telefono)\n" +
             "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
             
             PreparedStatement pstmt = conexion.prepareStatement(sql);
@@ -430,7 +430,7 @@ public class mdlEmpleado {
         {
             
                
-                String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, masculino, Estado, Telefono)\n" +
+                String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, genero, Estado, Telefono)\n" +
                 "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
 
                 PreparedStatement pstmt = conexion.prepareStatement(sql);

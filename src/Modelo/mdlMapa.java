@@ -25,7 +25,7 @@ import org.jxmapviewer.viewer.TileFactory;
 import org.jxmapviewer.viewer.TileFactoryInfo;
 import org.jxmapviewer.viewer.WaypointPainter;
 
-public class mdlMapa extends WaypointPainter<MyWaypoint>{
+public  class mdlMapa extends WaypointPainter<MyWaypoint>{
    
     private final Set<MyWaypoint> waypoints = new HashSet<>();
     private EventWaypoint event;

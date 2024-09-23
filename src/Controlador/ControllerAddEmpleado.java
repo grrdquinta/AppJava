@@ -77,7 +77,7 @@ public class ControllerAddEmpleado implements MouseListener{
                 if (vista.txtDUI.getText().isEmpty() ||vista.txtNombre.getText().isEmpty() || vista.txtApellidoPa.getText().isEmpty() 
                         || vista.txtApellidoMa.getText().isEmpty() || vista.jdcFecha.equals("") || vista.txtTelefono.getText().isEmpty()
                         || vista.txtEmail.getText().isEmpty() || vista.txtSalario.getText().isEmpty() || vista.txtUsuario.getText().isEmpty()
-                        || vista.txtContrasena.getText().isEmpty() || vista.cbEstado.getSelectedIndex() == 0 || 
+                        || vista.txtContrasena.getText().isEmpty() ||
                         vista.cbSucursal.getSelectedIndex() == 0) {
 
                     JOptionPane.showMessageDialog(vista, "Debes llenar todos los campos o seleccionar opcion valida", "Error", JOptionPane.ERROR_MESSAGE);
