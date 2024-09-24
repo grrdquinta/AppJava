@@ -5,11 +5,22 @@
 package Vista;
 
 import Modelo.MyDrawerBuilder;
+import Modelo.SessionVar;
 import Modelo.WindowsTabbed;
+import com.formdev.flatlaf.FlatClientProperties;
 import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import javax.swing.UIManager;
 import raven.drawer.Drawer;
 import raven.popup.GlassPanePopup;
@@ -32,8 +43,60 @@ public class Main extends javax.swing.JFrame {
         MyDrawerBuilder myDrawerBuilder = new MyDrawerBuilder();
         Drawer.getInstance().setDrawerBuilder(myDrawerBuilder);
         initComponents();
+        rsscalelabel.RSScaleLabel.setScaleLabel(lbImage, "src/Vista/logo.png");
+        jLabel1.setText("Bienvenido " + SessionVar.getNombre());
         WindowsTabbed.getInstance().install(this, body);
+        
+        DarkLightSwitchIcon customIcon = new DarkLightSwitchIcon();
+        jToggleButton1.setIcon(customIcon);
+        jToggleButton1.setSelectedIcon(customIcon);
+
+        jToggleButton1.putClientProperty(FlatClientProperties.STYLE, ""
+                + "arc:999;"
+                + "borderWidth:0;"
+                + "focusWidth:0;"
+                + "innerFocusWidth:0");
+        jToggleButton1.addActionListener(new ActionListener() {
+
+            private final ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(1);
+            private ScheduledFuture<?> scheduledFuture;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (scheduledFuture != null) {
+                    scheduledFuture.cancel(true);
+                }
+                scheduledFuture = scheduled.schedule(() -> {
+                    changeThemes(jToggleButton1.isSelected());
+                }, 500, TimeUnit.MILLISECONDS);
+            }
+        });
     }
+    
+    private void changeThemes(boolean dark){
+        if(FlatLaf.isLafDark() != dark)
+        {
+           if(!dark)
+           {
+               EventQueue.invokeLater(() ->{
+                   FlatAnimatedLafChange.showSnapshot();
+                   FlatMacLightLaf.setup();
+                   FlatLaf.updateUI();
+                   FlatAnimatedLafChange.hideSnapshotWithAnimation();
+               }); 
+           }
+           else
+           {
+               EventQueue.invokeLater(() ->{
+                   FlatAnimatedLafChange.showSnapshot();
+                   FlatMacDarkLaf.setup();
+                   FlatLaf.updateUI();
+                   FlatAnimatedLafChange.hideSnapshotWithAnimation();
+               }); 
+           }
+        }
+    }
+    
     public void close()
     {
         main.dispose();
@@ -77,20 +140,58 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         body = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jToggleButton1 = new javax.swing.JToggleButton();
+        lbImage = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         body.setLayout(new java.awt.BorderLayout());
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 102));
+        jLabel1.setText("jLabel1");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(380, 380, 380)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(397, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(164, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addComponent(jToggleButton1)
+                .addGap(78, 78, 78))
+        );
+
+        body.add(jPanel1, java.awt.BorderLayout.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(body, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1300, Short.MAX_VALUE)
+            .addComponent(body, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(body, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 691, Short.MAX_VALUE)
+            .addComponent(body, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -138,5 +239,9 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JLabel lbImage;
     // End of variables declaration//GEN-END:variables
 }

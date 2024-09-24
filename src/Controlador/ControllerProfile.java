@@ -4,6 +4,8 @@
  */
 package Controlador;
 
+import Modelo.Encriptacion;
+import Modelo.SessionVar;
 import Modelo.mdlPerfil;
 import Vista.ProfilePanel;
 import java.awt.Image;
@@ -38,10 +40,11 @@ public class ControllerProfile implements MouseListener{
         vista.txtFechaNa.setEditable(false);
         vista.txtTelefono.setEditable(false);
         vista.txtRol.setEditable(false);
-        vista.txtSucursal.setEditable(false);
+        vista.txtUsuario.setEditable(false);
         vista.txtCambiarCont.setEditable(false);
         vista.txtConfirmCont.setEditable(false);
         vista.txtContActual.setEditable(false);
+        vista.btnGuardar.addMouseListener(this);
         vista.btnSeleccionar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,8 +55,9 @@ public class ControllerProfile implements MouseListener{
         vista.btnActivar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(vista.btnActivar.getText().equals("Activar"))
+                if(vista.btnActivar.getText().equals("Modificar"))
             {
+                 vista.txtUsuario.setEditable(true);
                  vista.txtCambiarCont.setEditable(true);
                  vista.txtConfirmCont.setEditable(true);
                  vista.txtContActual.setEditable(true);
@@ -61,10 +65,11 @@ public class ControllerProfile implements MouseListener{
             }
                 else if(vista.btnActivar.getText().equals("Desactivar"))
             {
+                 vista.txtUsuario.setEditable(false);
                  vista.txtCambiarCont.setEditable(false);
                  vista.txtConfirmCont.setEditable(false);
                  vista.txtContActual.setEditable(false);
-                 vista.btnActivar.setText("Activar");
+                 vista.btnActivar.setText("Modificar");
             }
             }
         });
@@ -74,7 +79,46 @@ public class ControllerProfile implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+        if (e.getSource() == vista.btnGuardar)
+        {
+            if(vista.btnActivar.getText().equals("Desactivar"))
+            {
+                if(vista.txtCambiarCont.getText().isEmpty() || vista.txtConfirmCont.getText().isEmpty() || 
+                        vista.txtContActual.getText().isEmpty() || vista.txtUsuario.getText().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(vista, "Verificar si no hay campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                else
+                {
+                    if(vista.txtCambiarCont.getText().equals(vista.txtConfirmCont.getText()))
+                        {
+                            Encriptacion en = new Encriptacion();
+                            String contraEnrip = en.convertirSHA256(vista.txtContActual.getText());
+                            if(SessionVar.getPass().equals(contraEnrip))
+                            {
+                                Encriptacion enN = new Encriptacion();
+                                String contraEnript = enN.convertirSHA256(vista.txtCambiarCont.getText());
+                                modelo.setContraseña(contraEnript);
+                                modelo.ActualizarPerfil(vista);
+                                JOptionPane.showMessageDialog(vista, "Proceso Completado", "Completado", JOptionPane.INFORMATION_MESSAGE);
+                                modelo.CargarInformacion(vista);
+                            }
+                            else
+                            {
+                                JOptionPane.showMessageDialog(vista, "Contraseña Actual Incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    else
+                        {
+                            JOptionPane.showMessageDialog(vista, "Las contraseñas no coinciden, verificar que esten escritas de la misma manera", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                }
+            }
+            else
+            {
+            JOptionPane.showMessageDialog(vista, "Por favor habilite la opcion de modificar", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
 
     @Override

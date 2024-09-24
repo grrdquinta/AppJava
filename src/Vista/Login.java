@@ -6,8 +6,11 @@ package Vista;
 
 import Controlador.ControllerLogin;
 import Modelo.mdlLogin;
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import javax.swing.UIManager;
 
 /**
@@ -180,9 +183,11 @@ public class Login extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        FlatMacDarkLaf.setup();
+        FlatDarculaLaf.setup();
+        //FlatMacDarkLaf.setup();
         //FlatLightLaf.setup();
         UIManager.put("Button.arc", 999);
+        UIManager.put("TextComponent.arc", 25);
         
         try {
         UIManager.setLookAndFeel( new FlatMacDarkLaf() );

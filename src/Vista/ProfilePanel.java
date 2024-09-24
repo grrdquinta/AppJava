@@ -211,7 +211,7 @@ public class ProfilePanel extends TabbedForm {
         jLabel7 = new javax.swing.JLabel();
         txtRol = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtSucursal = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txtCambiarCont = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -220,12 +220,10 @@ public class ProfilePanel extends TabbedForm {
         txtContActual = new javax.swing.JTextField();
         txtDui = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         btnActivar = new javax.swing.JButton();
         imageLabel = new javax.swing.JLabel();
         btnSeleccionar = new javax.swing.JButton();
-
-        setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(0, 51, 102));
 
@@ -258,7 +256,7 @@ public class ProfilePanel extends TabbedForm {
         jLabel7.setText("Rol");
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Sucursal");
+        jLabel8.setText("Usuario");
 
         jLabel10.setText("Cambiar Contraseña");
 
@@ -269,12 +267,12 @@ public class ProfilePanel extends TabbedForm {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("DUI");
 
-        jButton1.setBackground(new java.awt.Color(255, 204, 51));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Guardar");
+        btnGuardar.setBackground(new java.awt.Color(255, 204, 51));
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setText("Guardar");
 
         btnActivar.setBackground(new java.awt.Color(0, 51, 102));
-        btnActivar.setText("Activar");
+        btnActivar.setText("Modificar");
         btnActivar.setBorderPainted(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -289,11 +287,11 @@ public class ProfilePanel extends TabbedForm {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
                             .addComponent(jLabel11)
+                            .addComponent(jLabel10)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
+                                .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnActivar))
-                            .addComponent(jLabel8)
                             .addComponent(jLabel7)
                             .addComponent(jLabel6)
                             .addComponent(jLabel5)
@@ -308,7 +306,7 @@ public class ProfilePanel extends TabbedForm {
                                 .addComponent(txtFechaNa, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtRol, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtSucursal, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtUsuario, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtCambiarCont, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtConfirmCont, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                                 .addComponent(txtContActual, javax.swing.GroupLayout.Alignment.LEADING))
@@ -319,7 +317,7 @@ public class ProfilePanel extends TabbedForm {
                         .addGap(85, 85, 85))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(134, 134, 134)
-                .addComponent(jButton1)
+                .addComponent(btnGuardar)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -356,13 +354,13 @@ public class ProfilePanel extends TabbedForm {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSucursal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
+                    .addComponent(jLabel8)
                     .addComponent(btnActivar, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCambiarCont, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -374,10 +372,11 @@ public class ProfilePanel extends TabbedForm {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtContActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnGuardar)
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
+        imageLabel.setBackground(new java.awt.Color(255, 255, 255));
         imageLabel.setForeground(new java.awt.Color(0, 0, 0));
 
         btnSeleccionar.setBackground(new java.awt.Color(0, 51, 102));
@@ -418,9 +417,9 @@ public class ProfilePanel extends TabbedForm {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnActivar;
+    public javax.swing.JButton btnGuardar;
     public javax.swing.JButton btnSeleccionar;
     public javax.swing.JLabel imageLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -443,7 +442,7 @@ public class ProfilePanel extends TabbedForm {
     public javax.swing.JTextField txtMail;
     public javax.swing.JTextField txtNombre;
     public javax.swing.JTextField txtRol;
-    public javax.swing.JTextField txtSucursal;
     public javax.swing.JTextField txtTelefono;
+    public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

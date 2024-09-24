@@ -8,6 +8,7 @@ import Controlador.ControllerAddEmpleado;
 import Modelo.mdlEmpleado;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -111,6 +112,7 @@ public class InformacionEmpleados extends javax.swing.JFrame {
 
         btnCerrar.setBackground(new java.awt.Color(0, 51, 102));
         btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vista/cerrar.png"))); // NOI18N
+        btnCerrar.setBorder(null);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -427,11 +429,11 @@ public class InformacionEmpleados extends javax.swing.JFrame {
 
        
         //FlatMacDarkLaf.setup();
-        FlatLightLaf.setup();
+        FlatMacLightLaf.setup();
         UIManager.put("Button.arc", 999);
         
         try {
-        UIManager.setLookAndFeel( new FlatLightLaf());
+        UIManager.setLookAndFeel( new FlatMacLightLaf());
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }

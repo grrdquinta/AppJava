@@ -47,7 +47,6 @@ public class PaquetesPanel extends TabbedForm {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtbPaquetes = new javax.swing.JTable();
 
-        setBackground(new java.awt.Color(255, 255, 255));
         setForeground(new java.awt.Color(255, 255, 255));
 
         jtbPaquetes.setModel(new javax.swing.table.DefaultTableModel(

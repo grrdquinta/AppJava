@@ -147,7 +147,10 @@ public class mdlVehiculo {
         
         try
         {
-            String query = "select placavehiculo, modelo.modelo, marca.nommarca as Marca,modelo.año, sucursal.nombre as Sucursal , modelo.carga, estado, modelo.idmarca, modelo.idmodelo, sucursal.idSucursal, marca.id_secuencia from vehiculo\n" +
+            String query = "select placavehiculo, modelo.modelo, marca.nommarca as Marca,modelo.año, sucursal.nombre as Sucursal , CASE\n" +
+"        WHEN modelo.carga = 1 THEN 'Carga'\n" +
+"        WHEN modelo.carga = 0 THEN 'Entrega'\n" +
+"    END AS TipoVehiculo , estado, modelo.idmarca, modelo.idmodelo, sucursal.idSucursal, marca.id_secuencia from vehiculo\n" +
             "inner join Modelo on vehiculo.idmodelo = modelo.idmodelo\n" +
             "inner join Marca on modelo.idmarca = marca.idmarca\n" +
             "inner join sucursal on vehiculo.idsucursal = sucursal.idsucursal";
@@ -161,7 +164,7 @@ public class mdlVehiculo {
                     rs.getString(3), 
                     rs.getString(4), 
                     rs.getString(5), 
-                    rs.getInt(6), 
+                    rs.getString(6), 
                     rs.getInt(7),
                     rs.getInt(8),
                     rs.getInt(9),
