@@ -38,6 +38,7 @@ public class FrmSucursales extends TabbedForm {
         txtLongitud = new javax.swing.JTextField();
         cmbAlmacenamiento = new javax.swing.JComboBox<>();
         btnIngresar = new javax.swing.JButton();
+        btnver = new javax.swing.JButton();
 
         javax.swing.GroupLayout mapaSucursalesLayout = new javax.swing.GroupLayout(mapaSucursales);
         mapaSucursales.setLayout(mapaSucursalesLayout);
@@ -91,10 +92,17 @@ public class FrmSucursales extends TabbedForm {
 
         btnIngresar.setText("Ingresar");
 
+        btnver.setText("Ver sucursales");
+        btnver.setToolTipText("");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(85, Short.MAX_VALUE)
+                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -106,12 +114,11 @@ public class FrmSucursales extends TabbedForm {
                     .addComponent(txtNombreSucursal)
                     .addComponent(txtLatitud)
                     .addComponent(txtLongitud)
-                    .addComponent(cmbAlmacenamiento, 0, 190, Short.MAX_VALUE))
+                    .addComponent(cmbAlmacenamiento, 0, 190, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnver)
+                        .addGap(43, 43, 43)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(85, Short.MAX_VALUE)
-                .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(72, 72, 72))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +143,9 @@ public class FrmSucursales extends TabbedForm {
                 .addComponent(cmbAlmacenamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
                 .addComponent(btnIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(265, Short.MAX_VALUE))
+                .addGap(57, 57, 57)
+                .addComponent(btnver)
+                .addContainerGap(185, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -191,6 +200,7 @@ public class FrmSucursales extends TabbedForm {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnIngresar;
+    public javax.swing.JButton btnver;
     public javax.swing.JComboBox<String> cmbAlmacenamiento;
     public javax.swing.JComboBox<String> cmbMapa;
     private javax.swing.JLabel jLabel2;
