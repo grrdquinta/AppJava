@@ -21,44 +21,44 @@ import javax.swing.SwingConstants;
  */
 public class jpCards extends javax.swing.JPanel {
 
-    public class CardsPanel extends JPanel {
-    public CardsPanel(List<String> nombreSucursal) {
-        setLayout(new GridLayout(0, 3, 10, 10)); // 3 columnas de cards
-        
-        for (String nombre : nombreSucursal) {
-            JPanel card = crearCard(nombre);
-            add(card);
+  public class CardsPanel extends JPanel {
+        public CardsPanel(List<String> nombreSucursal) {
+            setLayout(new GridLayout(0, 3, 10, 10)); // 3 columnas de cards
+
+            for (String nombre : nombreSucursal) {
+                JPanel card = crearCard(nombre);
+                add(card);
+            }
+        }
+
+        private JPanel crearCard(String nombreSucursal) {
+            JPanel card = new JPanel();
+            card.setLayout(new BorderLayout());
+            card.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+            JLabel nombreLabel = new JLabel(nombreSucursal, SwingConstants.CENTER);
+            card.add(nombreLabel, BorderLayout.CENTER);
+            return card;
         }
     }
-
-    private JPanel crearCard(String nombreDoctor) {
-        JPanel card = new JPanel();
-        card.setLayout(new BorderLayout());
-        card.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        
-        JLabel nombreLabel = new JLabel(nombreDoctor, SwingConstants.CENTER);
-        card.add(nombreLabel, BorderLayout.CENTER);
-        
-        return card;
-    }
-
- 
-}
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     /**
      * Creates new form jpCards
      */
     public jpCards(List<String> nombre) {
         initComponents();
+
+        if (nombre == null || nombre.isEmpty()) {
+            System.out.println("Error: La lista de nombres está vacía.");
+        } else {
+            System.out.println("Se han cargado los siguientes nombres: " + nombre);
+        }
+
+        CardsPanel cardsPanel = new CardsPanel(nombre);
+        this.setLayout(new BorderLayout());  
+        this.add(cardsPanel, BorderLayout.CENTER);  
+
+        revalidate();
+        repaint();
     }
 
     /**
@@ -82,19 +82,26 @@ public class jpCards extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-   public static void main(String[] args) {
+ public static void main(String[] args) {
         Sucursal Sucursal = new Sucursal();
         List<String> nombre = Sucursal.obtenerDatos();
-        
-        JFrame frame = new JFrame("Doctores");
+
+        if (nombre == null || nombre.isEmpty()) {
+            System.out.println("No se pudieron cargar los nombres de las sucursales.");
+        } else {
+            System.out.println("Lista de nombres cargada correctamente: " + nombre);
+        }
+
+        JFrame frame = new JFrame("Sucursales");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 400);
-        
+
         jpCards jpCards = new jpCards(nombre);
-        frame.add(new JScrollPane(jpCards)); // Añadir scroll si hay muchas tarjetas
-        
+        frame.add(new JScrollPane(jpCards)); 
+
         frame.setVisible(true);
     }
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
