@@ -3,8 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/rodri/OneDrive/Escritorio/AppJava/src/Vista/jpCards.java</file>
             <file>file:/C:/Users/rodri/OneDrive/Escritorio/AppJava/src/Vista/Sucursal.java</file>
+=======
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Modelo/mdlPaquetes.java</file>
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Modelo/mdlEmpleado.java</file>
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Vista/panelActualizarPaquete.java</file>
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Controlador/ControllerInfoPaquete.java</file>
+            <file>file:/C:/Users/luise/OneDrive/Escritorio/AppJava/src/Controlador/ControllerPaquete.java</file>
+>>>>>>> 6909c05fbdeccef7196dbd19259fb7e99e850e9b
         </group>
     </open-files>
 </project-private>
