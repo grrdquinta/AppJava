@@ -88,7 +88,7 @@ public class mdlModelo {
         Connection conexion = ClaseConexion.getConexion();
         try {
             //Variable que contiene la Query a ejecutar
-            String sql = "INSERT INTO Modelo(modelo, idmarca, año, carga) VALUES (?,?,?,?)";
+            String sql = "INSERT INTO Modelo(modelo, idmarca, año, TipoVehiculo) VALUES (?,?,?,?)";
             //Creamos el PreparedStatement que ejecutará la Query
             PreparedStatement pstmt = conexion.prepareStatement(sql);
             //Establecer valores de la consulta SQL
@@ -129,7 +129,7 @@ public class mdlModelo {
 
             try {
                 //Ejecutamos la Query
-                String sql = "update Modelo set modelo= ?, IdMarca = ?, año = ?, carga = ? where IdModelo = ?";
+                String sql = "update Modelo set modelo= ?, IdMarca = ?, año = ?, tipovehiculo = ? where IdModelo = ?";
                 PreparedStatement updateUser = conexion.prepareStatement(sql);
 
                 updateUser.setString(1, getModelo());
@@ -151,11 +151,14 @@ public class mdlModelo {
         Connection conexion = ClaseConexion.getConexion();
         //Definimos el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.setColumnIdentifiers(new Object[]{"ID Modelo", "Modelo", "Marca", "Año", "Carga", "IdMarca"});
+        modelo.setColumnIdentifiers(new Object[]{"ID Modelo", "Modelo", "Marca", "Año", "Carga", "IdMarca", "ID Carga"});
         
         try
         {
-            String query = "select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, modelo.carga, marca.idmarca from Modelo\n" +
+            String query = "select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, CASE\n" +
+"        WHEN modelo.tipovehiculo = 1 THEN 'Carga'\n" +
+"        WHEN modelo.tipovehiculo = 0 THEN 'Entrega'\n" +
+"    END AS TipoVehiculo , marca.id_secuencia, modelo.tipovehiculo from Modelo\n" +
             "inner join Marca on modelo.idmarca = marca.idmarca ORDER BY modelo.id_secuencia ASC" ;
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -166,20 +169,24 @@ public class mdlModelo {
                     rs.getString(2), //Marca
                     rs.getString(3),
                     rs.getString(4),
-                    rs.getInt(5),
-                    rs.getString(6)
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getInt(7)
                     }
                 );
                 
             }
             
             tabla.setModel(modelo);
-            /*tabla.getColumnModel().getColumn(0).setMinWidth(0);
+            tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getColumnModel().getColumn(0).setMaxWidth(0);
             tabla.getColumnModel().getColumn(0).setWidth(0);
             tabla.getColumnModel().getColumn(5).setMinWidth(0);
             tabla.getColumnModel().getColumn(5).setMaxWidth(0);
-            tabla.getColumnModel().getColumn(5).setWidth(0);*/            
+            tabla.getColumnModel().getColumn(5).setWidth(0);
+            tabla.getColumnModel().getColumn(6).setMinWidth(0);
+            tabla.getColumnModel().getColumn(6).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(6).setWidth(0);            
             
             
         }
@@ -201,7 +208,7 @@ public class mdlModelo {
             String Modelo = vista.jtbModelo.getValueAt(filaSeleccionada, 1).toString();
             String Año = vista.jtbModelo.getValueAt(filaSeleccionada, 3).toString();
             //String Marca = vista.jtbModelo.getValueAt(filaSeleccionada, 2).toString();
-            int idCarga = Integer.parseInt(vista.jtbModelo.getValueAt(filaSeleccionada, 4).toString());
+            int idCarga = Integer.parseInt(vista.jtbModelo.getValueAt(filaSeleccionada, 6).toString());
             int idMarca = Integer.parseInt(vista.jtbModelo.getValueAt(filaSeleccionada, 5).toString());
             
 
@@ -210,8 +217,14 @@ public class mdlModelo {
             vista.txtAño.setText(Año);
             //vista.cbMarca.setActionCommand(Marca);
             vista.cbCarga.setSelectedIndex(idCarga);
-            vista.cbMarca.setSelectedIndex(idMarca);
-            
+            vista.cbMarca.setSelectedItem(idMarca);
+            for (int i = 0; i < vista.cbMarca.getItemCount(); i++) {
+            mdlModelo item = (mdlModelo) vista.cbMarca.getItemAt(i);
+            if (item.getIdMarca() == idMarca) {
+                vista.cbMarca.setSelectedIndex(i);
+                break;
+            }
+        }
         }
     }
     
@@ -239,7 +252,7 @@ public class mdlModelo {
         }
     }*/
     
-    public void CargarComboMarca(String tabla, String valor, JComboBox c) {
+    public void CargarComboMarca(String tabla, String valor, JComboBox<mdlModelo> c) {
     Connection conexion = ClaseConexion.getConexion();
     ArrayList<mdlModelo> listaMarcas = new ArrayList<>();
 

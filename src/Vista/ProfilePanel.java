@@ -258,10 +258,13 @@ public class ProfilePanel extends TabbedForm {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Usuario");
 
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Cambiar Contraseña");
 
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Confirmar Contraseña");
 
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Verificar Contraseña Actual");
 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -272,6 +275,7 @@ public class ProfilePanel extends TabbedForm {
         btnGuardar.setText("Guardar");
 
         btnActivar.setBackground(new java.awt.Color(0, 51, 102));
+        btnActivar.setForeground(new java.awt.Color(255, 255, 255));
         btnActivar.setText("Modificar");
         btnActivar.setBorderPainted(false);
 

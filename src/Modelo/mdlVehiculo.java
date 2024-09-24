@@ -148,8 +148,8 @@ public class mdlVehiculo {
         try
         {
             String query = "select placavehiculo, modelo.modelo, marca.nommarca as Marca,modelo.año, sucursal.nombre as Sucursal , CASE\n" +
-"        WHEN modelo.carga = 1 THEN 'Carga'\n" +
-"        WHEN modelo.carga = 0 THEN 'Entrega'\n" +
+"        WHEN modelo.tipovehiculo = 1 THEN 'Carga'\n" +
+"        WHEN modelo.tipovehiculo = 0 THEN 'Entrega'\n" +
 "    END AS TipoVehiculo , estado, modelo.idmarca, modelo.idmodelo, sucursal.idSucursal, marca.id_secuencia from vehiculo\n" +
             "inner join Modelo on vehiculo.idmodelo = modelo.idmodelo\n" +
             "inner join Marca on modelo.idmarca = marca.idmarca\n" +
@@ -188,6 +188,9 @@ public class mdlVehiculo {
             tabla.getColumnModel().getColumn(9).setMinWidth(0);
             tabla.getColumnModel().getColumn(9).setMaxWidth(0);
             tabla.getColumnModel().getColumn(9).setWidth(0);
+            tabla.getColumnModel().getColumn(10).setMinWidth(0);
+            tabla.getColumnModel().getColumn(10).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(10).setWidth(0);
             
         }
         catch(SQLException ex)
@@ -216,7 +219,7 @@ public class mdlVehiculo {
         this.IdModelo = id;
     }
     
-    public void CargarComboMarca(String tabla, String valor, JComboBox c) {
+    public void CargarComboMarca(String tabla, String valor, JComboBox<mdlVehiculo> c) {
     Connection conexion = ClaseConexion.getConexion();
     ArrayList<mdlVehiculo> listaMarcas = new ArrayList<>();
 
@@ -253,7 +256,7 @@ public class mdlVehiculo {
         return array;
     }
     
-    public void CargarComboModelo(String tabla, String valor, JComboBox c){    
+    public void CargarComboModelo(String tabla, String valor, JComboBox<mdlVehiculo> c){    
       Connection conexion = ClaseConexion.getConexion();
         ArrayList<mdlVehiculo>listaModelos = new ArrayList<>();
         
@@ -311,7 +314,7 @@ public class mdlVehiculo {
         
         try{
             Statement statement = conexion.createStatement();
-            String sql = ("select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, modelo.carga, marca.id_secuencia from Modelo inner join Marca on modelo.idmarca = marca.idmarca\n" +
+            String sql = ("select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, modelo.tipovehiculo, marca.id_secuencia from Modelo inner join Marca on modelo.idmarca = marca.idmarca\n" +
             "where idModelo = ?");
             PreparedStatement pstmt = conexion.prepareStatement(sql);
             pstmt.setInt(1, getIdModelo());
@@ -319,7 +322,7 @@ public class mdlVehiculo {
             
             if(rs.next()) {
               String año = rs.getString(4);
-              String carga = rs.getString("Carga".toString());
+              String carga = rs.getString("tipovehiculo".toString());
               vista.txtAño.setText(año);
               
               if(carga.equals("0"))
@@ -384,14 +387,29 @@ public class mdlVehiculo {
             
             String Placa = vista.jtbVehiculo.getValueAt(filaSeleccionada, 0).toString();
             int idMarca = (int) vista.jtbVehiculo.getValueAt(filaSeleccionada, 10);
+            int idModelo = (int) vista.jtbVehiculo.getValueAt(filaSeleccionada, 8);
             int idSucursal = (int) vista.jtbVehiculo.getValueAt(filaSeleccionada, 9);
         
             vista.txtPlaca.setText(Placa);
-            vista.cbMarca.setSelectedIndex(idMarca);
+            //vista.cbMarca.setSelectedIndex(idMarca);
             vista.cbSucursal.setSelectedIndex(idSucursal);
             vista.lblEstado.setVisible(true);
             vista.cbEstado.setVisible(true);
             System.out.println(filaSeleccionada);
+            for (int i = 0; i < vista.cbMarca.getItemCount(); i++) {
+                mdlVehiculo item = (mdlVehiculo) vista.cbMarca.getItemAt(i);
+                if (item.getIdMarca() == idMarca) {
+                    vista.cbMarca.setSelectedIndex(i);
+                    break;
+                }
+            }
+            for (int i = 0; i < vista.cbModelo.getItemCount(); i++) {
+                mdlVehiculo item = (mdlVehiculo) vista.cbModelo.getItemAt(i);
+                if (item.getIdModelo()== idModelo) {
+                    vista.cbModelo.setSelectedIndex(i);
+                    break;
+                }
+            }
         }
     }
     

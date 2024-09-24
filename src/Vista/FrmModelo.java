@@ -100,8 +100,6 @@ public class FrmModelo extends javax.swing.JFrame {
 
         btnActualizar.setText("Actualizar");
 
-        cbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Marca" }));
-
         jLabel2.setText("Modelo:");
 
         jLabel3.setText("Marca:");
@@ -234,7 +232,7 @@ public class FrmModelo extends javax.swing.JFrame {
     public javax.swing.JButton btnAgregar;
     public javax.swing.JButton btnCerrar;
     public javax.swing.JComboBox<String> cbCarga;
-    public javax.swing.JComboBox<String> cbMarca;
+    public javax.swing.JComboBox<mdlModelo> cbMarca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

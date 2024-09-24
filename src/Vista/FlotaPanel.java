@@ -105,8 +105,6 @@ public class FlotaPanel extends TabbedForm {
         btnAgregarModelo.setForeground(new java.awt.Color(255, 255, 255));
         btnAgregarModelo.setText("Agregar Modelo");
 
-        cbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Marca" }));
-
         cbSucursal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Sucursal" }));
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
@@ -227,8 +225,8 @@ public class FlotaPanel extends TabbedForm {
     public javax.swing.JButton btnGuardar;
     public javax.swing.JButton btnMapa;
     public javax.swing.JComboBox<String> cbEstado;
-    public javax.swing.JComboBox<String> cbMarca;
-    public javax.swing.JComboBox<String> cbModelo;
+    public javax.swing.JComboBox<mdlVehiculo> cbMarca;
+    public javax.swing.JComboBox<mdlVehiculo> cbModelo;
     public javax.swing.JComboBox<String> cbSucursal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

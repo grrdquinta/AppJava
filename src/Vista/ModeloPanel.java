@@ -24,6 +24,7 @@ public class ModeloPanel extends TabbedForm {
         ModeloPanel vista = this;
         mdlModeloPanel modeloM = new mdlModeloPanel();
         ControllerModeloPanel controlador = new ControllerModeloPanel(modeloM, vista);
+        
     }
 
     /**
@@ -76,8 +77,6 @@ public class ModeloPanel extends TabbedForm {
         btnActualizar.setBackground(new java.awt.Color(255, 204, 51));
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
-
-        cbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Marca" }));
 
         txtModelo.setBackground(new java.awt.Color(153, 153, 153));
 
@@ -132,7 +131,7 @@ public class ModeloPanel extends TabbedForm {
                         .addComponent(jScrollPane1)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 487, Short.MAX_VALUE)
+                        .addGap(0, 537, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,12 +182,12 @@ public class ModeloPanel extends TabbedForm {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+    //public JComboBox<mdlModeloPanel> cbMarca;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnActualizar;
     public javax.swing.JButton btnAgregar;
     public javax.swing.JComboBox<String> cbCarga;
-    public javax.swing.JComboBox<String> cbMarca;
+    public javax.swing.JComboBox<mdlModeloPanel> cbMarca;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

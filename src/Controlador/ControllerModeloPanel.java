@@ -41,6 +41,8 @@ public class ControllerModeloPanel implements MouseListener{
             // Obtén el elemento seleccionado y asegúrate de que no sea nulo
             mdlModeloPanel selectedItem = (mdlModeloPanel) vista.cbMarca.getSelectedItem();
            
+            System.out.println(selectedItem);
+            
             if(selectedItem.equals("Seleccionar Marca")){
                 JOptionPane.showMessageDialog(vista, "Debes seleccionar una opcion valida", "Error", JOptionPane.ERROR_MESSAGE);
             }
