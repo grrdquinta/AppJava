@@ -50,8 +50,6 @@ public class ModeloPanel extends TabbedForm {
         jLabel1 = new javax.swing.JLabel();
         cbCarga = new javax.swing.JComboBox<>();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Año:");
 

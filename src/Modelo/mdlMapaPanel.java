@@ -33,7 +33,7 @@ import org.jxmapviewer.viewer.WaypointPainter;
  * @author gerst
  */
 public class mdlMapaPanel extends WaypointPainter<MyWaypoint>{
-   
+  
     private final Set<MyWaypoint> waypoints = new HashSet<>();
     private EventWaypoint event;
     JXMapViewer mapViewer;
@@ -113,5 +113,5 @@ public class mdlMapaPanel extends WaypointPainter<MyWaypoint>{
         clearWaypoint();
         addWaypoint(new MyWaypoint("w1", event, new GeoPosition(lat, lon)));
     }    
-    
+
 }

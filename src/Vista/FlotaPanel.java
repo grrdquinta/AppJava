@@ -61,8 +61,6 @@ public class FlotaPanel extends TabbedForm {
         lblEstado = new javax.swing.JLabel();
         btnMapa = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-
         jtbVehiculo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

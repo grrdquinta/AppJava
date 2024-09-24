@@ -40,7 +40,7 @@ public class mdlLogin {
         Connection conexion = ClaseConexion.getConexion();
         try{
             
-            String query = "SELECT E.*, R.NomRol as Rol, S.nombre as Sucursal\n" +
+            String query = "SELECT E.*, R.NomRol as Rol, S.nombre as Sucursal, U.idusuario, U.usuario, U.contrasena\n" +
             "FROM USUARIO U\n" +
             "JOIN EMPLEADO E ON U.DUI = E.DUI\n" +
             "INNER JOIN ROL R ON E.IdRol = R.idRol\n" +
@@ -70,6 +70,9 @@ public class mdlLogin {
                     SessionVar.setFotoEmpleado(rs.getString(13));
                     SessionVar.setRol(rs.getString(14));
                     SessionVar.setSucursal(rs.getString(15));
+                    SessionVar.setIdUsuario(rs.getString(16));
+                    SessionVar.setUsuario(rs.getString(17));
+                    SessionVar.setPass(rs.getString(18));
                 }
             int respuesta = pstmt.executeUpdate();
             if(respuesta == 1)

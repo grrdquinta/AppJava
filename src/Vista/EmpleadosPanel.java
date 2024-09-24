@@ -45,8 +45,6 @@ public class EmpleadosPanel extends TabbedForm {
         btnEmpleado = new javax.swing.JButton();
         btnActuualizar = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
-
         jtbEmpleados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},

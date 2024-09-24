@@ -186,7 +186,7 @@ public class mdlEmpleado {
         
         try
         {
-            String query = "Select DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email,  telefono ,salario, fechana, Rol.NomRol,Sucursal.Nombre as Sucursal, masculino, estado, rol.idrol, sucursal.idsucursal \n" +
+            String query = "Select DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email,  telefono ,salario, fechana, Rol.NomRol,Sucursal.Nombre as Sucursal, genero, estado, rol.idrol, sucursal.idsucursal \n" +
             "from empleado\n" +
             "inner join Rol on Empleado.IdRol = Rol.idRol\n" +
             "inner join Sucursal on Empleado.idSucursal = sucursal.idsucursal";
@@ -300,7 +300,7 @@ public class mdlEmpleado {
             setTelefono(vista.jtbEmpleados.getValueAt(filaSeleccionada, 5).toString());
             setSalario(Double.parseDouble(vista.jtbEmpleados.getValueAt(filaSeleccionada, 6).toString()));
             setFechaNa(vista.jtbEmpleados.getValueAt(filaSeleccionada, 7).toString());
-            setMasculino((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 10));
+            setGenero((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 10));
             setEstado((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 11));
             setIdRol((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 12));
             setIdSucursal((int) vista.jtbEmpleados.getValueAt(filaSeleccionada, 13));
@@ -368,7 +368,7 @@ public class mdlEmpleado {
         vista.txtEmail.setText(getEmail());
         vista.txtTelefono.setText(getTelefono());
         vista.txtSalario.setText(getSalario().toString());
-        vista.cbSexo.setSelectedIndex((int)getMasculino());
+        vista.cbSexo.setSelectedIndex((int)getGenero());
         vista.cbSucursal.setSelectedIndex((int)getIdSucursal());
         vista.cbRol.setSelectedIndex((int)getIdRol());
         vista.cbEstado.setSelectedIndex((int)getEstado());
@@ -383,8 +383,8 @@ public class mdlEmpleado {
         Connection conexion = ClaseConexion.getConexion();
         try
         {
-            String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, masculino, Estado, Telefono)\n" +
-            "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
+            String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, genero, Estado, Telefono, FOTO_EMPLEADO)\n" +
+            "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, BFILENAME('DIR_FOTOS_USUARIOS', 'default.JPG'))";
             
             PreparedStatement pstmt = conexion.prepareStatement(sql);
             pstmt.setString(1, getDUI());
@@ -430,7 +430,7 @@ public class mdlEmpleado {
         {
             
                
-                String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, masculino, Estado, Telefono)\n" +
+                String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, genero, Estado, Telefono)\n" +
                 "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
 
                 PreparedStatement pstmt = conexion.prepareStatement(sql);
@@ -487,58 +487,102 @@ public class mdlEmpleado {
         }       
     }
     
-    public int ActualizarEmpleado(JTable tabla) {
+    public int ActualizarEmpleado() {
         //Creamos una variable igual a ejecutar el método de la clase de conexión
         Connection conexion = ClaseConexion.getConexion();
 
         //obtenemos que fila seleccionó el usuario
+
+            String DUI = getDUI();
         
-        
-            int filaSeleccionada = tabla.getSelectedRow();
-            
-            if (filaSeleccionada != -1) {
-               
-            String DUI = tabla.getValueAt(filaSeleccionada, 0).toString();
-                
             try
                {
-                String sql = "update empleado set dui= ?, nombre = ? , apellidoPaterno = ?, apellidoMaterno = ?, email = ?,\n" +
-                "salario = ?, fechaNa = ?, idRol = ?, idSucursal = ?, masculino = ?, estado = ?, telefono = ? where dui = ?";
+                String sql = "update empleado set nombre = ? , apellidoPaterno = ?, apellidoMaterno = ?, email = ?,\n" +
+                "salario = ?, fechaNa = ?, idRol = ?, idSucursal = ?, genero = ?, estado = ?, telefono = ? where dui = ?";
 
                 PreparedStatement pstmt = conexion.prepareStatement(sql);
-                pstmt.setString(1, getDUI());
-                pstmt.setString(2, getNombre());
-                pstmt.setString(3, getApellidoPa());
-                pstmt.setString(4, getApellidoMa());
-                pstmt.setString(5, getEmail());
-                pstmt.setDouble(6, getSalario());
-                pstmt.setString(7, getFechaNa().toString());
-                pstmt.setInt(8, (int)getIdRol());
-                pstmt.setInt(9, (int)getIdSucursal());
-                pstmt.setInt(10, (int)getGenero());
-                pstmt.setInt(11, (int)getEstado());
-                pstmt.setString(12, getTelefono());
-                pstmt.setString(13, DUI);
+                pstmt.setString(1, getNombre());
+                pstmt.setString(2, getApellidoPa());
+                pstmt.setString(3, getApellidoMa());
+                pstmt.setString(4, getEmail());
+                pstmt.setDouble(5, getSalario());
+                pstmt.setString(6, getFechaNa().toString());
+                pstmt.setInt(7, (int)getIdRol());
+                pstmt.setInt(8, (int)getIdSucursal());
+                pstmt.setInt(9, (int)getGenero());
+                pstmt.setInt(10, (int)getEstado());
+                pstmt.setString(11, getTelefono());
+                pstmt.setString(12, DUI);
 
                 int respuesta = pstmt.executeUpdate();
                     if(respuesta == 1)
                     {
-                        String sql3 = "insert into Repartidor(Licencia, DUI)\n" +
-                        "Values(?, ?)";
+
+                            String sql2 = "update Usuario set Usuario = ?, Contrasena = ? where dui = ?";
+                            PreparedStatement pstmt2 = conexion.prepareStatement(sql2);
+                            pstmt2.setString(1, getUsuario());
+                            pstmt2.setString(2, getContraseña());
+                            pstmt2.setString(3, DUI);
+                            respuesta = pstmt2.executeUpdate();
+                            return respuesta;
+
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+                }
+                catch (SQLException ex) 
+                {
+                    System.out.println("este es el error en el modelo:metodo guardar " + ex);
+                    return -1;
+                } 
+    }
+    
+    public int ActualizarRepartidor() {
+        //Creamos una variable igual a ejecutar el método de la clase de conexión
+        Connection conexion = ClaseConexion.getConexion();
+
+        //obtenemos que fila seleccionó el usuario
+
+            String DUI = getDUI();
+        
+            try
+               {
+                String sql = "update empleado set nombre = ? , apellidoPaterno = ?, apellidoMaterno = ?, email = ?,\n" +
+                "salario = ?, fechaNa = ?, idRol = ?, idSucursal = ?, genero = ?, estado = ?, telefono = ? where dui = ?";
+
+                PreparedStatement pstmt = conexion.prepareStatement(sql);
+                pstmt.setString(1, getNombre());
+                pstmt.setString(2, getApellidoPa());
+                pstmt.setString(3, getApellidoMa());
+                pstmt.setString(4, getEmail());
+                pstmt.setDouble(5, getSalario());
+                pstmt.setString(6, getFechaNa().toString());
+                pstmt.setInt(7, (int)getIdRol());
+                pstmt.setInt(8, (int)getIdSucursal());
+                pstmt.setInt(9, (int)getGenero());
+                pstmt.setInt(10, (int)getEstado());
+                pstmt.setString(11, getTelefono());
+                pstmt.setString(12, DUI);
+
+                int respuesta = pstmt.executeUpdate();
+                    if(respuesta == 1)
+                    {
+                        String sql3 = "update Repartidor set licencia = ? where DUI = ? ";
 
                         PreparedStatement pstmt3 = conexion.prepareStatement(sql3);
                         pstmt3.setString(1, getLicencia());
-                        pstmt3.setString(2, getDUI());
+                        pstmt3.setString(2, DUI);
 
 
                         respuesta = pstmt3.executeUpdate();
                         if(respuesta == 1){
-                            String sql2 = "insert into Usuario(DUI, Usuario, Contrasena)\n" +
-                            "Values(?,?,?)";
+                            String sql2 = "update Usuario set Usuario = ?, Contrasena = ? where dui = ?";
                             PreparedStatement pstmt2 = conexion.prepareStatement(sql2);
-                            pstmt2.setString(1, getDUI());
-                            pstmt2.setString(2, getUsuario());
-                            pstmt2.setString(3, getContraseña());
+                            pstmt2.setString(1, getUsuario());
+                            pstmt2.setString(2, getContraseña());
+                            pstmt2.setString(3, DUI);
                             respuesta = pstmt2.executeUpdate();
                             return respuesta;
                         }
@@ -558,13 +602,6 @@ public class mdlEmpleado {
                     return -1;
                 } 
             }
-            else {
-            System.out.println("no");
-            return 0;
-            }
-            
-        
-    }
     
     public boolean verificarCorreo(String email) {
         Connection conexion = ClaseConexion.getConexion();

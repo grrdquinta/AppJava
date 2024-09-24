@@ -11,6 +11,7 @@ package Modelo;
     import Vista.FlotaPanel;
 import Vista.FrmSucursales;
     import Vista.Gmap;
+import Vista.InicioPanel;
     import Vista.Login;
     import Vista.Main;
 import Vista.MarcaPanel;
@@ -130,11 +131,23 @@ import net.miginfocom.swing.MigLayout;
             {"~Empleados~"},
             {"Empleados"},
             {"~OTHER~"},
+            {"Inicio"},
             {"Perfil"},
             {"Logout"}
-        };       
+        };  
+            
+        String icons[] = {
+            "dashboard.svg",
+            "movimientos.svg",
+            "flota.svg",
+            "empleados.svg",
+            "paquetes.svg",
+            "empleados.svg",
+            "logout.svg"};    
             return new SimpleMenuOption()
                     .setMenus(menus)
+                    .setIcons(icons)
+                    .setBaseIconPath("Vista/")
                     .addMenuEvent(new MenuEvent() {
                         @Override
                         public void selected(MenuAction action, int index, int subIndex) {
@@ -163,10 +176,13 @@ import net.miginfocom.swing.MigLayout;
                                 WindowsTabbed.getInstance().addTab("Empleado", new EmpleadosPanel());
                             }
                             else if (index == 4 && subIndex == 0) {
+                                WindowsTabbed.getInstance().addTab("Inicio", new InicioPanel());
+                            }
+                            else if (index == 5 && subIndex == 0) {
                                 WindowsTabbed.getInstance().addTab("Perfil", new ProfilePanel());
                             }
 
-                            else if (index == 5 && subIndex == 0) {
+                            else if (index == 6 && subIndex == 0) {
 
                                 Main.main.dispose();  // Cierra la ventana principal
                                 Main.main = null;     // Libera la referencia a la instancia de Main

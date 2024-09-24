@@ -143,11 +143,14 @@ public class mdlVehiculo {
         //Definimos el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setColumnIdentifiers(new Object[]{"Placa", "Modelo", "Marca", "Año", "Sucursal", 
-            "Carga", "Estado", "ID Marca", "ID Modelo", "ID Sucursal"});
+            "Carga", "Estado", "ID Marca", "ID Modelo", "ID Sucursal", "ID Secuencia Marca"});
         
         try
         {
-            String query = "select placavehiculo, modelo.modelo, marca.nommarca as Marca,modelo.año, sucursal.nombre as Sucursal , modelo.carga, estado, modelo.idmarca, modelo.idmodelo, sucursal.idSucursal from vehiculo\n" +
+            String query = "select placavehiculo, modelo.modelo, marca.nommarca as Marca,modelo.año, sucursal.nombre as Sucursal , CASE\n" +
+"        WHEN modelo.carga = 1 THEN 'Carga'\n" +
+"        WHEN modelo.carga = 0 THEN 'Entrega'\n" +
+"    END AS TipoVehiculo , estado, modelo.idmarca, modelo.idmodelo, sucursal.idSucursal, marca.id_secuencia from vehiculo\n" +
             "inner join Modelo on vehiculo.idmodelo = modelo.idmodelo\n" +
             "inner join Marca on modelo.idmarca = marca.idmarca\n" +
             "inner join sucursal on vehiculo.idsucursal = sucursal.idsucursal";
@@ -161,11 +164,12 @@ public class mdlVehiculo {
                     rs.getString(3), 
                     rs.getString(4), 
                     rs.getString(5), 
-                    rs.getInt(6), 
+                    rs.getString(6), 
                     rs.getInt(7),
                     rs.getInt(8),
                     rs.getInt(9),
-                    rs.getInt(10)
+                    rs.getInt(10),
+                    rs.getInt(11)
                     }
                 );
                 
@@ -307,7 +311,7 @@ public class mdlVehiculo {
         
         try{
             Statement statement = conexion.createStatement();
-            String sql = ("select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, modelo.carga, marca.idmarca from Modelo inner join Marca on modelo.idmarca = marca.idmarca\n" +
+            String sql = ("select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, modelo.carga, marca.id_secuencia from Modelo inner join Marca on modelo.idmarca = marca.idmarca\n" +
             "where idModelo = ?");
             PreparedStatement pstmt = conexion.prepareStatement(sql);
             pstmt.setInt(1, getIdModelo());
@@ -379,7 +383,7 @@ public class mdlVehiculo {
         if (filaSeleccionada != -1) {
             
             String Placa = vista.jtbVehiculo.getValueAt(filaSeleccionada, 0).toString();
-            int idMarca = (int) vista.jtbVehiculo.getValueAt(filaSeleccionada, 7);
+            int idMarca = (int) vista.jtbVehiculo.getValueAt(filaSeleccionada, 10);
             int idSucursal = (int) vista.jtbVehiculo.getValueAt(filaSeleccionada, 9);
         
             vista.txtPlaca.setText(Placa);

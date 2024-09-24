@@ -160,7 +160,7 @@ public class mdlModeloPanel {
         
         try
         {
-            String query = "select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, modelo.carga, marca.idmarca from Modelo\n" +
+            String query = "select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, modelo.carga, marca.id_secuencia from Modelo\n" +
             "inner join Marca on modelo.idmarca = marca.idmarca ORDER BY modelo.id_secuencia ASC" ;
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -179,12 +179,12 @@ public class mdlModeloPanel {
             }
             
             tabla.setModel(modelo);
-            tabla.getColumnModel().getColumn(0).setMinWidth(0);
+            /*tabla.getColumnModel().getColumn(0).setMinWidth(0);
             tabla.getColumnModel().getColumn(0).setMaxWidth(0);
             tabla.getColumnModel().getColumn(0).setWidth(0);
             tabla.getColumnModel().getColumn(5).setMinWidth(0);
             tabla.getColumnModel().getColumn(5).setMaxWidth(0);
-            tabla.getColumnModel().getColumn(5).setWidth(0);            
+            tabla.getColumnModel().getColumn(5).setWidth(0);*/            
             
             
         }

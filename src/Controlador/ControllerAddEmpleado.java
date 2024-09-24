@@ -41,7 +41,7 @@ public class ControllerAddEmpleado implements MouseListener{
         vista.btnCerrar.addMouseListener(this);
         vista.cbRol.addMouseListener(this);
         vista.btnGuardar.addMouseListener(this);
-        
+        vista.btnActualizar.addMouseListener(this);
         
         modelo.CargarComboRol("Rol", "Nomrol", vista.cbRol);
         modelo.CargarComboSucursal("Sucursal", "Nombre", vista.cbSucursal);
@@ -77,9 +77,10 @@ public class ControllerAddEmpleado implements MouseListener{
                 if (vista.txtDUI.getText().isEmpty() ||vista.txtNombre.getText().isEmpty() || vista.txtApellidoPa.getText().isEmpty() 
                         || vista.txtApellidoMa.getText().isEmpty() || vista.jdcFecha.equals("") || vista.txtTelefono.getText().isEmpty()
                         || vista.txtEmail.getText().isEmpty() || vista.txtSalario.getText().isEmpty() || vista.txtUsuario.getText().isEmpty()
-                        || vista.txtContrasena.getText().isEmpty()) {
+                        || vista.txtContrasena.getText().isEmpty() ||
+                        vista.cbSucursal.getSelectedIndex() == 0) {
 
-                    JOptionPane.showMessageDialog(vista, "Debes llenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(vista, "Debes llenar todos los campos o seleccionar opcion valida", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
                     try {
                         //Asignar lo de la vista al modelo
@@ -147,6 +148,91 @@ public class ControllerAddEmpleado implements MouseListener{
                         }
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(vista, "No se pudo completar el registro.", "Error", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+                
+            }
+        }
+        if (e.getSource() == vista.btnActualizar) {
+            if(vista.cbRol.getSelectedIndex() != 3){
+                if (vista.txtDUI.getText().isEmpty() ||vista.txtNombre.getText().isEmpty() || vista.txtApellidoPa.getText().isEmpty() 
+                        || vista.txtApellidoMa.getText().isEmpty() || vista.jdcFecha.equals("") || vista.txtTelefono.getText().isEmpty()
+                        || vista.txtEmail.getText().isEmpty() || vista.txtSalario.getText().isEmpty() || vista.txtUsuario.getText().isEmpty()
+                        || vista.txtContrasena.getText().isEmpty() ||
+                        vista.cbSucursal.getSelectedIndex() == 0) {
+
+                    JOptionPane.showMessageDialog(vista, "Debes llenar todos los campos o seleccionar opcion valida", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    try {
+                        //Asignar lo de la vista al modelo
+                        modelo.setDUI(vista.txtDUI.getText());
+                        modelo.setNombre(vista.txtNombre.getText());
+                        modelo.setApellidoPa(vista.txtApellidoPa.getText());
+                        modelo.setApellidoMa(vista.txtApellidoMa.getText());
+                        modelo.setEmail(vista.txtEmail.getText());
+                        modelo.setSalario(Double.parseDouble(vista.txtSalario.getText()));
+                        modelo.setFechaNa(modelo.fecha.format(vista.jdcFecha.getDate()).toString());
+                        modelo.setIdRol((int)vista.cbRol.getSelectedIndex());
+                        modelo.setIdSucursal((int)vista.cbSucursal.getSelectedIndex());
+                        modelo.setGenero((int)vista.cbSexo.getSelectedIndex());
+                        modelo.setEstado((int)vista.cbEstado.getSelectedIndex());
+                        modelo.setTelefono(vista.txtTelefono.getText());
+                        modelo.setUsuario(vista.txtUsuario.getText());                        
+                        Encriptacion en = new Encriptacion();
+                        String contraEnrip = en.convertirSHA256(vista.txtContrasena.getText());
+                        modelo.setContraseña(contraEnrip);
+                        //Ejecutar el metodo 
+                        int valorRetornado = modelo.ActualizarEmpleado();
+
+                        if(valorRetornado == 1){
+                            JOptionPane.showMessageDialog(vista, "Los datos han sido actualizados exitosamente", "Proceso completado", JOptionPane.INFORMATION_MESSAGE);
+                            modelo.limpiar(vista);
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(vista, "No se pudo completar el registro.", "Error", JOptionPane.WARNING_MESSAGE);
+                        System.out.println("Este es el error: " + ex);
+                    }
+                }
+            }
+            else
+            {
+            
+                if (vista.txtDUI.getText().isEmpty() ||vista.txtLicencia.getText().isEmpty() ||vista.txtNombre.getText().isEmpty() || vista.txtApellidoPa.getText().isEmpty() 
+                        || vista.txtApellidoMa.getText().isEmpty() || vista.jdcFecha.equals("") || vista.txtTelefono.getText().isEmpty()
+                        || vista.txtEmail.getText().isEmpty() || vista.txtSalario.getText().isEmpty() || vista.txtUsuario.getText().isEmpty()
+                        || vista.txtContrasena.getText().isEmpty()) {
+
+                    JOptionPane.showMessageDialog(vista, "Debes llenar todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    try {
+                        //Asignar lo de la vista al modelo
+                        modelo.setLicencia(vista.txtLicencia.getText());
+                        modelo.setDUI(vista.txtDUI.getText());
+                        modelo.setNombre(vista.txtNombre.getText());
+                        modelo.setApellidoPa(vista.txtApellidoPa.getText());
+                        modelo.setApellidoMa(vista.txtApellidoMa.getText());
+                        modelo.setEmail(vista.txtEmail.getText());
+                        modelo.setSalario(Double.parseDouble(vista.txtSalario.getText()));
+                        modelo.setFechaNa(modelo.fecha.format(vista.jdcFecha.getDate()).toString());
+                        modelo.setIdRol((int)vista.cbRol.getSelectedIndex());
+                        modelo.setIdSucursal((int)vista.cbSucursal.getSelectedIndex());
+                        modelo.setGenero((int)vista.cbSexo.getSelectedIndex());
+                        modelo.setEstado((int)vista.cbEstado.getSelectedIndex());
+                        modelo.setTelefono(vista.txtTelefono.getText());
+                        modelo.setUsuario(vista.txtUsuario.getText());
+                        Encriptacion en = new Encriptacion();
+                        String contraEnrip = en.convertirSHA256(vista.txtContrasena.getText());
+                        modelo.setContraseña(contraEnrip);
+                        //Ejecutar el metodo 
+                        int valorRetornado = modelo.ActualizarRepartidor();
+
+                        if(valorRetornado == 1){
+                            JOptionPane.showMessageDialog(vista, "Los datos han sido actualizados exitosamente", "Proceso completado", JOptionPane.INFORMATION_MESSAGE);
+                            modelo.limpiar(vista);
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(vista, "No se pudo completar el registro.", "Error", JOptionPane.WARNING_MESSAGE);
+                        System.out.println("Este es el error: " + ex);
                     }
                 }
                 

@@ -24,8 +24,35 @@ public class SessionVar {
     private static String Telefono = "";
     private static String FotoEmpleado = "";
     private static String Rol = "";
-    private static String Sucursal = ""; 
-    
+    private static String Sucursal = "";
+    private static String IdUsuario = "";
+    private static String Usuario = "";
+    private static String Pass = "";
+
+    public static String getPass() {
+        return Pass;
+    }
+
+    public static void setPass(String Pass) {
+        SessionVar.Pass = Pass;
+    }
+
+    public static String getUsuario() {
+        return Usuario;
+    }
+
+    public static void setUsuario(String Usuario) {
+        SessionVar.Usuario = Usuario;
+    }    
+
+    public static String getIdUsuario() {
+        return IdUsuario;
+    }
+
+    public static void setIdUsuario(String IdUsuario) {
+        SessionVar.IdUsuario = IdUsuario;
+    }
+        
     public static String getTelefono() {
         return Telefono;
     }

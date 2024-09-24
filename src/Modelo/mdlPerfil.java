@@ -31,6 +31,16 @@ import raven.swing.AvatarIcon;
  */
 public class mdlPerfil {
 
+    private String Contraseña;
+    
+    public String getContraseña() {
+        return Contraseña;
+    }
+
+    public void setContraseña(String Contraseña) {
+        this.Contraseña = Contraseña;
+    }
+
     private String destinationFolder = "D:\\Aplicaciones Java\\IdeaPTC\\src\\ImagenesUsuarios\\";
     //private String destinationFolder2 = "D:\\Aplicaciones Java\\IdeaPTC\\src\\Vista\\ImagenesCliente";
     //ProfilePanel perfil = new ProfilePanel();
@@ -174,6 +184,49 @@ public class mdlPerfil {
         vista.txtFechaNa.setText(SessionVar.getFechaNa());
         vista.txtTelefono.setText(SessionVar.getTelefono());
         vista.txtRol.setText(SessionVar.getRol());
-        vista.txtSucursal.setText(SessionVar.getSucursal());
+        vista.txtUsuario.setText(SessionVar.getUsuario());
+    }
+    
+    public int ActualizarPerfil(ProfilePanel vista) {
+    
+        Connection conexion = ClaseConexion.getConexion();
+
+        //obtenemos que fila seleccionó el usuario
+
+        
+            try
+               {
+                String sql = "update usuario set usuario = ? , contrasena = ? where dui = ?";
+
+                PreparedStatement pstmt = conexion.prepareStatement(sql);
+                pstmt.setString(1, vista.txtUsuario.getText());
+                pstmt.setString(2, getContraseña());
+                pstmt.setString(3, SessionVar.getDui());
+                int respuesta = pstmt.executeUpdate();
+                if(respuesta == 1)
+                    {
+                        SessionVar.setUsuario(vista.txtUsuario.getText());
+                        vista.btnActivar.setText("Modificar");
+                        vista.txtUsuario.setEditable(false);
+                        vista.txtCambiarCont.setEditable(false);
+                        vista.txtConfirmCont.setEditable(false);
+                        vista.txtContActual.setEditable(false);
+                        vista.txtUsuario.setText(null);
+                        vista.txtCambiarCont.setText(null);
+                        vista.txtConfirmCont.setText(null);
+                        vista.txtContActual.setText(null);
+                        return respuesta;
+                    }
+                    else
+                    {
+                        return 0;
+                    }
+
+                }
+                catch (SQLException ex) 
+                {
+                    System.out.println("este es el error en el modelo:metodo actualizar " + ex);
+                    return -1;
+                }
     }
 }
