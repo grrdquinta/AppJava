@@ -35,7 +35,7 @@ public class ControllerVehiculo implements MouseListener{
         vista.jtbVehiculo.addMouseListener(this);
         vista.btnActualizar.addMouseListener(this);
     
-        modelo.Mostrar(vista.jtbVehiculo);
+        //modelo.Mostrar(vista.jtbVehiculo);
         modelo.CargarComboMarca("Marca", "NomMarca", vista.cbMarca);
         modelo.CargarComboSucursal("Sucursal", "Nombre", vista.cbSucursal);
         
@@ -78,6 +78,22 @@ public class ControllerVehiculo implements MouseListener{
         }
         });
         
+        vista.cbSucursal.addActionListener(e -> {
+        // Verifica que la fuente del evento sea el JComboBox
+        if (e.getSource() == vista.cbSucursal) {
+            // Obtén el elemento seleccionado y asegúrate de que no sea nulo
+          
+            mdlVehiculo selectedItem = (mdlVehiculo) vista.cbSucursal.getSelectedItem();
+            if (selectedItem != null) { 
+                int id = selectedItem.getIdSucursal();
+                modelo.setIdSucursal(id);
+                System.out.println(id);
+                //modelo.CargarComboSucursal(vista);
+            }
+             
+        }
+        });
+        
     }
     
     @Override
@@ -100,7 +116,7 @@ public class ControllerVehiculo implements MouseListener{
         new map().setVisible(true);
         }
         if (e.getSource() == vista.btnGuardar) {
-            if (vista.txtPlaca.getText().isEmpty() || vista.txtAño.getText().isEmpty() || vista.txtCarga.getText().isEmpty() || vista.cbSucursal.getSelectedIndex() == 0) {
+            if (vista.txtPlaca.getText().isEmpty() || vista.txtAño.getText().isEmpty() || vista.txtCarga.getText().isEmpty() || vista.cbSucursal.getSelectedItem().equals("Seleccionar Sucursal")) {
 
                 JOptionPane.showMessageDialog(vista, "Debes llenar todos los campos o seleccionar una opcion valida", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
@@ -108,12 +124,13 @@ public class ControllerVehiculo implements MouseListener{
                     //Asignar lo de la vista al modelo
                     modelo.setPlaca(vista.txtPlaca.getText());
                     modelo.getIdModelo();
-                    modelo.setIdSucursal(vista.cbSucursal.getSelectedIndex());
+                    //modelo.setIdSucursal(vista.cbSucursal.getSelectedItem());
+                    modelo.getIdSucursal();
                     
                     //Ejecutar el metodo 
                     modelo.GuardarVehiculo();
                     modelo.Mostrar(vista.jtbVehiculo);
-                    //modelo.limpiar(vista);
+                    modelo.Limpiar(vista);
                                         
                      JOptionPane.showMessageDialog(vista, "Los datos han sido registrados exitosamente", "Proceso completado", JOptionPane.INFORMATION_MESSAGE);
                    
@@ -124,7 +141,7 @@ public class ControllerVehiculo implements MouseListener{
         }
          if (e.getSource() == vista.btnActualizar) {
             if (vista.txtPlaca.getText().isEmpty() || vista.txtAño.getText().isEmpty()|| vista.txtCarga.getText().isEmpty() 
-                    || vista.cbSucursal.getSelectedIndex() == 0 || vista.cbMarca.getSelectedIndex() == 0 || vista.cbModelo.getSelectedIndex() == 0) {
+                    || vista.cbSucursal.getSelectedItem().equals("Seleccionar Sucursal") || vista.cbMarca.getSelectedItem().equals("Seleccionar Marca") || vista.cbModelo.getSelectedItem().equals("Seleccionar Modelo")) {
                 JOptionPane.showMessageDialog(vista, "Debes seleccionar un registro para actualizar", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 try {

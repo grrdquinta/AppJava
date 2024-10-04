@@ -163,7 +163,7 @@ public class mdlModeloPanel {
             String query = "select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, CASE\n" +
 "        WHEN modelo.tipovehiculo = 1 THEN 'Carga'\n" +
 "        WHEN modelo.tipovehiculo = 0 THEN 'Entrega'\n" +
-"    END AS TipoVehiculo , marca.id_secuencia, modelo.tipovehiculo from Modelo\n" +
+"    END AS TipoVehiculo , marca.idmarca, modelo.tipovehiculo from Modelo\n" +
             "inner join Marca on modelo.idmarca = marca.idmarca ORDER BY modelo.id_secuencia ASC" ;
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(query);
@@ -268,6 +268,13 @@ public void CargarComboMarca(String tabla, String valor, JComboBox<mdlModeloPane
         } 
         
         return array;
+    }
+    
+    public void Limpiar(ModeloPanel vista) {
+        vista.txtModelo.setText("");
+        vista.cbMarca.setSelectedIndex(0);
+        vista.cbCarga.setSelectedIndex(0);
+        vista.txtAño.setText("");
     }
     
 }

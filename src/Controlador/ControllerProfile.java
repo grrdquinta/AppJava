@@ -45,13 +45,15 @@ public class ControllerProfile implements MouseListener{
         vista.txtConfirmCont.setEditable(false);
         vista.txtContActual.setEditable(false);
         vista.btnGuardar.addMouseListener(this);
-        vista.btnSeleccionar.addActionListener(new ActionListener() {
+        modelo.cargarImagenDesdeBD(vista);
+        vista.btnSeleccionar.addMouseListener(this);
+        /*vista.btnSeleccionar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 modelo.seleccionarImagenYGuardar(vista);
                 JOptionPane.showMessageDialog(vista, "Los cambios se veran reflejados la proxima vez que inicies sesion", "Proceso completado", JOptionPane.INFORMATION_MESSAGE);
             }
-        });
+        });*/
         vista.btnActivar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,6 +119,17 @@ public class ControllerProfile implements MouseListener{
             else
             {
             JOptionPane.showMessageDialog(vista, "Por favor habilite la opcion de modificar", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if(e.getSource() == vista.btnSeleccionar)
+        {
+            try
+            {
+                modelo.seleccionarImagenYGuardar(vista);
+            }
+            catch(Exception ex)
+            {
+                System.out.println("error al intentar subir imagen " + ex);
             }
         }
     }

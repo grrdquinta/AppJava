@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import Modelo.SessionVar;
 import Modelo.mdlEmpleado;
 import Vista.EmpleadosPanel;
 import Vista.InformacionEmpleados;
@@ -32,10 +33,17 @@ public class ControllerEmpleados implements MouseListener{
         
         vista.btnEmpleado.addMouseListener(this);
         vista.btnActuualizar.addMouseListener(this);
-        vista.jtbEmpleados.addMouseListener(this);
+        //vista.jtbEmpleados.addMouseListener(this);
         
         vista.btnActuualizar.setEnabled(false);
-        modelo.Mostrar(vista.jtbEmpleados);
+        
+        if(SessionVar.getIdRol() == 1){
+            modelo.MostrarAdmin(vista.jtbEmpleados);
+        }
+        else
+        {
+            modelo.Mostrar(vista.jtbEmpleados);
+        }
         
     } 
     

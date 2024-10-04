@@ -8,12 +8,15 @@ import Vista.jpCards;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.event.MouseInputListener;
 import org.jxmapviewer.OSMTileFactoryInfo;
@@ -52,6 +55,18 @@ public class ControllerSucursales implements MouseListener {
         vista.mapaSucursales.addMouseListener(this);
         vista.btnIngresar.addMouseListener(this);
         vista.btnver.addMouseListener(this);
+        
+        vista.txtNombreSucursal.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            // Solo permitir letras
+            if (Character.isDigit(c)) {
+                e.consume(); // Evitar que el evento se procese
+            }
+        }
+        });
+        
         this.vista.cmbMapa.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -102,23 +117,29 @@ public class ControllerSucursales implements MouseListener {
         
         
         if (e.getSource() == vista.btnIngresar) {
-      
-            try {
-                int tipoSucursal = vista.cmbAlmacenamiento.getSelectedIndex() == 0 ? 1 : 0;
-                double longitud = Double.parseDouble(vista.txtLongitud.getText());
-                double latitud = Double.parseDouble(vista.txtLatitud.getText());
-                String nombre = vista.txtNombreSucursal.getText();
+            if(vista.txtNombreSucursal.getText().isEmpty() || vista.txtLatitud.getText().isEmpty() || 
+                    vista.txtLongitud.getText().isEmpty())
+            {
+                JOptionPane.showMessageDialog(vista, "Verificar si no hay campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            else{
+                try {
+                    int tipoSucursal = vista.cmbAlmacenamiento.getSelectedIndex() == 0 ? 1 : 0;
+                    double longitud = Double.parseDouble(vista.txtLongitud.getText());
+                    double latitud = Double.parseDouble(vista.txtLatitud.getText());
+                    String nombre = vista.txtNombreSucursal.getText();
 
 
-                modelo.setNombre(nombre);
-                modelo.setLongitud(longitud);
-                modelo.setLatitud(latitud);
-                modelo.setAlmacenamiento(tipoSucursal);
-                modelo.GuardarSucursal();
-                
-                modelo.limpiarCampos(); 
-            } catch (Exception ex) {
-                System.out.println(ex);
+                    modelo.setNombre(nombre);
+                    modelo.setLongitud(longitud);
+                    modelo.setLatitud(latitud);
+                    modelo.setAlmacenamiento(tipoSucursal);
+                    modelo.GuardarSucursal();
+
+                    modelo.limpiarCampos(); 
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
             }
         }
         if (e.getSource() == vista.btnver) {

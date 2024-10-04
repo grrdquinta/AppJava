@@ -112,9 +112,13 @@ public class mdlVehiculo {
             return Modelo; // Solo el modelo si no hay marca
         } else if (NomMarca != null && !NomMarca.isEmpty()) {
             return NomMarca; // Solo la marca si no hay modelo
-        } else {
+        } else if (NomMarca != null && !NomMarca.isEmpty()) {
+            return NomMarca;  // Esto mostrará el nombre de la sucursal o marca en el JComboBox
+        }
+        else {
             return "Sin información"; // Caso de excepción si ninguno está disponible
         }
+        
     }
     
     public void GuardarVehiculo() {
@@ -153,7 +157,7 @@ public class mdlVehiculo {
 "    END AS TipoVehiculo , estado, modelo.idmarca, modelo.idmodelo, sucursal.idSucursal, marca.id_secuencia from vehiculo\n" +
             "inner join Modelo on vehiculo.idmodelo = modelo.idmodelo\n" +
             "inner join Marca on modelo.idmarca = marca.idmarca\n" +
-            "inner join sucursal on vehiculo.idsucursal = sucursal.idsucursal";
+            "inner join sucursal on vehiculo.idsucursal = sucursal.idsucursal ORDER BY modelo.año DESC";
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
@@ -217,6 +221,13 @@ public class mdlVehiculo {
     {
         this.Modelo = modelo;
         this.IdModelo = id;
+    }
+    
+   public mdlVehiculo(int id, String nombre, boolean esSucursal) {
+        if (esSucursal) {
+            this.IdSucursal = id;
+            this.NomMarca = nombre; // Usamos el mismo campo para nombre de la sucursal
+        } 
     }
     
     public void CargarComboMarca(String tabla, String valor, JComboBox<mdlVehiculo> c) {
@@ -288,26 +299,34 @@ public class mdlVehiculo {
         }
     }
     
-    public void CargarComboSucursal(String tabla, String valor, JComboBox c){    
-        Connection conexion = ClaseConexion.getConexion();
-        //DefaultComboBoxModel combo = new DefaultComboBoxModel();
-        try{
-            Statement statement = conexion.createStatement();
-            ResultSet rs = statement.executeQuery("Select * from " + tabla);
-            
-            while (rs.next()) {
-                c.addItem(rs.getString(valor));                
-            }                       
-                    
-                            //c.setModel(combo);
+    public void CargarComboSucursal(String tabla, String valor, JComboBox<mdlVehiculo> c){    
+    Connection conexion = ClaseConexion.getConexion();
+    ArrayList<mdlVehiculo> listaSucursales = new ArrayList<>();
 
-        }
-        catch(SQLException ex)
-        {
-            ex.printStackTrace();
+    try {
+        Statement statement = conexion.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + tabla);
+
+        // Agregamos una opción por defecto
+        listaSucursales.add(new mdlVehiculo(0, "Seleccionar Sucursal", true)); // 'true' indica que es una sucursal
+
+        // Recorremos los resultados y creamos objetos mdlVehiculo para cada sucursal
+        while (rs.next()) {
+            int idSucursal = rs.getInt(1); // Suponiendo que el ID de la sucursal está en la primera columna
+            String nombreSucursal = rs.getString(2); // Suponiendo que el nombre de la sucursal está en la columna especificada por "valor"
             
+            // Añadimos cada sucursal como un objeto mdlVehiculo
+            listaSucursales.add(new mdlVehiculo(idSucursal, nombreSucursal, true)); // 'true' indica que es una sucursal
         }
+
+        // Cargamos los datos en el combo box
+        DefaultComboBoxModel<mdlVehiculo> combo = new DefaultComboBoxModel<>(listaSucursales.toArray(new mdlVehiculo[0]));
+        c.setModel(combo);
+
+    } catch (SQLException ex) {
+        ex.printStackTrace();
     }
+}
     
     public void CargarInfoCombo(FlotaPanel vista){    
       Connection conexion = ClaseConexion.getConexion();
@@ -392,7 +411,7 @@ public class mdlVehiculo {
         
             vista.txtPlaca.setText(Placa);
             //vista.cbMarca.setSelectedIndex(idMarca);
-            vista.cbSucursal.setSelectedIndex(idSucursal);
+            //vista.cbSucursal.setSelectedIndex(idSucursal);
             vista.lblEstado.setVisible(true);
             vista.cbEstado.setVisible(true);
             System.out.println(filaSeleccionada);
@@ -407,6 +426,13 @@ public class mdlVehiculo {
                 mdlVehiculo item = (mdlVehiculo) vista.cbModelo.getItemAt(i);
                 if (item.getIdModelo()== idModelo) {
                     vista.cbModelo.setSelectedIndex(i);
+                    break;
+                }
+            }
+            for (int i = 0; i < vista.cbSucursal.getItemCount(); i++) {
+                mdlVehiculo item = (mdlVehiculo) vista.cbSucursal.getItemAt(i);
+                if (item.getIdSucursal()== idSucursal) {
+                    vista.cbSucursal.setSelectedIndex(i);
                     break;
                 }
             }

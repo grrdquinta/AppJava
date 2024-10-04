@@ -10,6 +10,8 @@ import Vista.EmpleadosPanel;
 import Vista.InformacionEmpleados;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
@@ -38,6 +40,7 @@ public class ControllerAddEmpleado implements MouseListener{
         vista.cbEstado.setVisible(false);
         vista.lbEstado.setVisible(false);
         
+        
         vista.btnCerrar.addMouseListener(this);
         vista.cbRol.addMouseListener(this);
         vista.btnGuardar.addMouseListener(this);
@@ -47,7 +50,38 @@ public class ControllerAddEmpleado implements MouseListener{
         modelo.CargarComboSucursal("Sucursal", "Nombre", vista.cbSucursal);
         
         
+        vista.txtNombre.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            // Solo permitir letras
+            if (Character.isDigit(c)) {
+                e.consume(); // Evitar que el evento se procese
+            }
+        }
+        });
         
+        vista.txtApellidoPa.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            // Solo permitir letras
+            if (Character.isDigit(c)) {
+                e.consume(); // Evitar que el evento se procese
+            }
+        }
+        });
+        
+        vista.txtApellidoMa.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            // Solo permitir letras
+            if (Character.isDigit(c)) {
+                e.consume(); // Evitar que el evento se procese
+            }
+        }
+        });
         
         vista.cbRol.addActionListener(new ActionListener() {
             @Override
@@ -66,11 +100,10 @@ public class ControllerAddEmpleado implements MouseListener{
     
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.getSource() == vista.btnCerrar)
-        {
+        if (e.getSource() == vista.btnCerrar) {
             vista.dispose();
-            //modelo.Mostrar(tabla);
-        }
+            
+        } 
         
         if (e.getSource() == vista.btnGuardar) {
             if(vista.cbRol.getSelectedIndex() != 3){

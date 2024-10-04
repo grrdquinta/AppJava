@@ -8,6 +8,8 @@ import Modelo.mdlMarca;
 import Modelo.mdlMarcaPanel;
 import Vista.FrmMarca;
 import Vista.MarcaPanel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
@@ -30,7 +32,19 @@ public class ControllerMarcaPanel implements MouseListener {
         vista.btnActualizar.addMouseListener(this);
         //vista.btnCerrar.addMouseListener(this);
         vista.jtbMarca.addMouseListener(this);
-        modelo.MostrarMarca(vista.jtbMarca);
+        //modelo.MostrarMarca(vista.jtbMarca);
+        
+        vista.txtMarca.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            char c = e.getKeyChar();
+            // Solo permitir letras
+            if (Character.isDigit(c)) {
+                e.consume(); // Evitar que el evento se procese
+            }
+        }
+        });
+        
     }
 
     @Override

@@ -238,12 +238,76 @@ public class mdlEmpleado {
         
     }
     
+    public void MostrarAdmin(JTable tabla){
+        Connection conexion = ClaseConexion.getConexion();
+        //Definimos el modelo de la tabla
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.setColumnIdentifiers(new Object[]{"DUI", "Nombre", "Apellido Paterno", "Apellido Materno", "Email", "Telefono", 
+            "Salario", "Fecha Na", "Rol", "Sucursal", "Masculino", "Estado", "ID Rol", "ID Sucursal"});
+        
+        try
+        {
+            String query = "Select DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email,  telefono ,salario, fechana, Rol.NomRol,Sucursal.Nombre as Sucursal, genero, estado, rol.idrol, sucursal.idsucursal \n" +
+            "from empleado\n" +
+            "inner join Rol on Empleado.IdRol = Rol.idRol\n" +
+            "inner join Sucursal on Empleado.idSucursal = sucursal.idsucursal where empleado.idsucursal = ?";
+            PreparedStatement pstmt = conexion.prepareStatement(query);
+            pstmt.setInt(1, SessionVar.getIdSucursal());
+            //ResultSet rs = pstmt.executeQuery();
+            //Statement statement = conexion.createStatement();
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                //Llenamos el modelo por cada vez que recorremos el resultSet
+                modelo.addRow(new Object[]{
+                    rs.getString(1), //DUI
+                    rs.getString(2), //Nombre
+                    rs.getString(3), //ApellidoPaterno
+                    rs.getString(4), //ApellidoMaterno
+                    rs.getString(5), //Emil
+                    rs.getString(6), //Telefono
+                    rs.getDouble(7), //Salario
+                    rs.getDate(8),   //FechaNa
+                    rs.getString(9), //Rol
+                    rs.getString(10), //Sucursal
+                    rs.getInt(11),   //Genero
+                    rs.getInt(12),   //Estado
+                    rs.getInt(13),   //Estado
+                    rs.getInt(14)    //Estado
+                
+                }   
+                );
+                
+            }
+            //tabla.getColumnModel().getColumn(10).setCellRenderer(new TableActionCellRender());
+            tabla.setModel(modelo);
+            tabla.getColumnModel().getColumn(10).setMinWidth(0);
+            tabla.getColumnModel().getColumn(10).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(10).setWidth(0);
+            tabla.getColumnModel().getColumn(11).setMinWidth(0);
+            tabla.getColumnModel().getColumn(11).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(11).setWidth(0);
+            tabla.getColumnModel().getColumn(12).setMinWidth(0);
+            tabla.getColumnModel().getColumn(12).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(12).setWidth(0);
+            tabla.getColumnModel().getColumn(13).setMinWidth(0);
+            tabla.getColumnModel().getColumn(13).setMaxWidth(0);
+            tabla.getColumnModel().getColumn(13).setWidth(0);
+            
+        }
+        catch(SQLException ex)
+        {
+            ex.printStackTrace();
+            
+        }
+        
+    }
+    
     public void CargarComboRol(String tabla, String valor, JComboBox c){    
         Connection conexion = ClaseConexion.getConexion();
         //DefaultComboBoxModel combo = new DefaultComboBoxModel();
         try{
             Statement statement = conexion.createStatement();
-            ResultSet rs = statement.executeQuery("Select * from Rol");
+            ResultSet rs = statement.executeQuery("Select * from Rol where idRol < 4");
             
             while (rs.next()) {
                 c.addItem(rs.getString(valor));                
@@ -384,7 +448,7 @@ public class mdlEmpleado {
         try
         {
             String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, genero, Estado, Telefono, FOTO_EMPLEADO)\n" +
-            "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, BFILENAME('DIR_FOTOS_USUARIOS', 'default.JPG'))";
+            "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, 'https://i.ibb.co/VLXR1d6/a92920c14ac6.png')";
             
             PreparedStatement pstmt = conexion.prepareStatement(sql);
             pstmt.setString(1, getDUI());

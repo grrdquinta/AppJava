@@ -55,7 +55,7 @@ public class FrmSucursales extends TabbedForm {
 
         lblUbicacion.setBackground(new java.awt.Color(255, 255, 255));
         lblUbicacion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblUbicacion.setForeground(new java.awt.Color(255, 255, 255));
+        lblUbicacion.setForeground(new java.awt.Color(0, 51, 153));
         lblUbicacion.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
         jPanel2.setBackground(new java.awt.Color(15, 45, 87));

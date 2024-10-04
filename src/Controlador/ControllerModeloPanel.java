@@ -8,6 +8,8 @@ import Modelo.mdlModelo;
 import Modelo.mdlModeloPanel;
 import Vista.FrmModelo;
 import Vista.ModeloPanel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JOptionPane;
@@ -32,8 +34,19 @@ public class ControllerModeloPanel implements MouseListener{
         vista.jtbModelo.addMouseListener(this);
         vista.cbMarca.addMouseListener(this);
         
-        modelo.MostrarModelo(vista.jtbModelo);
+        //modelo.MostrarModelo(vista.jtbModelo);
         modelo.CargarComboMarca("Marca", "NomMarca", vista.cbMarca);
+        
+        vista.txtAño.addKeyListener(new KeyAdapter() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+        char c = e.getKeyChar();
+        // Solo permitir números
+        if (!Character.isDigit(c)) {
+            e.consume(); // Evitar que el evento se procese
+        }
+    }
+        });
         
         vista.cbMarca.addActionListener(e -> {
         // Verifica que la fuente del evento sea el JComboBox

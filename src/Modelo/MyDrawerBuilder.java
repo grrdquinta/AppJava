@@ -25,6 +25,10 @@ import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
     import javax.swing.JFrame;
@@ -96,8 +100,32 @@ import net.miginfocom.swing.MigLayout;
         
         @Override
         public SimpleHeaderData getSimpleHeaderData() {
+            String fotoUrl = SessionVar.getFotoEmpleado();
+        // Cargar la imagen desde la URL
+          try {
+                 // Esto contiene la URL completa de la imagen
+
+                // Cargar la imagen desde la URL
+                var url = new URL(fotoUrl);  // Usar 'var' para la inferencia de tipos
+                //var image = ImageIO.read(url); // Cargar la imagen desde la URL
+
+                // Crear el icono de avatar con la imagen descargada
+                var avatarIcon = new AvatarIcon(url, 60, 60, 999);  // Usar URL directamente
+
+                return new SimpleHeaderData()
+                    .setIcon(avatarIcon)
+                    .setTitle(SessionVar.getNombre())
+                    .setDescription(SessionVar.getRol())
+                    .setDescription("Sucursal: " + SessionVar.getSucursal());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                System.err.println("La URL es inválida: " + fotoUrl);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.err.println("Error al cargar la imagen desde la URL: " + fotoUrl);
+            }
             return new SimpleHeaderData()                
-                    .setIcon(new AvatarIcon(getClass().getResource("/ImagenesUsuarios/" + SessionVar.getDui() + ".jpg") ,60,60,999))
+                    .setIcon(new AvatarIcon(getClass().getResource(SessionVar.getFotoEmpleado()) ,60,60,999))
                     .setTitle(SessionVar.getNombre())
                     .setDescription(SessionVar.getRol())
                     .setDescription("Sucursal: " + SessionVar.getSucursal());
@@ -121,6 +149,8 @@ import net.miginfocom.swing.MigLayout;
 
         @Override
         public SimpleMenuOption getSimpleMenuOption() {
+            if(SessionVar.getIdRol() == 1 || SessionVar.getIdRol() == 4){
+            
             String menus[][] = {
             {"~INICIO~"},
             {"Dashboard"},
@@ -205,7 +235,94 @@ import net.miginfocom.swing.MigLayout;
                             return true;
                         }
 
+                    });}
+            else if(SessionVar.getIdRol() == 2){
+                String menus[][] = {
+            {"~INICIO~"},
+            {"~MOVIMIENTOS~"},
+            {"Movimiento","Paquetes"},
+            {"~OTHER~"},
+            {"Inicio"},
+            {"Perfil"},
+            {"Logout"}
+        };  
+            
+        String icons[] = {
+            "movimientos.svg",
+            "paquetes.svg",
+            "empleados.svg",
+            "logout.svg"};    
+            return new SimpleMenuOption()
+                    .setMenus(menus)
+                    .setIcons(icons)
+                    .setBaseIconPath("Vista/")
+                    .addMenuEvent(new MenuEvent() {
+                        @Override
+                        public void selected(MenuAction action, int index, int subIndex) {
+                            if (index == 0 && subIndex == 1 ) {
+                                WindowsTabbed.getInstance().addTab("Paquetes", new PaquetesPanel());
+                            }
+                            else if (index == 1 && subIndex == 0) {
+                                WindowsTabbed.getInstance().addTab("Inicio", new InicioPanel());
+                            }
+                            else if (index == 2 && subIndex == 0) {
+                                WindowsTabbed.getInstance().addTab("Perfil", new ProfilePanel());
+                            }
+                            else if (index == 4 && subIndex == 0) {
+                                WindowsTabbed.getInstance().addTab("Vehiculos", new FlotaPanel());
+                            }
+                            else if (index == 2 && subIndex == 2) {
+                                WindowsTabbed.getInstance().addTab("Marcas", new MarcaPanel());
+                            }
+                            else if (index == 2 && subIndex == 3) {
+                                WindowsTabbed.getInstance().addTab("Modelos", new ModeloPanel());
+                            }
+                            else if (index == 2 && subIndex == 4) {
+                                WindowsTabbed.getInstance().addTab("Mapa", new mapPanel());
+                            }
+                            else if (index == 3 && subIndex == 0) {
+                                //WindowsTabbed.getInstance().addTab("Empleado", new EmpleadosPanel());
+                                Main.main.dispose();  // Cierra la ventana principal
+                                Main.main = null;     // Libera la referencia a la instancia de Main
+
+                                // Crear e iniciar el login nuevamente
+                                Login login = new Login();
+                                login.setVisible(true);
+                            }
+                            else if (index == 4 && subIndex == 0) {
+                                
+                            }
+                            else if (index == 5 && subIndex == 0) {
+                                
+                            }
+
+                            else if (index == 3 ) {
+
+                                Main.main.dispose();  // Cierra la ventana principal
+                                Main.main = null;     // Libera la referencia a la instancia de Main
+
+                                // Crear e iniciar el login nuevamente
+                                Login login = new Login();
+                                login.setVisible(true);
+                            }
+                            System.out.println("Menu selected " + index + " " + subIndex);
+                        }
+                    })
+                    .setMenuValidation(new MenuValidation() {
+                        @Override
+                        public boolean menuValidation(int index, int subIndex) {
+    //                        if(index==0){
+    //                            return false;
+    //                        }else if(index==3){
+    //                            return false;
+    //                        }
+                            return true;
+                        }
+
                     });
+            }
+            
+          return getSimpleMenuOption();
         }
 
         @Override
