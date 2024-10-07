@@ -206,7 +206,7 @@ public class InformacionEmpleados extends javax.swing.JFrame {
 
         btnActualizar.setText("Actualizar");
 
-        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Desactivo" }));
+        cbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Desactivo", "Activo" }));
 
         lbEstado.setForeground(new java.awt.Color(0, 0, 0));
         lbEstado.setText("Estado");

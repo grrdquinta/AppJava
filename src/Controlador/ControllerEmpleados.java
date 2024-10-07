@@ -33,17 +33,17 @@ public class ControllerEmpleados implements MouseListener{
         
         vista.btnEmpleado.addMouseListener(this);
         vista.btnActuualizar.addMouseListener(this);
-        //vista.jtbEmpleados.addMouseListener(this);
+        vista.jtbEmpleados.addMouseListener(this);
         
         vista.btnActuualizar.setEnabled(false);
         
-        if(SessionVar.getIdRol() == 1){
+        /*if(SessionVar.getIdRol() == 1){
             modelo.MostrarAdmin(vista.jtbEmpleados);
         }
         else
         {
             modelo.Mostrar(vista.jtbEmpleados);
-        }
+        }*/
         
     } 
     

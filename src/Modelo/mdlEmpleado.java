@@ -182,11 +182,11 @@ public class mdlEmpleado {
         //Definimos el modelo de la tabla
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setColumnIdentifiers(new Object[]{"DUI", "Nombre", "Apellido Paterno", "Apellido Materno", "Email", "Telefono", 
-            "Salario", "Fecha Na", "Rol", "Sucursal", "Masculino", "Estado", "ID Rol", "ID Sucursal"});
+            "Salario", "Fecha Na", "Rol", "Sucursal", "Sexo", "Estado", "ID Rol", "ID Sucursal"});
         
         try
         {
-            String query = "Select DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email,  telefono ,salario, fechana, Rol.NomRol,Sucursal.Nombre as Sucursal, genero, estado, rol.idrol, sucursal.idsucursal \n" +
+            String query = "Select DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email,  telefono ,salario, fechana, Rol.NomRol,Sucursal.Nombre as Sucursal, sexo, estado, rol.idrol, sucursal.idsucursal \n" +
             "from empleado\n" +
             "inner join Rol on Empleado.IdRol = Rol.idRol\n" +
             "inner join Sucursal on Empleado.idSucursal = sucursal.idsucursal";
@@ -247,7 +247,7 @@ public class mdlEmpleado {
         
         try
         {
-            String query = "Select DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email,  telefono ,salario, fechana, Rol.NomRol,Sucursal.Nombre as Sucursal, genero, estado, rol.idrol, sucursal.idsucursal \n" +
+            String query = "Select DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email,  telefono ,salario, fechana, Rol.NomRol,Sucursal.Nombre as Sucursal, sexo, estado, rol.idrol, sucursal.idsucursal \n" +
             "from empleado\n" +
             "inner join Rol on Empleado.IdRol = Rol.idRol\n" +
             "inner join Sucursal on Empleado.idSucursal = sucursal.idsucursal where empleado.idsucursal = ?";
@@ -307,7 +307,7 @@ public class mdlEmpleado {
         //DefaultComboBoxModel combo = new DefaultComboBoxModel();
         try{
             Statement statement = conexion.createStatement();
-            ResultSet rs = statement.executeQuery("Select * from Rol where idRol < 4");
+            ResultSet rs = statement.executeQuery("Select * from Rol where idRol > 1");
             
             while (rs.next()) {
                 c.addItem(rs.getString(valor));                
@@ -447,8 +447,8 @@ public class mdlEmpleado {
         Connection conexion = ClaseConexion.getConexion();
         try
         {
-            String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, genero, Estado, Telefono, FOTO_EMPLEADO)\n" +
-            "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, 'https://i.ibb.co/VLXR1d6/a92920c14ac6.png')";
+            String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, sexo, Estado, Telefono, FOTO_EMPLEADO)\n" +
+            "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, ?, 'https://i.ibb.co/VLXR1d6/a92920c14ac6.png')";
             
             PreparedStatement pstmt = conexion.prepareStatement(sql);
             pstmt.setString(1, getDUI());
@@ -494,8 +494,8 @@ public class mdlEmpleado {
         {
             
                
-                String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, genero, Estado, Telefono)\n" +
-                "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
+                String sql = "insert into Empleado (DUI,Nombre, apellidopaterno, apellidomaterno, email, salario, fechana, idrol, idsucursal, sexo, Estado, Telefono, FOTO_EMPLEADO)\n" +
+                "Values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?, 'https://i.ibb.co/VLXR1d6/a92920c14ac6.png')";
 
                 PreparedStatement pstmt = conexion.prepareStatement(sql);
                 pstmt.setString(1, getDUI());
@@ -562,7 +562,7 @@ public class mdlEmpleado {
             try
                {
                 String sql = "update empleado set nombre = ? , apellidoPaterno = ?, apellidoMaterno = ?, email = ?,\n" +
-                "salario = ?, fechaNa = ?, idRol = ?, idSucursal = ?, genero = ?, estado = ?, telefono = ? where dui = ?";
+                "salario = ?, fechaNa = ?, idRol = ?, idSucursal = ?, sexo = ?, estado = ?, telefono = ? where dui = ?";
 
                 PreparedStatement pstmt = conexion.prepareStatement(sql);
                 pstmt.setString(1, getNombre());
@@ -614,7 +614,7 @@ public class mdlEmpleado {
             try
                {
                 String sql = "update empleado set nombre = ? , apellidoPaterno = ?, apellidoMaterno = ?, email = ?,\n" +
-                "salario = ?, fechaNa = ?, idRol = ?, idSucursal = ?, genero = ?, estado = ?, telefono = ? where dui = ?";
+                "salario = ?, fechaNa = ?, idRol = ?, idSucursal = ?, sexo = ?, estado = ?, telefono = ? where dui = ?";
 
                 PreparedStatement pstmt = conexion.prepareStatement(sql);
                 pstmt.setString(1, getNombre());

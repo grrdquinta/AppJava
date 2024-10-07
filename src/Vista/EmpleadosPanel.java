@@ -2,6 +2,7 @@ package Vista;
 
 import Controlador.ControllerEmpleados;
 import Modelo.ClaseConexion;
+import Modelo.SessionVar;
 import Modelo.TabbedForm;
 import Modelo.mdlEmpleado;
 import java.sql.Connection;
@@ -33,12 +34,20 @@ public class EmpleadosPanel extends TabbedForm {
        mdlEmpleado modelo = new mdlEmpleado();
        ControllerEmpleados controlador = new ControllerEmpleados(modelo, thisPanel);
        pagination1.setPaginationItemRender(new PaginationItemRenderStyle());
-        Mostrar(jtbEmpleados,1);
+       if(SessionVar.getIdRol() == 1){ 
+        Mostrar(jtbEmpleados,1);}
+       else if(SessionVar.getIdRol() == 2) {
+        MostrarAdmin(jtbEmpleados,1);
+       }
         pagination1.addEventPagination(new EventPagination(){
             @Override
             public void pageChanged(int page) {
-                    
+                if(SessionVar.getIdRol() == 1){    
                   LoadData(page);
+                }
+                else{
+                    LoadDataAdmin(page);
+                }
             }
         });
        this.setVisible(true);
@@ -73,7 +82,7 @@ public class EmpleadosPanel extends TabbedForm {
         // Consulta con paginación
         String query = "SELECT * FROM ( " 
         +"SELECT DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email, telefono, salario, " 
-        +"fechana, Rol.NomRol, Sucursal.Nombre AS NombreSucursal, genero, estado, " 
+        +"fechana, Rol.NomRol, Sucursal.Nombre AS NombreSucursal, sexo, estado, " 
         +"Rol.idrol, Sucursal.idSucursal, ROWNUM rnum " 
         +"FROM Empleado " 
         +"INNER JOIN Rol ON Empleado.IdRol = Rol.idRol " 
@@ -161,7 +170,7 @@ public class EmpleadosPanel extends TabbedForm {
         // Consulta con paginación
         String query = "SELECT * FROM ( " 
         +"SELECT DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email, telefono, salario, " 
-        +"fechana, Rol.NomRol, Sucursal.Nombre AS NombreSucursal, genero, estado, " 
+        +"fechana, Rol.NomRol, Sucursal.Nombre AS NombreSucursal, sexo, estado, " 
         +"Rol.idrol, Sucursal.idSucursal, ROWNUM rnum " 
         +"FROM Empleado " 
         +"INNER JOIN Rol ON Empleado.IdRol = Rol.idRol " 
@@ -173,6 +182,188 @@ public class EmpleadosPanel extends TabbedForm {
         PreparedStatement statement = conexion.prepareStatement(query);
         statement.setInt(1, page * limit);  // Establecer el límite superior
         statement.setInt(2, offset);        // Establecer el offset
+
+        ResultSet rs = statement.executeQuery();
+
+        // Llenamos el modelo con los datos obtenidos
+        while (rs.next()) {
+            modelo.addRow(new Object[]{
+                rs.getString(1), //DUI
+                    rs.getString(2), //Nombre
+                    rs.getString(3), //ApellidoPaterno
+                    rs.getString(4), //ApellidoMaterno
+                    rs.getString(5), //Emil
+                    rs.getString(6), //Telefono
+                    rs.getDouble(7), //Salario
+                    rs.getDate(8),   //FechaNa
+                    rs.getString(9), //Rol
+                    rs.getString(10), //Sucursal
+                    rs.getInt(11),   //Genero
+                    rs.getInt(12),   //Estado
+                    rs.getInt(13),   //Estado
+                    rs.getInt(14)    //Estado
+            });
+        }
+
+        // Asignar el modelo a la tabla
+        tabla.setModel(modelo);
+
+        // Ocultar algunas columnas si es necesario
+        jtbEmpleados.getColumnModel().getColumn(10).setMinWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(10).setMaxWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(10).setWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(11).setMinWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(11).setMaxWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(11).setWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(12).setMinWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(12).setMaxWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(12).setWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(13).setMinWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(13).setMaxWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(13).setWidth(0);
+
+        // Actualizar la paginación
+        pagination1.setPagegination(page, totalPage);  // Ajusta este componente según tu lógica de paginación
+
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+}
+
+    
+    public void LoadDataAdmin(int page) {
+    Connection conexion = ClaseConexion.getConexion();
+    
+    //Definimos el modelo de la tabla
+    DefaultTableModel modelo = new DefaultTableModel();
+    modelo.setColumnIdentifiers(new Object[]{
+        "DUI", "Nombre", "Apellido Paterno", "Apellido Materno", "Email", "Telefono",
+        "Salario", "Fecha Na", "Rol", "Sucursal", "Masculino", "Estado", "ID Rol", "ID Sucursal"
+    });
+    try {
+        int limit = 10;  // Número de registros por página
+        int offset = (page - 1) * limit;
+
+        // Consulta para contar el número total de registros
+        String sqlCount = "SELECT COUNT(*) FROM Empleado "
+                        + "INNER JOIN Rol ON Empleado.IdRol = Rol.idRol "
+                        + "INNER JOIN Sucursal ON Empleado.idSucursal = Sucursal.idsucursal";
+        PreparedStatement pstmtCount = conexion.prepareStatement(sqlCount);
+        ResultSet rsCount = pstmtCount.executeQuery();
+        int count = 0;
+        if (rsCount.next()) {
+            count = rsCount.getInt(1);  // Total de registros
+        }
+
+        int totalPage = (int) Math.ceil((double) count / limit);  // Total de páginas
+
+        // Consulta con paginación
+        String query = "SELECT * FROM ( " 
+        +"SELECT DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email, telefono, salario, " 
+        +"fechana, Rol.NomRol, Sucursal.Nombre AS NombreSucursal, sexo, estado, " 
+        +"Rol.idrol, Sucursal.idSucursal, ROWNUM rnum " 
+        +"FROM Empleado " 
+        +"INNER JOIN Rol ON Empleado.IdRol = Rol.idRol " 
+        +"INNER JOIN Sucursal ON Empleado.idSucursal = Sucursal.idSucursal " 
+        +"WHERE empleado.idsucursal = ? " 
+        +"AND ROWNUM <= ? " 
+        +"ORDER BY Empleado.DUI) " 
+        + "WHERE rnum > ?";
+
+        PreparedStatement statement = conexion.prepareStatement(query);
+        statement.setInt(1, SessionVar.getIdSucursal()); 
+        statement.setInt(2, page * limit);  // Establecer el límite superior
+        statement.setInt(3, offset);        // Establecer el offset
+
+        ResultSet rs = statement.executeQuery();
+
+        // Llenamos el modelo con los datos obtenidos
+        while (rs.next()) {
+            modelo.addRow(new Object[]{
+                rs.getString(1), //DUI
+                    rs.getString(2), //Nombre
+                    rs.getString(3), //ApellidoPaterno
+                    rs.getString(4), //ApellidoMaterno
+                    rs.getString(5), //Emil
+                    rs.getString(6), //Telefono
+                    rs.getDouble(7), //Salario
+                    rs.getDate(8),   //FechaNa
+                    rs.getString(9), //Rol
+                    rs.getString(10), //Sucursal
+                    rs.getInt(11),   //Genero
+                    rs.getInt(12),   //Estado
+                    rs.getInt(13),   //Estado
+                    rs.getInt(14)    //Estado
+            });
+        }
+        
+        // Ocultar algunas columnas si es necesario
+        jtbEmpleados.getColumnModel().getColumn(10).setMinWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(10).setMaxWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(10).setWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(11).setMinWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(11).setMaxWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(11).setWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(12).setMinWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(12).setMaxWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(12).setWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(13).setMinWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(13).setMaxWidth(0);
+        jtbEmpleados.getColumnModel().getColumn(13).setWidth(0);
+
+        // Actualizar la paginación
+        pagination1.setPagegination(page, totalPage);  // Ajusta este componente según tu lógica de paginación
+
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+}
+    
+    public void MostrarAdmin(JTable tabla, int page) {
+    Connection conexion = ClaseConexion.getConexion();
+    DefaultTableModel modelo = new DefaultTableModel();
+    modelo.setColumnIdentifiers(new Object[]{
+        "DUI", "Nombre", "Apellido Paterno", "Apellido Materno", "Email", "Telefono",
+        "Salario", "Fecha Na", "Rol", "Sucursal", "Masculino", "Estado", "ID Rol", "ID Sucursal"
+    });
+
+    try {
+        int limit = 10;  // Número de registros por página
+        int offset = (page - 1) * limit;
+
+        // Consulta para contar el número total de registros
+        String sqlCount = "SELECT COUNT(*) FROM Empleado "
+                        + "INNER JOIN Rol ON Empleado.IdRol = Rol.idRol "
+                        + "INNER JOIN Sucursal ON Empleado.idSucursal = Sucursal.idsucursal";
+        PreparedStatement pstmtCount = conexion.prepareStatement(sqlCount);
+        ResultSet rsCount = pstmtCount.executeQuery();
+        int count = 0;
+        if (rsCount.next()) {
+            count = rsCount.getInt(1);  // Total de registros
+        }
+        
+        // Imprimir el total de registros y páginas para verificar
+        System.out.println("Total de registros: " + count);
+        int totalPage = (int) Math.ceil((double) count / limit);  // Total de páginas
+        System.out.println("Total de páginas: " + totalPage);
+
+        // Consulta con paginación
+        String query = "SELECT * FROM ( " 
+        +"SELECT DUI, Empleado.Nombre, apellidopaterno, apellidomaterno, email, telefono, salario, " 
+        +"fechana, Rol.NomRol, Sucursal.Nombre AS NombreSucursal, sexo, estado, " 
+        +"Rol.idrol, Sucursal.idSucursal, ROWNUM rnum " 
+        +"FROM Empleado " 
+        +"INNER JOIN Rol ON Empleado.IdRol = Rol.idRol " 
+        +"INNER JOIN Sucursal ON Empleado.idSucursal = Sucursal.idSucursal "
+        +"where empleado.idsucursal = ? " 
+        +"AND ROWNUM <= ? " 
+        +"ORDER BY Empleado.DUI) " 
+        + "WHERE rnum > ?";
+
+        PreparedStatement statement = conexion.prepareStatement(query);
+        statement.setInt(1, SessionVar.getIdSucursal()); 
+        statement.setInt(2, page * limit);  // Establecer el límite superior
+        statement.setInt(3, offset);        // Establecer el offset
 
         ResultSet rs = statement.executeQuery();
 

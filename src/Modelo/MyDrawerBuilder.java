@@ -149,7 +149,7 @@ import net.miginfocom.swing.MigLayout;
 
         @Override
         public SimpleMenuOption getSimpleMenuOption() {
-            if(SessionVar.getIdRol() == 1 || SessionVar.getIdRol() == 4){
+            if(SessionVar.getIdRol() == 1 || SessionVar.getIdRol() == 2){
             
             String menus[][] = {
             {"~INICIO~"},
@@ -236,7 +236,7 @@ import net.miginfocom.swing.MigLayout;
                         }
 
                     });}
-            else if(SessionVar.getIdRol() == 2){
+            else if(SessionVar.getIdRol() == 3){
                 String menus[][] = {
             {"~INICIO~"},
             {"~MOVIMIENTOS~"},

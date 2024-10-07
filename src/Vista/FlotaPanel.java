@@ -77,13 +77,13 @@ public class FlotaPanel extends TabbedForm {
                 + "SELECT vehiculo.placavehiculo, modelo.modelo, marca.nommarca AS Marca, modelo.año, "
                 + "sucursal.nombre AS Sucursal, "
                 + "CASE WHEN modelo.tipovehiculo = 1 THEN 'Carga' WHEN modelo.tipovehiculo = 0 THEN 'Entrega' END AS TipoVehiculo, "
-                + "vehiculo.estado, modelo.idmarca, modelo.idmodelo, sucursal.idSucursal, marca.id_secuencia, "
-                + "ROW_NUMBER() OVER (ORDER BY modelo.año DESC) AS row_num "
+                + "vehiculo.estado, modelo.idmarca, modelo.idmodelo, sucursal.idSucursal, "
+                + "ROWNUM AS row_num "
                 + "FROM vehiculo "
                 + "INNER JOIN modelo ON vehiculo.idmodelo = modelo.idmodelo "
                 + "INNER JOIN marca ON modelo.idmarca = marca.idmarca "
                 + "INNER JOIN sucursal ON vehiculo.idsucursal = sucursal.idsucursal) "
-                + "WHERE row_num BETWEEN ? AND ?";
+                + "WHERE row_num BETWEEN ? AND ? order by año desc";
 
         PreparedStatement statement = conexion.prepareStatement(query);
         statement.setInt(1, offset + 1);  // Desde el registro
@@ -103,8 +103,7 @@ public class FlotaPanel extends TabbedForm {
                 rs.getString("estado"),
                 rs.getInt("idmarca"),
                 rs.getInt("idmodelo"),
-                rs.getInt("idSucursal"),
-                rs.getInt("id_secuencia")
+                rs.getInt("idSucursal")
             });
         }
 
@@ -167,13 +166,13 @@ public class FlotaPanel extends TabbedForm {
                 + "SELECT vehiculo.placavehiculo, modelo.modelo, marca.nommarca AS Marca, modelo.año, "
                 + "sucursal.nombre AS Sucursal, "
                 + "CASE WHEN modelo.tipovehiculo = 1 THEN 'Carga' WHEN modelo.tipovehiculo = 0 THEN 'Entrega' END AS TipoVehiculo, "
-                + "vehiculo.estado, modelo.idmarca, modelo.idmodelo, sucursal.idSucursal, marca.id_secuencia, "
-                + "ROW_NUMBER() OVER (ORDER BY modelo.año DESC) AS row_num "
+                + "vehiculo.estado, modelo.idmarca, modelo.idmodelo, sucursal.idSucursal, "
+                + "ROWNUM AS row_num "
                 + "FROM vehiculo "
                 + "INNER JOIN modelo ON vehiculo.idmodelo = modelo.idmodelo "
                 + "INNER JOIN marca ON modelo.idmarca = marca.idmarca "
                 + "INNER JOIN sucursal ON vehiculo.idsucursal = sucursal.idsucursal) "
-                + "WHERE row_num BETWEEN ? AND ?";
+                + "WHERE row_num BETWEEN ? AND ? order by año desc";
 
         PreparedStatement statement = conexion.prepareStatement(query);
         statement.setInt(1, offset + 1);  // Desde el registro
@@ -193,8 +192,7 @@ public class FlotaPanel extends TabbedForm {
                 rs.getString("estado"),
                 rs.getInt("idmarca"),
                 rs.getInt("idmodelo"),
-                rs.getInt("idSucursal"),
-                rs.getInt("id_secuencia")
+                rs.getInt("idSucursal")
             });
         }
 
@@ -225,6 +223,7 @@ public class FlotaPanel extends TabbedForm {
         ex.printStackTrace();
     }
 }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.

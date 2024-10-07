@@ -45,7 +45,7 @@ public class mdlLogin {
             "JOIN EMPLEADO E ON U.DUI = E.DUI\n" +
             "INNER JOIN ROL R ON E.IdRol = R.idRol\n" +
             "INNER JOIN SUCURSAL S ON E.idSucursal = S.idsucursal\n" +
-            "WHERE U.USUARIO = ? AND U.CONTRASENA = ? AND E.Estado = 0 " ;
+            "WHERE U.USUARIO = ? AND U.CONTRASENA = ? AND E.Estado = 1 " ;
             PreparedStatement pstmt = conexion.prepareStatement(query);
             pstmt.setString(1, getUsuario());
             pstmt.setString(2, getContraseña());
