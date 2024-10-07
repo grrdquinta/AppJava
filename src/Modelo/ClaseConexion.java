@@ -15,8 +15,8 @@ import java.sql.SQLException;
 public class ClaseConexion {
     
     //Variables para la cadena de conexión
-    private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    private static final String USUARIO = "PTC";
+    private static final String URL = "jdbc:oracle:thin:@192.168.56.99:1521:xe";
+    private static final String USUARIO = "PTCSend";
     private static final String CONTRASENA = "1234";
     
     //Creación del metodo de conexión que retorna la conexión

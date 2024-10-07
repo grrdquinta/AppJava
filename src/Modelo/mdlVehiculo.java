@@ -236,7 +236,7 @@ public class mdlVehiculo {
 
     try {
         Statement statement = conexion.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT * FROM " + tabla + " ORDER BY id_secuencia ASC");
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + tabla + " ORDER BY IdMarca ASC");
 
         listaMarcas.add(new mdlVehiculo(0, "Seleccionar Marca"));
 
@@ -273,7 +273,7 @@ public class mdlVehiculo {
         
         try{
             Statement statement = conexion.createStatement();
-            String sql = ("Select * from " + tabla + " where idMarca = ? ORDER BY id_secuencia ASC");
+            String sql = ("Select * from " + tabla + " where idMarca = ? ORDER BY IdModelo ASC");
             PreparedStatement pstmt = conexion.prepareStatement(sql);
             pstmt.setInt(1, getIdMarca());
             ResultSet rs = pstmt.executeQuery();
@@ -333,7 +333,7 @@ public class mdlVehiculo {
         
         try{
             Statement statement = conexion.createStatement();
-            String sql = ("select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, modelo.tipovehiculo, marca.id_secuencia from Modelo inner join Marca on modelo.idmarca = marca.idmarca\n" +
+            String sql = ("select idModelo, modelo.modelo, marca.nommarca as Marca,modelo.año, modelo.tipovehiculo from Modelo inner join Marca on modelo.idmarca = marca.idmarca " +
             "where idModelo = ?");
             PreparedStatement pstmt = conexion.prepareStatement(sql);
             pstmt.setInt(1, getIdModelo());
@@ -341,7 +341,7 @@ public class mdlVehiculo {
             
             if(rs.next()) {
               String año = rs.getString(4);
-              String carga = rs.getString("tipovehiculo".toString());
+              String carga = rs.getString("tipovehiculo");
               vista.txtAño.setText(año);
               
               if(carga.equals("0"))
@@ -405,7 +405,7 @@ public class mdlVehiculo {
         if (filaSeleccionada != -1) {
             
             String Placa = vista.jtbVehiculo.getValueAt(filaSeleccionada, 0).toString();
-            int idMarca = (int) vista.jtbVehiculo.getValueAt(filaSeleccionada, 10);
+            int idMarca = (int) vista.jtbVehiculo.getValueAt(filaSeleccionada, 7);
             int idModelo = (int) vista.jtbVehiculo.getValueAt(filaSeleccionada, 8);
             int idSucursal = (int) vista.jtbVehiculo.getValueAt(filaSeleccionada, 9);
         

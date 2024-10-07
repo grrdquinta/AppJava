@@ -164,7 +164,7 @@ public class mdlModeloPanel {
 "        WHEN modelo.tipovehiculo = 1 THEN 'Carga'\n" +
 "        WHEN modelo.tipovehiculo = 0 THEN 'Entrega'\n" +
 "    END AS TipoVehiculo , marca.idmarca, modelo.tipovehiculo from Modelo\n" +
-            "inner join Marca on modelo.idmarca = marca.idmarca ORDER BY modelo.id_secuencia ASC" ;
+            "inner join Marca on modelo.idmarca = marca.idmarca ORDER BY modelo.idModelo ASC" ;
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
@@ -239,7 +239,7 @@ public void CargarComboMarca(String tabla, String valor, JComboBox<mdlModeloPane
 
     try {
         Statement statement = conexion.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT * FROM " + tabla + " ORDER BY id_secuencia ASC");
+        ResultSet rs = statement.executeQuery("SELECT * FROM " + tabla + " ORDER BY idMarca ASC");
 
         listaMarcas.add(new mdlModeloPanel(0, "Seleccionar Marca"));
 

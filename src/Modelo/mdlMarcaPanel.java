@@ -125,7 +125,7 @@ public class mdlMarcaPanel {
         
         try
         {
-            String query = "select * from Marca ORDER BY id_secuencia ASC" ;
+            String query = "select * from Marca ORDER BY idMarca ASC" ;
             Statement statement = conexion.createStatement();
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {

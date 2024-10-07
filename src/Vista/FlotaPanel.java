@@ -51,7 +51,7 @@ public class FlotaPanel extends TabbedForm {
     // Definimos el modelo de la tabla
     DefaultTableModel modelo = new DefaultTableModel();
     modelo.setColumnIdentifiers(new Object[]{"Placa", "Modelo", "Marca", "Año", "Sucursal", 
-        "Carga", "Estado", "ID Marca", "ID Modelo", "ID Sucursal", "ID Secuencia Marca"});
+        "Carga", "Estado", "ID Marca", "ID Modelo", "ID Sucursal"});
 
     try {
         // Establecemos el número de filas por página y calculamos el offset
@@ -140,7 +140,7 @@ public class FlotaPanel extends TabbedForm {
     // Definimos el modelo de la tabla
     DefaultTableModel modelo = new DefaultTableModel();
     modelo.setColumnIdentifiers(new Object[]{"Placa", "Modelo", "Marca", "Año", "Sucursal", 
-        "Carga", "Estado", "ID Marca", "ID Modelo", "ID Sucursal", "ID Secuencia Marca"});
+        "Carga", "Estado", "ID Marca", "ID Modelo", "ID Sucursal"});
 
     try {
         // Establecemos el número de filas por página y calculamos el offset
@@ -212,9 +212,7 @@ public class FlotaPanel extends TabbedForm {
         tabla.getColumnModel().getColumn(9).setMinWidth(0);
         tabla.getColumnModel().getColumn(9).setMaxWidth(0);
         tabla.getColumnModel().getColumn(9).setWidth(0);
-        tabla.getColumnModel().getColumn(10).setMinWidth(0);
-        tabla.getColumnModel().getColumn(10).setMaxWidth(0);
-        tabla.getColumnModel().getColumn(10).setWidth(0);
+
 
         // Actualizar paginación (si tienes un componente visual para paginación)
         pagination1.setPagegination(page, totalPage);  // Esta línea la ajustas según tu sistema de paginación
